@@ -22,17 +22,19 @@ export class MyUnitCube extends CGFobject {
       this.vertices.push( 0.5, -0.5,  0.5) // 5 Right-Down-Front
       this.vertices.push(-0.5,  0.5,  0.5) // 6 Left-Up-Front
       this.vertices.push( 0.5,  0.5,  0.5) // 7 Right-Up-Front
-
     }
     this.normals = [];
+    // Back and Front 8 vertex
     for (var _ = 0; _ < 4; _++)
       this.normals.push(0, 0, -1);
     for (var _ = 0; _ < 4; _++)
       this.normals.push(0, 0, 1);
+    // Left and Right 8 vertex
     for (var _ = 0; _ < 4; _++) {
       this.normals.push(-1, 0, 0);
       this.normals.push(1, 0, 0);
     }
+    // Down and Up 8 vertex
     for (var _ = 0; _ < 2; _++) {
       this.normals.push(0, -1, 0);
       this.normals.push(0, -1, 0);
@@ -40,7 +42,6 @@ export class MyUnitCube extends CGFobject {
       this.normals.push(0, 1, 0);
     }
     
-
 		//Counter-clockwise reference of vertices
 		this.indices = [
       // Back
@@ -56,8 +57,8 @@ export class MyUnitCube extends CGFobject {
       20, 16, 21,
       21, 16, 17,
       // Left
-      4, 6, 8,
-      8, 6, 10,
+      12, 14, 8,
+      8, 14, 10,
       // Right
       9, 15, 13,
       9, 11, 15
