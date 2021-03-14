@@ -23,6 +23,10 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'applyMaterial').name("Apply Material");
         this.gui.add(this.scene, 'showMyQuad').name('Show Quad');
+        this.gui.add(this.scene, 'showTangram').name('Show Tangram');
+        this.gui.add(this.scene, 'showCube').name('Show Cube');
+        this.gui.add(this.scene, 'filtering').name('Linear Filter');
+
         //Dropdown for textures
         this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         //Dropdown for wrapping (S)
