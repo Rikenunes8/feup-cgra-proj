@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyQuad } from "./MyQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -29,7 +30,8 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
         this.tangram = new MyTangram(this);
-
+        this.cube = new MyUnitCubeQuad(this);
+        
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
         this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
@@ -39,17 +41,25 @@ export class MyScene extends CGFscene {
         this.quadMaterial.loadTexture('images/default.png');
         this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
         //------
-
+        
         //------ Textures
         this.texture1 = new CGFtexture(this, 'images/board.jpg');
         this.texture2 = new CGFtexture(this, 'images/floor.png');
         this.texture3 = new CGFtexture(this, 'images/window.jpg');
+        this.textureMineSide = new CGFtexture(this, 'images/mineSide.png');
+        this.textureMineTop = new CGFtexture(this, 'images/mineTop.png');
+        this.textureMineBottom = new CGFtexture(this, 'images/mineBottom.png');
         //-------
 
+        this.cube.initTextures(this.textureMineTop, this.textureMineSide, this.textureMineSide, this.textureMineSide, this.textureMineSide, this.textureMineBottom);
+        
         //-------Objects connected to MyInterface
         this.displayAxis = true;
         this.applyMaterial = false;
         this.showMyQuad = false;
+        this.showTangram = false;
+        this.showCube = false;
+        this.filtering = false;
         this.scaleFactor = 5;
         this.selectedTexture = -1;        
         this.wrapS = 0;
@@ -104,6 +114,7 @@ export class MyScene extends CGFscene {
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
@@ -125,13 +136,18 @@ export class MyScene extends CGFscene {
         // Default texture filtering in WebCGF is LINEAR. 
         // Uncomment next line for NEAREST when magnifying, or 
         // add a checkbox in the GUI to alternate in real time
-        
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        if (this.filtering)
+          this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+
         if (this.showMyQuad)
           this.quad.display();
-        else {
+        if (this.showTangram) {
           this.scale(0.25, 0.25, 0.25);
           this.tangram.display();
+          this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+        }
+        if (this.showCube) {
+          this.cube.display();
         }
             
 
