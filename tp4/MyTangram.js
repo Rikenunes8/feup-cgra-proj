@@ -25,7 +25,6 @@ export class MyTangram extends CGFobject {
     this.triangleBigOrange = new MyTriangleBig(this.scene, false);
 
     this.initMaterials();
-    //this.initMaterials2();
 	}
   initMaterials() {
     this.green = new CGFappearance(this.scene);
@@ -78,49 +77,7 @@ export class MyTangram extends CGFobject {
     this.tangramImage.loadTexture('images/tangram.png')
     this.tangramImage.setTextureWrap('REPEAT', 'REPEAT');
   }
-  initMaterials2() {
-    this.green = new CGFappearance(this.scene);
-    this.green.setAmbient(0, 1, 0, 1.0);
-    this.green.setDiffuse(0, 0, 0, 1.0);
-    this.green.setSpecular(1, 1, 1, 1.0);
-    this.green.setShininess(10.0);
 
-    this.blue = new CGFappearance(this.scene);
-    this.blue.setAmbient(0, 0, 1, 1.0);
-    this.blue.setDiffuse(0, 0, 0, 1.0);
-    this.blue.setSpecular(1, 1, 1, 1.0);
-    this.blue.setShininess(10.0);
-
-    this.orange = new CGFappearance(this.scene);
-    this.orange.setAmbient(1, 153.0/255.0, 0, 1.0);
-    this.orange.setDiffuse(0, 0, 0, 1.0);
-    this.orange.setSpecular(1, 1, 1, 1.0);
-    this.orange.setShininess(10.0);
-
-    this.yellow = new CGFappearance(this.scene);
-    this.yellow.setAmbient(1, 1, 0, 1.0);
-    this.yellow.setDiffuse(0, 0, 0, 1.0);
-    this.yellow.setSpecular(1, 1, 1, 1.0);
-    this.yellow.setShininess(10.0);
-
-    this.pink = new CGFappearance(this.scene);
-    this.pink.setAmbient(1, 153.0/255.0, 204.0/255.0, 1.0);
-    this.pink.setDiffuse(0, 0, 0, 1.0);
-    this.pink.setSpecular(1, 1, 1, 1.0);
-    this.pink.setShininess(10.0);
-
-    this.red = new CGFappearance(this.scene);
-    this.red.setAmbient(1, 0, 0, 1.0);
-    this.red.setDiffuse(0, 0, 0, 1.0);
-    this.red.setSpecular(1, 1, 1, 1.0);
-    this.red.setShininess(10.0);
-
-    this.purple = new CGFappearance(this.scene);
-    this.purple.setAmbient(153.0/255.0, 0, 204.0/255.0, 1.0);
-    this.purple.setDiffuse(0, 0, 0, 1.0);
-    this.purple.setSpecular(1, 1, 1, 1.0);
-    this.purple.setShininess(10.0);
-  }
   display() {
     var a = Math.PI/6;
     var rotateMatrix = [
