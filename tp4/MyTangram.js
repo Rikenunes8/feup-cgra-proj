@@ -71,6 +71,10 @@ export class MyTangram extends CGFobject {
     this.purple.setShininess(10.0);
 
     this.tangramImage = new CGFappearance(this.scene);
+    this.tangramImage.setAmbient(0.1, 0.1, 0.1, 1);
+    this.tangramImage.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.tangramImage.setSpecular(0.1, 0.1, 0.1, 1);
+    this.tangramImage.setShininess(10.0);
     this.tangramImage.loadTexture('images/tangram.png')
     this.tangramImage.setTextureWrap('REPEAT', 'REPEAT');
   }
