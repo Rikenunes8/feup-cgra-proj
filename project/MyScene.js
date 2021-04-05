@@ -147,21 +147,24 @@ export class MyScene extends CGFscene {
         this.sphereAppearance.apply();
         // ---- BEGIN Primitive drawing section -------
         
+
+        // ----- Cubo de base
+        this.pushMatrix();
+        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
+        this.cubeMap.display();
+        this.popMatrix();
+        // -----------------------
+
         // ----- Objeto controlável
-        /*this.translate(this.orientedObject.pos[0],this.orientedObject.pos[1],this.orientedObject.pos[2])
+        this.setDefaultAppearance();
+        this.translate(this.orientedObject.pos[0],this.orientedObject.pos[1],this.orientedObject.pos[2])
         this.rotate(this.orientedObject.ang, 0, 1, 0);
 
         this.translate(0, 0, -0.5);
         this.rotate(-Math.PI/2, 1, 0, 0);
         this.rotate(Math.PI/4, 0, 0, 1);
-        this.orientedObject.display();*/
+        this.orientedObject.display();
         // -------------------
-
-
-        // ----- Cubo de base
-        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
-        this.cubeMap.display();
-        // -----------------------
 
 
         //This sphere does not have defined texture coordinates
