@@ -1,4 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance } from "../lib/CGF.js";
+import { MyTriangle } from "./MyMovingObject.js";
 import { MySphere } from "./MySphere.js";
 
 /**
@@ -29,6 +30,7 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
+        this.orientedObject = new MyTriangle(this);
 
         this.defaultAppearance = new CGFappearance(this);
 		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -68,6 +70,28 @@ export class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         //To be done...
+        this.checkKeys();
+        this.orientedObject.update();
+    }
+
+    checkKeys()  {
+      
+      // Check for key codes e.g. in https://keycode.info/
+      if (this.gui.isKeyPressed("KeyW")) {
+        this.accelerate(0.05);
+      }
+      if (this.gui.isKeyPressed("KeyS"))        {
+        this.accelerate(-0.05);
+      }
+      if (this.gui.isKeyPressed("KeyA"))        {
+        this.turn(Math.PI/36);
+      }
+      if (this.gui.isKeyPressed("KeyD"))        {
+        this.turn(-Math.PI/36);
+      }
+      if (this.gui.isKeyPressed("KeyR"))        {
+        this.reset();
+      }
     }
 
     display() {
@@ -89,10 +113,31 @@ export class MyScene extends CGFscene {
 
         this.sphereAppearance.apply();
         // ---- BEGIN Primitive drawing section
+        
+        this.translate(this.orientedObject.pos[0],this.orientedObject.pos[1],this.orientedObject.pos[2])
+        this.rotate(this.orientedObject.ang, 0, 1, 0);
+
+        this.translate(0, 0, -0.5);
+        this.rotate(-Math.PI/2, 1, 0, 0);
+        this.rotate(Math.PI/4, 0, 0, 1);
+        this.orientedObject.display();
 
         //This sphere does not have defined texture coordinates
-        this.incompleteSphere.display();
+        //this.incompleteSphere.display();
 
         // ---- END Primitive drawing section
+    }
+
+    turn(ang) {
+        this.orientedObject.ang += ang;
+    }
+
+    accelerate(vel) {
+        this.orientedObject.vel += vel;
+    }
+    reset() {
+        this.orientedObject.pos = [0, 0, 0];
+        this.orientedObject.ang = 0;
+        this.orientedObject.vel = 0;
     }
 }
