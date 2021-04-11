@@ -178,13 +178,13 @@ export class MyScene extends CGFscene {
         // -------------------
 
         // ------ Cylinder
-        this.earthAppearance.apply()
-        this.cylinder.display();
+        //this.earthAppearance.apply()
+        //this.cylinder.display();
 
 
         // ------ Sphere
-        //this.earthAppearance.apply()
-        //this.incompleteSphere.display();
+        this.earthAppearance.apply()
+        this.incompleteSphere.display();
 
         // ----------------------------
 
