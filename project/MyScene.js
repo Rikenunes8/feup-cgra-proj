@@ -34,7 +34,7 @@ export class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.orientedObject = new MyTriangle(this);
         this.cubeMap = new MyCubeMap(this);
-        this.cylinder = new MyCylinder(this, 8);
+        this.cylinder = new MyCylinder(this, 12);
 
         // Initialize scene Appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -76,14 +76,14 @@ export class MyScene extends CGFscene {
         this.textureDemoPZ = new CGFtexture(this, 'images/demo_cubemap/front.png');
         this.textureDemo = [this.textureDemoNX, this.textureDemoNY, this.textureDemoNZ, this.textureDemoPX, this.textureDemoPY, this.textureDemoPZ];
 
-        this.cylAppearance = new CGFappearance(this);
-        this.cylAppearance.setAmbient(0, 0, 0, 1);
-        this.cylAppearance.setDiffuse(0, 0, 0, 1);
-        this.cylAppearance.setSpecular(0, 0, 0, 1);
-        this.cylAppearance.setEmission(1, 1, 1, 1);
-        this.cylAppearance.setShininess(10.0);
-        this.cylAppearance.loadTexture('images/earth.jpg');
-        this.cylAppearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.earthAppearance = new CGFappearance(this);
+        this.earthAppearance.setAmbient(0, 0, 0, 1);
+        this.earthAppearance.setDiffuse(0, 0, 0, 1);
+        this.earthAppearance.setSpecular(0, 0, 0, 1);
+        this.earthAppearance.setEmission(1, 1, 1, 1);
+        this.earthAppearance.setShininess(10.0);
+        this.earthAppearance.loadTexture('images/earth.jpg');
+        this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
@@ -178,12 +178,12 @@ export class MyScene extends CGFscene {
         // -------------------
 
         // ------ Cylinder
-        this.cylAppearance.apply()
+        this.earthAppearance.apply()
         this.cylinder.display();
 
 
         // ------ Sphere
-
+        //this.earthAppearance.apply()
         //this.incompleteSphere.display();
 
         // ----------------------------
