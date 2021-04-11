@@ -33,7 +33,7 @@ export class MyCylinder extends CGFobject {
         //--- Vertices coordinates
         var x = Math.cos(theta);
         var y = lat;
-        var z = Math.sin(-theta);
+        var z = -Math.sin(theta);
         this.vertices.push(x, y, z);
         
         //--- Indices
@@ -44,12 +44,11 @@ export class MyCylinder extends CGFobject {
           this.indices.push( current, current + 1 , next);
           this.indices.push( current + 1, next + 1, next);
         }
-        this.texCoords.push(lon/this.slices, -lat);
+        this.texCoords.push(lon/this.slices, (lat+1)%2);
         this.normals.push(x, 0, z);
         theta += thetaInc;
       }
     }
-
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
