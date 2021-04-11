@@ -1,5 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyCubeMap } from "./MyCubeMap.js";
+import { MyCylinder } from "./MyCylinder.js";
 import { MyTriangle } from "./MyMovingObject.js";
 import { MySphere } from "./MySphere.js";
 
@@ -33,6 +34,7 @@ export class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.orientedObject = new MyTriangle(this);
         this.cubeMap = new MyCubeMap(this);
+        this.cylinder = new MyCylinder(this, 8);
 
         // Initialize scene Appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -73,6 +75,15 @@ export class MyScene extends CGFscene {
         this.textureDemoPY = new CGFtexture(this, 'images/demo_cubemap/top.png');
         this.textureDemoPZ = new CGFtexture(this, 'images/demo_cubemap/front.png');
         this.textureDemo = [this.textureDemoNX, this.textureDemoNY, this.textureDemoNZ, this.textureDemoPX, this.textureDemoPY, this.textureDemoPZ];
+
+        this.cylAppearance = new CGFappearance(this);
+        this.cylAppearance.setAmbient(0, 0, 0, 1);
+        this.cylAppearance.setDiffuse(0, 0, 0, 1);
+        this.cylAppearance.setSpecular(0, 0, 0, 1);
+        this.cylAppearance.setEmission(1, 1, 1, 1);
+        this.cylAppearance.setShininess(10.0);
+        this.cylAppearance.loadTexture('images/earth.jpg');
+        this.cylAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
@@ -149,26 +160,33 @@ export class MyScene extends CGFscene {
         
 
         // ----- Cubo de base
-        this.pushMatrix();
+        /*this.pushMatrix();
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
         this.cubeMap.display();
-        this.popMatrix();
+        this.popMatrix();*/
         // -----------------------
 
         // ----- Objeto controlável
-        this.setDefaultAppearance();
+        /*this.setDefaultAppearance();
         this.translate(this.orientedObject.pos[0],this.orientedObject.pos[1],this.orientedObject.pos[2])
         this.rotate(this.orientedObject.ang, 0, 1, 0);
 
         this.translate(0, 0, -0.5);
         this.rotate(-Math.PI/2, 1, 0, 0);
         this.rotate(Math.PI/4, 0, 0, 1);
-        this.orientedObject.display();
+        this.orientedObject.display();*/
         // -------------------
 
+        // ------ Cylinder
+        this.cylAppearance.apply()
+        this.cylinder.display();
 
-        //This sphere does not have defined texture coordinates
+
+        // ------ Sphere
+
         //this.incompleteSphere.display();
+
+        // ----------------------------
 
         // ---- END Primitive drawing section ------
     }
