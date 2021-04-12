@@ -20,6 +20,21 @@ export class MyInterface extends CGFinterface {
 
       //Checkbox element in GUI
       this.gui.add(this.scene, 'displayAxis').name('Display Axis');
+      
+      this.gui.add(this.scene,'speedFactor',0.1,3).name('Scene speed');
+      this.gui.add(this.scene,'scaleFactor',0.5,3).name('Scale Factor');
+
+      var world = this.gui.addFolder('World');
+      world.add(this.scene, 'displayExampleCube').name('Display Example');
+      //world.add(this.scene, 'displayCustomCube').name('Display Custom');
+
+      this.gui.add(this.scene, 'displayPlane').name('Display Plane');
+      this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
+
+      var cylinder = this.gui.addFolder('Cylinder');
+      cylinder.add(this.scene, 'displayCylinder').name("Display Cylinder");
+      cylinder.add(this.scene, 'cylinderComplexity', 3, 16).onChange(this.scene.updateCylinderComplexity.bind(this.scene));
+
 
       this.initKeys();
       return true;

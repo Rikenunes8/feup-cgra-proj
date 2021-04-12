@@ -26,7 +26,7 @@ export class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.setUpdatePeriod(50);
-        
+
         this.enableTextures(true);
 
         //Initialize scene objects
@@ -38,17 +38,17 @@ export class MyScene extends CGFscene {
 
         // Initialize scene Appearances
         this.defaultAppearance = new CGFappearance(this);
-		this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setEmission(0,0,0,1);
-		this.defaultAppearance.setShininess(120);
+        this.defaultAppearance.setEmission(0, 0, 0, 1);
+        this.defaultAppearance.setShininess(120);
 
-		this.sphereAppearance = new CGFappearance(this);
-		this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.sphereAppearance.setShininess(120);
+        this.sphereAppearance = new CGFappearance(this);
+        this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+        this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
+        this.sphereAppearance.setShininess(120);
 
         this.cubeMaterial = new CGFappearance(this);
         this.cubeMaterial.setAmbient(0, 0, 0, 1);
@@ -58,7 +58,7 @@ export class MyScene extends CGFscene {
         this.cubeMaterial.setShininess(10.0);
         //this.cubeMaterial.loadTexture('images/default.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        
+
         // Initialize textures
         this.textureNX = new CGFtexture(this, 'images/test_cubemap/nx.png');
         this.textureNY = new CGFtexture(this, 'images/test_cubemap/ny.png');
@@ -92,6 +92,14 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.speedFactor = 1;
+        this.scaleFactor=1;
+        this.displayExampleCube = true;
+        //this.displayCustomCube=true;
+        this.displayCylinder = false;
+        this.cylinderComplexity = 12;
+        this.displaySphere = false;
+        this.displayPlane = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -103,11 +111,15 @@ export class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
 
+    updateCylinderComplexity() {
+        this.cylinder.updateBuffers(this.cylinderComplexity);
+    }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setEmission(0,0,0,1);
+        this.setEmission(0, 0, 0, 1);
         this.setShininess(10.0);
     }
 
@@ -118,24 +130,24 @@ export class MyScene extends CGFscene {
         this.orientedObject.update();
     }
 
-    checkKeys()  {
-      
-      // Check for key codes e.g. in https://keycode.info/
-      if (this.gui.isKeyPressed("KeyW")) {
-        this.accelerate(0.05);
-      }
-      if (this.gui.isKeyPressed("KeyS")) {
-        this.accelerate(-0.05);
-      }
-      if (this.gui.isKeyPressed("KeyA")) {
-        this.turn(Math.PI/36);
-      }
-      if (this.gui.isKeyPressed("KeyD")) {
-        this.turn(-Math.PI/36);
-      }
-      if (this.gui.isKeyPressed("KeyR")) {
-        this.reset();
-      }
+    checkKeys() {
+
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            this.accelerate(0.05*this.speedFactor);
+        }
+        if (this.gui.isKeyPressed("KeyS")) {
+            this.accelerate(-0.05*this.speedFactor);
+        }
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.turn(Math.PI / 36);
+        }
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.turn(-Math.PI / 36);
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.reset();
+        }
     }
 
     display() {
@@ -148,8 +160,8 @@ export class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
-        
+
+
         this.defaultAppearance.apply();
         // Draw axis
         if (this.displayAxis)
@@ -157,35 +169,43 @@ export class MyScene extends CGFscene {
 
         this.sphereAppearance.apply();
         // ---- BEGIN Primitive drawing section -------
-        
+
 
         // ----- Cubo de base
-        /*this.pushMatrix();
-        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
-        this.cubeMap.display();
-        this.popMatrix();*/
+        if (this.displayExampleCube) {
+            this.pushMatrix();
+            this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
+            this.cubeMap.display();
+            this.popMatrix();
+        }
         // -----------------------
 
         // ----- Objeto controlável
-        /*this.setDefaultAppearance();
-        this.translate(this.orientedObject.pos[0],this.orientedObject.pos[1],this.orientedObject.pos[2])
-        this.rotate(this.orientedObject.ang, 0, 1, 0);
+        if (this.displayPlane) {
+            this.setDefaultAppearance();
+            this.translate(this.orientedObject.pos[0], this.orientedObject.pos[1], this.orientedObject.pos[2]);
+            this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor); 
+            this.rotate(this.orientedObject.ang, 0, 1, 0);
 
-        this.translate(0, 0, -0.5);
-        this.rotate(-Math.PI/2, 1, 0, 0);
-        this.rotate(Math.PI/4, 0, 0, 1);
-        this.orientedObject.display();*/
+            this.translate(0, 0, -0.5);
+            this.rotate(-Math.PI / 2, 1, 0, 0);
+            this.rotate(Math.PI / 4, 0, 0, 1);
+            this.orientedObject.display();
+        }
         // -------------------
 
         // ------ Cylinder
-        //this.earthAppearance.apply()
-        //this.cylinder.display();
+        if (this.displayCylinder) {
+            this.earthAppearance.apply()
+            this.cylinder.display();
+        }
 
 
         // ------ Sphere
-        this.earthAppearance.apply()
-        this.incompleteSphere.display();
-
+        if (this.displaySphere) {
+            this.earthAppearance.apply()
+            this.incompleteSphere.display();
+        }
         // ----------------------------
 
         // ---- END Primitive drawing section ------
