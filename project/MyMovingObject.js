@@ -14,8 +14,8 @@ export class MyTriangle extends CGFobject {
 	}
 
 	update() {
-    this.pos[0] += this.vel*Math.sin(this.ang);
-		this.pos[2] += this.vel*Math.cos(this.ang);
+    this.pos[0] += this.vel*this.scene.speedFactor*Math.sin(this.ang);
+		this.pos[2] += this.vel*this.scene.speedFactor*Math.cos(this.ang);
   }
 	
 	initBuffers() {

@@ -125,19 +125,17 @@ export class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //To be done...
         this.checkKeys();
         this.orientedObject.update();
     }
 
     checkKeys() {
-
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-            this.accelerate(0.05*this.speedFactor);
+            this.accelerate(0.05);
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            this.accelerate(-0.05*this.speedFactor);
+            this.accelerate(-0.05);
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.turn(Math.PI / 36);
@@ -183,6 +181,7 @@ export class MyScene extends CGFscene {
         // ----- Objeto controlável
         if (this.displayPlane) {
             this.setDefaultAppearance();
+            this.pushMatrix();
             this.translate(this.orientedObject.pos[0], this.orientedObject.pos[1], this.orientedObject.pos[2]);
             this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor); 
             this.rotate(this.orientedObject.ang, 0, 1, 0);
@@ -191,6 +190,7 @@ export class MyScene extends CGFscene {
             this.rotate(-Math.PI / 2, 1, 0, 0);
             this.rotate(Math.PI / 4, 0, 0, 1);
             this.orientedObject.display();
+            this.popMatrix();
         }
         // -------------------
 
