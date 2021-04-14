@@ -74,9 +74,18 @@ export class MyScene extends CGFscene {
         this.textureDemoPZ = new CGFtexture(this, 'images/demo_cubemap/front.png');
         this.textureDemo = [this.textureDemoNX, this.textureDemoNY, this.textureDemoNZ, this.textureDemoPX, this.textureDemoPY, this.textureDemoPZ];
 
+        this.textureCustomNX = new CGFtexture(this, 'images/custom_cubemap/nx.png');
+        this.textureCustomNY = new CGFtexture(this, 'images/custom_cubemap/ny.png');
+        this.textureCustomNZ = new CGFtexture(this, 'images/custom_cubemap/nz.png');
+        this.textureCustomPX = new CGFtexture(this, 'images/custom_cubemap/px.png');
+        this.textureCustomPY = new CGFtexture(this, 'images/custom_cubemap/py.png');
+        this.textureCustomPZ = new CGFtexture(this, 'images/custom_cubemap/pz.png');
+        this.textureCustom = [this.textureCustomNX, this.textureCustomNY, this.textureCustomNZ, this.textureCustomPX, this.textureCustomPY, this.textureCustomPZ];
+
+
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
-        this.cubeMap.initTextures(this.textureDemo);
+        this.cubeMap.initTextures(this.textureCustom);
 
 
         //Objects connected to MyInterface
