@@ -11,7 +11,7 @@ export class MyCubeMap extends CGFobject {
     this.quad = new MyQuad(scene);
 	}
   // textures is array [left, down, back, right, up, front]
-  initTextures(textures) {
+  setTextures(textures) {
     this.left = textures[0];
     this.down = textures[1];
     this.back = textures[2];
@@ -27,7 +27,7 @@ export class MyCubeMap extends CGFobject {
 
   display() {
     
-    var scale = 50;
+    var scale = 500;
 
     this.set_filter_apply(this.front);
     this.scene.pushMatrix();

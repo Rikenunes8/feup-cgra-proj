@@ -58,7 +58,16 @@ export class MyScene extends CGFscene {
         this.cubeMaterial.setShininess(10.0);
         //this.cubeMaterial.loadTexture('images/default.png');
         this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
+        
+        this.earthAppearance = new CGFappearance(this);
+        this.earthAppearance.setAmbient(0, 0, 0, 1);
+        this.earthAppearance.setDiffuse(0, 0, 0, 1);
+        this.earthAppearance.setSpecular(0, 0, 0, 1);
+        this.earthAppearance.setEmission(1, 1, 1, 1);
+        this.earthAppearance.setShininess(10.0);
+        this.earthAppearance.loadTexture('images/earth.jpg');
+        this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
+        
         // Initialize textures
         this.textureNX = new CGFtexture(this, 'images/test_cubemap/nx.png');
         this.textureNY = new CGFtexture(this, 'images/test_cubemap/ny.png');
@@ -75,31 +84,37 @@ export class MyScene extends CGFscene {
         this.textureDemoPY = new CGFtexture(this, 'images/demo_cubemap/top.png');
         this.textureDemoPZ = new CGFtexture(this, 'images/demo_cubemap/front.png');
         this.textureDemo = [this.textureDemoNX, this.textureDemoNY, this.textureDemoNZ, this.textureDemoPX, this.textureDemoPY, this.textureDemoPZ];
+        
+        this.textureCustomNX = new CGFtexture(this, 'images/custom_cubemap/nx.png');
+        this.textureCustomNY = new CGFtexture(this, 'images/custom_cubemap/ny.png');
+        this.textureCustomNZ = new CGFtexture(this, 'images/custom_cubemap/nz.png');
+        this.textureCustomPX = new CGFtexture(this, 'images/custom_cubemap/px.png');
+        this.textureCustomPY = new CGFtexture(this, 'images/custom_cubemap/py.png');
+        this.textureCustomPZ = new CGFtexture(this, 'images/custom_cubemap/pz.png');
+        this.textureCustom = [this.textureCustomNX, this.textureCustomNY, this.textureCustomNZ, this.textureCustomPX, this.textureCustomPY, this.textureCustomPZ];
 
-        this.earthAppearance = new CGFappearance(this);
-        this.earthAppearance.setAmbient(0, 0, 0, 1);
-        this.earthAppearance.setDiffuse(0, 0, 0, 1);
-        this.earthAppearance.setSpecular(0, 0, 0, 1);
-        this.earthAppearance.setEmission(1, 1, 1, 1);
-        this.earthAppearance.setShininess(10.0);
-        this.earthAppearance.loadTexture('images/earth.jpg');
-        this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
-        this.cubeMap.initTextures(this.textureDemo);
-
-
-        //Objects connected to MyInterface
+        this.cubeTextures = [this.textureTest, this.textureDemo, this.textureCustom];
+        this.selectedCubeTexture = 2;
+        this.texturesList = {
+            'Test' : 0,
+            'Moutain' : 1,
+            'Desert' : 2
+        }
+        this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
+        
+        // Objects connected to MyInterface
         this.displayAxis = true;
         this.speedFactor = 1;
         this.scaleFactor=1;
-        this.displayExampleCube = true;
+        this.displayWorld = true;
         //this.displayCustomCube=true;
         this.displayCylinder = false;
         this.cylinderComplexity = 12;
         this.displaySphere = false;
-        this.displayPlane = true;
+        this.displayObject = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -111,9 +126,13 @@ export class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
 
-    updateCylinderComplexity() {
+    onCylinderComplexityChanged() {
         this.cylinder.updateBuffers(this.cylinderComplexity);
     }
+    onSelectedCubeTextureChanged() {
+        this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
+    }
+
 
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -170,7 +189,7 @@ export class MyScene extends CGFscene {
 
 
         // ----- Cubo de base
-        if (this.displayExampleCube) {
+        if (this.displayWorld) {
             this.pushMatrix();
             this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
             this.cubeMap.display();
@@ -179,7 +198,7 @@ export class MyScene extends CGFscene {
         // -----------------------
 
         // ----- Objeto controlável
-        if (this.displayPlane) {
+        if (this.displayObject) {
             this.setDefaultAppearance();
             this.pushMatrix();
             this.translate(this.orientedObject.pos[0], this.orientedObject.pos[1], this.orientedObject.pos[2]);
