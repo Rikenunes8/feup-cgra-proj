@@ -112,7 +112,6 @@ export class MyScene extends CGFscene {
         this.speedFactor = 1;
         this.scaleFactor=1;
         this.displayWorld = true;
-        //this.displayCustomCube=true;
         this.displayCylinder = false;
         this.cylinderComplexity = 12;
         this.displaySphere = false;
@@ -149,6 +148,7 @@ export class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.orientedObject.update();
+        this.fish.update();
     }
 
     checkKeys() {
@@ -187,7 +187,6 @@ export class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        this.sphereAppearance.apply();
         // ---- BEGIN Primitive drawing section -------
 
 
@@ -201,7 +200,7 @@ export class MyScene extends CGFscene {
         // -----------------------
 
         // ----- Objeto controlável
-        /*if (this.displayObject) {
+        if (this.displayObject) {
             this.setDefaultAppearance();
             this.pushMatrix();
             this.translate(this.orientedObject.pos[0], this.orientedObject.pos[1], this.orientedObject.pos[2]);
@@ -213,29 +212,30 @@ export class MyScene extends CGFscene {
             this.rotate(Math.PI / 4, 0, 0, 1);
             this.orientedObject.display();
             this.popMatrix();
-        }*/
+        }
         // -------------------
 
         // ----- Fish
-        if (displayFish) {
-            this.pushMatrix();
-            this.fish.display();
-            this.popMatrix();
+        if (this.displayFish) {
+          this.sphereAppearance.apply();
+          this.pushMatrix();
+          this.fish.display();
+          this.popMatrix();
         }
-
+        
         // ------------------
 
         // ------ Cylinder
         if (this.displayCylinder) {
-            this.earthAppearance.apply()
-            this.cylinder.display();
+          this.earthAppearance.apply()
+          this.cylinder.display();
         }
 
 
         // ------ Sphere
         if (this.displaySphere) {
-            this.earthAppearance.apply()
-            this.incompleteSphere.display();
+          this.earthAppearance.apply()
+          this.incompleteSphere.display();
         }
         // ----------------------------
 
@@ -244,14 +244,21 @@ export class MyScene extends CGFscene {
 
     turn(ang) {
         this.orientedObject.ang += ang;
+        this.fish.ang += ang;
     }
 
     accelerate(vel) {
         this.orientedObject.vel += vel;
+        this.fish.vel += vel;
+
     }
     reset() {
-        this.orientedObject.pos = [0, 0, 0];
-        this.orientedObject.ang = 0;
-        this.orientedObject.vel = 0;
+      this.orientedObject.pos = [0, 0, 0];
+      this.orientedObject.ang = 0;
+      this.orientedObject.vel = 0;
+
+      this.fish.pos = [0, 0, 0];
+      this.fish.ang = 0;
+      this.fish.vel = 0;
     }
 }

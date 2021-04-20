@@ -7,11 +7,15 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 varying vec4 coords;
+varying vec2 vTextureCoord;
+
 
 
 void main() {
-  vec4 vertex = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+  coords = vec4(aVertexPosition, 1.0);
+  vec4 vertex = uPMatrix * uMVMatrix * coords;
 	gl_Position = vertex;
 
-  coords = vertex;
+	vTextureCoord = aTextureCoord;
+
 }
