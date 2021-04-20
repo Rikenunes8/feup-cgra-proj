@@ -30,6 +30,7 @@ export class MyInterface extends CGFinterface {
 
       this.gui.add(this.scene, 'displayObject').name('Display Object');
       this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
+      this.gui.add(this.scene, 'displayFish').name('Display Fish');
 
       var cylinder = this.gui.addFolder('Cylinder');
       cylinder.add(this.scene, 'displayCylinder').name("Display Cylinder");

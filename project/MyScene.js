@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
+import { MyFish } from "./MyFish/MyFish.js";
 import { MyTriangle } from "./MyMovingObject.js";
 import { MySphere } from "./MySphere.js";
 
@@ -35,6 +36,7 @@ export class MyScene extends CGFscene {
         this.orientedObject = new MyTriangle(this);
         this.cubeMap = new MyCubeMap(this);
         this.cylinder = new MyCylinder(this, 12);
+        this.fish = new MyFish(this);
 
         // Initialize scene Appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -114,7 +116,8 @@ export class MyScene extends CGFscene {
         this.displayCylinder = false;
         this.cylinderComplexity = 12;
         this.displaySphere = false;
-        this.displayObject = true;
+        this.displayObject = false;
+        this.displayFish = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -198,7 +201,7 @@ export class MyScene extends CGFscene {
         // -----------------------
 
         // ----- Objeto controlável
-        if (this.displayObject) {
+        /*if (this.displayObject) {
             this.setDefaultAppearance();
             this.pushMatrix();
             this.translate(this.orientedObject.pos[0], this.orientedObject.pos[1], this.orientedObject.pos[2]);
@@ -210,8 +213,17 @@ export class MyScene extends CGFscene {
             this.rotate(Math.PI / 4, 0, 0, 1);
             this.orientedObject.display();
             this.popMatrix();
-        }
+        }*/
         // -------------------
+
+        // ----- Fish
+        if (displayFish) {
+            this.pushMatrix();
+            this.fish.display();
+            this.popMatrix();
+        }
+
+        // ------------------
 
         // ------ Cylinder
         if (this.displayCylinder) {
