@@ -27,7 +27,7 @@ export class MyCubeMap extends CGFobject {
 
   display() {
     
-    var scale = 500;
+    var scale = 50;
 
     this.set_filter_apply(this.front);
     this.scene.pushMatrix();
