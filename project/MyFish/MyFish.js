@@ -14,11 +14,35 @@ export class MyFish extends CGFobject {
     this.ang = 0;
     this.pos = [0, 0, 0];
     this.vel = 0;
+    
+    this.angTail = 0;
+    this.tailOri = 1;
+
+    this.angLFin = 0;
+    this.leftOri = 1;
+
+    this.angRFin = 0;
+    this.rightOri = 1;
 	}
   update() {
     this.pos[0] += this.vel*this.scene.speedFactor*Math.sin(this.ang);
 		this.pos[2] += this.vel*this.scene.speedFactor*Math.cos(this.ang);
+
+    if ( Math.abs(this.angTail) > Math.PI/8) {
+      this.tailOri = -this.tailOri;
+    }
+    if ( this.angLFin > Math.PI/8 || this.angLFin < 0) {
+      this.leftOri = -this.leftOri;
+    }
+    if ( this.angRFin > Math.PI/8 || this.angRFin < 0) {
+      this.rightOri = -this.rightOri;
+    }
+
+    this.angTail = this.angTail + this.tailOri*(3+this.vel*15)*Math.PI/180;
+    this.angLFin = this.angLFin + this.leftOri*(2)*Math.PI/180;
+    this.angRFin = this.angRFin + this.rightOri*(2)*Math.PI/180;
   }
+
 	init() {
     var mul = 2;
     this.body     = new MySphere(this.scene, 16*mul, 8*mul);
@@ -60,7 +84,7 @@ export class MyFish extends CGFobject {
 
   display() {
     var sca = 4.0/8;
-    this.scene.translate(this.pos[0], this.pos[1], this.pos[2]);
+    this.scene.translate(this.pos[0], 3+this.pos[1], this.pos[2]);
     this.scene.scale(this.scene.scaleFactor,this.scene.scaleFactor,this.scene.scaleFactor);
     this.scene.scale(sca, sca, sca);
     this.scene.rotate(this.ang, 0, 1, 0);
@@ -103,35 +127,36 @@ export class MyFish extends CGFobject {
     this.upperFin.display();
     this.scene.popMatrix();
   }
-
+  
   displayLeftFin() {
     this.scene.pushMatrix();
+    this.scene.translate(0.8, 0, 0.3);
+    this.scene.rotate(-Math.PI/4 - this.angLFin, 0, 0, 1); // TODO: apply movement
+    this.scene.rotate( Math.PI/4, 0, 1, 0);
+    this.scene.rotate( Math.PI/2, 1, 0, 0);
+    this.scene.translate(0.5, 0, 0);
+    this.scene.scale(0.5, 0.5, 0.5);
+    this.leftFin.display();
+    this.scene.popMatrix();
+  }
+
+  displayRightFin() {
+    this.scene.pushMatrix();
     this.scene.translate(-0.8, 0, 0.3);
-    this.scene.rotate(Math.PI / 4, 0, 0, 1); // TODO: apply movement
-    this.scene.rotate(-Math.PI / 4, 0, 1, 0);
-    this.scene.rotate(Math.PI / 2, 1, 0, 0);
+    this.scene.rotate( Math.PI/4 + this.angRFin, 0, 0, 1); // TODO: apply movement
+    this.scene.rotate(-Math.PI/4, 0, 1, 0);
+    this.scene.rotate( Math.PI/2, 1, 0, 0);
     this.scene.translate(-0.5, 0, 0);
     this.scene.scale(0.5, 0.5, 0.5);
     this.rightFin.display();
     this.scene.popMatrix();
   }
 
-  displayRightFin() {
-    this.scene.pushMatrix();
-    this.scene.translate(0.8, 0, 0.3);
-    this.scene.rotate(-Math.PI / 4, 0, 0, 1); // TODO: apply movement
-    this.scene.rotate(Math.PI / 4, 0, 1, 0);
-    this.scene.rotate(Math.PI / 2, 1, 0, 0);
-    this.scene.translate(0.5, 0, 0);
-    this.scene.scale(0.5, 0.5, 0.5);
-    this.rightFin.display();
-    this.scene.popMatrix();
-  }
 
   displayTailFin() {
     this.scene.pushMatrix();
     this.scene.translate(0, 0, -2);
-    this.scene.rotate(0, 0, 1, 0); // TODO: apply movement
+    this.scene.rotate(this.angTail, 0, 1, 0); // TODO: apply movement
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
     this.scene.rotate(Math.PI / 2, 0, 0, 1);
     this.scene.translate(0, -1, 0);
