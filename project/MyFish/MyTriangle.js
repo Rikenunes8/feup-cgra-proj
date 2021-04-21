@@ -12,15 +12,15 @@ export class MyTriangle extends CGFobject {
 	
 	initBuffers() {
 		this.vertices = [
-			-1, -1, 0,	//0
-			 1, -1, 0,	//1
-			-1,  1, 0, 	//2
+			-1, 0, 0,	//0
+			 1, 0, 0,	//1
+			 0, 1, 0, //2
 
-      -1, -1, 0,	//0
-			 1, -1, 0,	//1
-			-1,  1, 0 	//2
+      -1, 0, 0,	//0
+			 1, 0, 0,	//1
+			 0, 1, 0 	//2
 		];
-    
+
     this.normals = [
       0, 0, 1,
       0, 0, 1,
@@ -28,18 +28,19 @@ export class MyTriangle extends CGFobject {
 
       0, 0, -1,
       0, 0, -1,
-      0, 0, -1
+      0, 0, -1,
     ]
 
-    this.texCoords = [
-      0.00, 1.00,
-      0.50, 1.00,
-      0.00, 0.50,
+    /*this.texCoords = [
+      0.25, 0.75,
+      0.50, 0.50,
+      0.75, 0.75,
 
-      0.00, 1.00,
-      0.50, 1.00,
-      0.00, 0.50,
-    ]
+      0.25, 0.75,
+      0.50, 0.50,
+      0.75, 0.75
+    ]*/
+      
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
