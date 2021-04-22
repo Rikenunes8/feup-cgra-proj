@@ -1,10 +1,11 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader} from "../lib/CGF.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
 import { MyTriangle } from './MyFish/MyTriangle.js';
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyMovingFish } from "./MyMovingFish.js";
 import { MySphere } from "./MySphere.js";
+import {MySeaFloor} from "./MySeaFloor/MySeaFloor.js";
 
 /**
 * MyScene
@@ -38,6 +39,7 @@ export class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this);
         this.cylinder = new MyCylinder(this, 12);
         this.fish = new MyMovingFish(this);
+        this.seaFloor = new MySeaFloor(this);
 
         // Initialize scene Appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -97,6 +99,20 @@ export class MyScene extends CGFscene {
         this.textureCustom = [this.textureCustomNX, this.textureCustomNY, this.textureCustomNZ, this.textureCustomPX, this.textureCustomPY, this.textureCustomPZ];
 
 
+
+        this.sandAppearance = new CGFappearance(this);
+        this.sandAppearance.setAmbient(0, 0, 0, 1);
+        this.sandAppearance.setDiffuse(0, 0, 0, 1);
+        this.sandAppearance.setSpecular(0, 0, 0, 1);
+        this.sandAppearance.setEmission(1, 1, 1, 1);
+        this.sandAppearance.setShininess(10.0);
+        this.sandTex= new CGFtexture(this,"./images/sand.png");
+        this.sandMap = new CGFtexture(this, "./images/sandMap.png");
+        this.sandAppearance.setTexture(this.sandTex);
+
+        this.sandShader = new CGFshader(this.gl, "./MySeaFloor/sand.vert", "./MySeaFloor/sand.frag");
+        this.sandShader.setUniformsValues({ uSampler2: 2 });
+        
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
         this.cubeTextures = [this.textureTest, this.textureDemo, this.textureCustom];
@@ -118,6 +134,7 @@ export class MyScene extends CGFscene {
         this.displaySphere = false;
         this.displayObject = false;
         this.displayFish = true;
+        this.displaySeaFloor = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -227,7 +244,15 @@ export class MyScene extends CGFscene {
           this.popMatrix();
         }
         
-        
+        // ------Sea Floor
+        if(this.displaySeaFloor){
+            this.pushMatrix();
+            this.sandAppearance.apply();
+            this.setActiveShader(this.sandShader);
+            this.sandMap.bind(2);
+            this.seaFloor.display();
+            this.popMatrix();
+        }
         // ------------------
 
         // ------ Cylinder
