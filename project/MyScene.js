@@ -252,7 +252,9 @@ export class MyScene extends CGFscene {
             this.sandAppearance.apply();
             this.setActiveShader(this.sandShader);
             this.sandMap.bind(2);
+            this.translate(0, -5, 0);
             this.seaFloor.display();
+            this.setActiveShader(this.defaultShader);
             this.popMatrix();
         }
         // ------------------
