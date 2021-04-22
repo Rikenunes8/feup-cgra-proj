@@ -110,7 +110,7 @@ export class MyScene extends CGFscene {
         // Objects connected to MyInterface
         this.displayAxis = true;
         this.speedFactor = 1;
-        this.scaleFactor=1;
+        this.scaleFactor = 1;
         this.displayWorld = true;
         this.displayCylinder = false;
         this.cylinderComplexity = 12;
@@ -148,7 +148,6 @@ export class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.orientedObject.update();
-        this.fish.update();
     }
 
     checkKeys() {
@@ -245,21 +244,14 @@ export class MyScene extends CGFscene {
 
     turn(ang) {
         this.orientedObject.ang += ang;
-        this.fish.ang += ang;
     }
 
     accelerate(vel) {
         this.orientedObject.vel += vel;
-        this.fish.vel += vel;
-
     }
     reset() {
       this.orientedObject.pos = [0, 0, 0];
       this.orientedObject.ang = 0;
       this.orientedObject.vel = 0;
-
-      this.fish.pos = [0, 0, 0];
-      this.fish.ang = 0;
-      this.fish.vel = 0;
     }
 }
