@@ -1,8 +1,9 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyCubeMap } from "./MyCubeMap.js";
 import { MyCylinder } from "./MyCylinder.js";
-import { MyFish } from "./MyFish/MyFish.js";
-import { MyTriangle } from "./MyMovingObject.js";
+import { MyTriangle } from './MyFish/MyTriangle.js';
+import { MyMovingObject } from "./MyMovingObject.js";
+import { MyMovingFish } from "./MyMovingFish.js";
 import { MySphere } from "./MySphere.js";
 
 /**
@@ -33,10 +34,10 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
-        this.orientedObject = new MyTriangle(this);
+        this.orientedObject = new MyMovingObject(this, new MyTriangle(this));
         this.cubeMap = new MyCubeMap(this);
         this.cylinder = new MyCylinder(this, 12);
-        this.fish = new MyFish(this);
+        this.fish = new MyMovingFish(this);
 
         // Initialize scene Appearances
         this.defaultAppearance = new CGFappearance(this);
@@ -148,6 +149,7 @@ export class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.orientedObject.update();
+        this.fish.update();
     }
 
     checkKeys() {
@@ -164,6 +166,13 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyD")) {
             this.turn(-Math.PI / 36);
         }
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.fish.yVel = this.fish.yMaxVel;
+        }
+        if (this.gui.isKeyPressed("KeyL")) {
+            this.fish.yVel = -this.fish.yMaxVel;
+        }
+
         if (this.gui.isKeyPressed("KeyR")) {
             this.reset();
         }
@@ -202,13 +211,10 @@ export class MyScene extends CGFscene {
         if (this.displayObject) {
             this.setDefaultAppearance();
             this.pushMatrix();
-            this.translate(this.orientedObject.pos[0], this.orientedObject.pos[1], this.orientedObject.pos[2]);
-            this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor); 
-            this.rotate(this.orientedObject.ang, 0, 1, 0);
-
+            this.orientedObject.applyMovement();
             this.translate(0, 0, -0.5);
-            this.rotate(-Math.PI / 2, 1, 0, 0);
-            this.rotate(Math.PI / 4, 0, 0, 1);
+            this.rotate(Math.PI, 0, 1, 0);
+            this.rotate(-Math.PI/2, 1, 0, 0);
             this.orientedObject.display();
             this.popMatrix();
         }
@@ -216,7 +222,6 @@ export class MyScene extends CGFscene {
 
         // ----- Fish
         if (this.displayFish) {
-          this.sphereAppearance.apply();
           this.pushMatrix();
           this.fish.display();
           this.popMatrix();
@@ -244,14 +249,22 @@ export class MyScene extends CGFscene {
 
     turn(ang) {
         this.orientedObject.ang += ang;
+        this.fish.ang += ang;
     }
 
     accelerate(vel) {
         this.orientedObject.vel += vel;
+        this.fish.vel += vel;
+
     }
     reset() {
       this.orientedObject.pos = [0, 0, 0];
       this.orientedObject.ang = 0;
       this.orientedObject.vel = 0;
+
+      this.fish.pos = [0, 0, 0];
+      this.fish.ang = 0;
+      this.fish.vel = 0;
+
     }
 }

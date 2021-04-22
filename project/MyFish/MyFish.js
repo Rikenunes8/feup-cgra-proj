@@ -11,37 +11,11 @@ export class MyFish extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.init();
-    /*this.ang = 0;
-    this.pos = [0, 0, 0];
-    this.vel = 0;*/
     
     this.angTail = 0;
-    //this.tailOri = 1;
-
     this.angLFin = 0;
-    //this.leftOri = 1;
-
     this.angRFin = 0;
-    //this.rightOri = 1;
 	}
-  /*update() {
-    this.pos[0] += this.vel*this.scene.speedFactor*Math.sin(this.ang);
-		this.pos[2] += this.vel*this.scene.speedFactor*Math.cos(this.ang);
-
-    if ( Math.abs(this.angTail) > Math.PI/8) {
-      this.tailOri = -this.tailOri;
-    }
-    if ( this.angLFin > Math.PI/8 || this.angLFin < 0) {
-      this.leftOri = -this.leftOri;
-    }
-    if ( this.angRFin > Math.PI/8 || this.angRFin < 0) {
-      this.rightOri = -this.rightOri;
-    }
-
-    this.angTail = this.angTail + this.tailOri*(3+this.vel*15)*Math.PI/180;
-    this.angLFin = this.angLFin + this.leftOri*(2)*Math.PI/180;
-    this.angRFin = this.angRFin + this.rightOri*(2)*Math.PI/180;
-  }*/
 
 	init() {
     var mul = 2; // Not to use less than 1
@@ -82,11 +56,6 @@ export class MyFish extends CGFobject {
   }
 
   display() {
-    /*this.scene.translate(this.pos[0], 3+this.pos[1], this.pos[2]);
-    this.scene.scale(this.scene.scaleFactor,this.scene.scaleFactor,this.scene.scaleFactor);
-    this.scene.rotate(this.ang, 0, 1, 0);*/
-    this.scene.translate(0, 3, 0);
-
     this.displayBody();
 
     this.red.apply();
@@ -129,7 +98,7 @@ export class MyFish extends CGFobject {
   displayLeftFin() {
     this.scene.pushMatrix();
     this.scene.translate(0.1, -0.07, 0.03);
-    this.scene.rotate(-Math.PI/3 - this.angLFin, 0, 0, 1); // TODO: apply movement
+    this.scene.rotate(-Math.PI/3 - this.angLFin, 0, 0, 1); // Move Fin
     this.scene.rotate( Math.PI/4, 0, 1, 0);
     this.scene.rotate( Math.PI/2, 1, 0, 0);
     this.scene.translate(0.08, 0, 0);
@@ -141,7 +110,7 @@ export class MyFish extends CGFobject {
   displayRightFin() {
     this.scene.pushMatrix();
     this.scene.translate(-0.1, -0.07, 0.03);
-    this.scene.rotate( Math.PI/3 + this.angRFin, 0, 0, 1); // TODO: apply movement
+    this.scene.rotate( Math.PI/3 + this.angRFin, 0, 0, 1); // Move Fin
     this.scene.rotate(-Math.PI/4, 0, 1, 0);
     this.scene.rotate( Math.PI/2, 1, 0, 0);
     this.scene.translate(-0.08, 0, 0);
@@ -154,7 +123,7 @@ export class MyFish extends CGFobject {
   displayTailFin() {
     this.scene.pushMatrix();
     this.scene.translate(0, 0, -0.25);
-    this.scene.rotate(this.angTail, 0, 1, 0); // TODO: apply movement
+    this.scene.rotate(this.angTail, 0, 1, 0); // Move Fin
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
     this.scene.rotate(Math.PI / 2, 0, 0, 1);
     this.scene.translate(0, -0.16, 0);

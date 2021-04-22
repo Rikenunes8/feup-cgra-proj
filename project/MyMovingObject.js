@@ -1,56 +1,29 @@
 import {CGFobject} from '../lib/CGF.js';
+
 /**
- * MyTriangle
+ * MyMovingObject
  * @constructor
  * @param scene - Reference to MyScene object
  */
-export class MyTriangle extends CGFobject {
-	constructor(scene) {
+export class MyMovingObject extends CGFobject {
+	constructor(scene, obj) {
 		super(scene);
-		this.initBuffers();
-    	this.ang = 0;
-    	this.pos = [0, 0, 0];
-    	this.vel = 0;
+		this.obj = obj;
+		this.ang = 0;
+		this.pos = [0, 0, 0];
+		this.vel = 0;
 	}
 
 	update() {
     this.pos[0] += this.vel*this.scene.speedFactor*Math.sin(this.ang);
 		this.pos[2] += this.vel*this.scene.speedFactor*Math.cos(this.ang);
   }
-	
-	initBuffers() {
-		this.vertices = [
-			-1, -1, 0,	//0
-			 1, -1, 0,	//1
-			-1,  1, 0, 	//2
-
-      -1, -1, 0,	//0
-			 1, -1, 0,	//1
-			-1,  1, 0 	//2
-		];
-    
-    this.normals = [
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-
-      0, 0, -1,
-      0, 0, -1,
-      0, 0, -1
-    ]
-
-		//Counter-clockwise reference of vertices
-		this.indices = [
-			0, 1, 2,
-
-      5, 4, 3
-		];
-
-		//The defined indices (and corresponding vertices)
-		//will be read in groups of three to draw triangles
-		this.primitiveType = this.scene.gl.TRIANGLES;
-
-		this.initGLBuffers();
+	applyMovement() {
+		this.scene.translate(this.pos[0], this.pos[1], this.pos[2]);
+    this.scene.scale(this.scene.scaleFactor,this.scene.scaleFactor,this.scene.scaleFactor);
+    this.scene.rotate(this.ang, 0, 1, 0);
 	}
-	
+	display() {
+		this.obj.display()
+	}
 }
