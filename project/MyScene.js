@@ -32,16 +32,25 @@ export class MyScene extends CGFscene {
 
         this.enableTextures(true);
 
-        //Initialize scene objects
-        this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
-        this.orientedObject = new MyMovingObject(this, new MyTriangle(this));
-        this.cubeMap = new MyCubeMap(this);
-        this.cylinder = new MyCylinder(this, 12);
-        this.fish = new MyMovingFish(this);
-        this.seaFloor = new MySeaFloor(this);
+        this.initAppearances();
+        this.initTextures();
+        this.initSceneObjects();
+        this.initInterfaceObjects();
+    }
 
-        // Initialize scene Appearances
+    initLights() {
+        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].enable();
+        this.lights[0].update();
+    }
+    initCameras() {
+        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(2, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+
+    }
+    
+    initAppearances() {
         this.defaultAppearance = new CGFappearance(this);
         this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -54,7 +63,7 @@ export class MyScene extends CGFscene {
         this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
         this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.sphereAppearance.setShininess(120);
-        
+
         this.earthAppearance = new CGFappearance(this);
         this.earthAppearance.setAmbient(0, 0, 0, 1);
         this.earthAppearance.setDiffuse(0, 0, 0, 1);
@@ -63,8 +72,9 @@ export class MyScene extends CGFscene {
         this.earthAppearance.setShininess(10.0);
         this.earthAppearance.loadTexture('images/earth.jpg');
         this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
-        
-        // Initialize textures
+    }
+
+    initTextures() {
         this.textureNX = new CGFtexture(this, 'images/test_cubemap/nx.png');
         this.textureNY = new CGFtexture(this, 'images/test_cubemap/ny.png');
         this.textureNZ = new CGFtexture(this, 'images/test_cubemap/nz.png');
@@ -80,7 +90,7 @@ export class MyScene extends CGFscene {
         this.textureDemoPY = new CGFtexture(this, 'images/demo_cubemap/top.png');
         this.textureDemoPZ = new CGFtexture(this, 'images/demo_cubemap/front.png');
         this.textureDemo = [this.textureDemoNX, this.textureDemoNY, this.textureDemoNZ, this.textureDemoPX, this.textureDemoPY, this.textureDemoPZ];
-        
+
         this.textureCustomNX = new CGFtexture(this, 'images/custom_cubemap/nx.png');
         this.textureCustomNY = new CGFtexture(this, 'images/custom_cubemap/ny.png');
         this.textureCustomNZ = new CGFtexture(this, 'images/custom_cubemap/nz.png');
@@ -98,33 +108,31 @@ export class MyScene extends CGFscene {
         this.texUnderwater = [this.texUnderwaterNX, this.texUnderwaterNY, this.texUnderwaterNZ, this.texUnderwaterPX, this.texUnderwaterPY, this.texUnderwaterPZ];
 
 
-
-        this.sandAppearance = new CGFappearance(this);
-        this.sandAppearance.setAmbient(0, 0, 0, 1);
-        this.sandAppearance.setDiffuse(0, 0, 0, 1);
-        this.sandAppearance.setSpecular(0, 0, 0, 1);
-        this.sandAppearance.setEmission(1, 1, 1, 1);
-        this.sandAppearance.setShininess(10.0);
-        this.sandTex= new CGFtexture(this,"./images/sand.png");
-        this.sandMap = new CGFtexture(this, "./images/sandMap.png");
-        this.sandAppearance.setTexture(this.sandTex);
-
-        this.sandShader = new CGFshader(this.gl, "./MySeaFloor/sand.vert", "./MySeaFloor/sand.frag");
-        this.sandShader.setUniformsValues({ uSampler2: 2 });
-        
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
         this.cubeTextures = [this.textureTest, this.textureDemo, this.textureCustom, this.texUnderwater];
         this.selectedCubeTexture = 3;
         this.texturesList = {
-            'Test' : 0,
-            'Moutain' : 1,
-            'Desert' : 2,
-            'Water' : 3
-        }
+            'Test': 0,
+            'Moutain': 1,
+            'Desert': 2,
+            'Water': 3
+        };
+    }
+
+    initSceneObjects() {
+        this.axis = new CGFaxis(this);
+        this.incompleteSphere = new MySphere(this, 16, 8);
+        this.orientedObject = new MyMovingObject(this, new MyTriangle(this));
+        this.cylinder = new MyCylinder(this, 12);
+        this.fish = new MyMovingFish(this);
+        this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
+
+        this.cubeMap = new MyCubeMap(this);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
-        
-        // Objects connected to MyInterface
+    }
+
+    initInterfaceObjects() {
         this.displayAxis = true;
         this.speedFactor = 1;
         this.scaleFactor = 1;
@@ -135,17 +143,6 @@ export class MyScene extends CGFscene {
         this.displayObject = false;
         this.displayFish = true;
         this.displaySeaFloor = true;
-    }
-    initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].enable();
-        this.lights[0].update();
-    }
-    initCameras() {
-        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-        this.camera = new CGFcamera(2, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
-
     }
 
     onCylinderComplexityChanged() {
@@ -191,7 +188,6 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyL")) {
             this.fish.yVel = -this.fish.yMaxVel;
         }
-
         if (this.gui.isKeyPressed("KeyR")) {
             this.reset();
         }
@@ -249,13 +245,7 @@ export class MyScene extends CGFscene {
         // ------Sea Floor
         if(this.displaySeaFloor){
             this.pushMatrix();
-            this.sandAppearance.apply();
-            this.setActiveShader(this.sandShader);
-            this.sandMap.bind(2);
-            this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
-            this.translate(0, -24, 0);
             this.seaFloor.display();
-            this.setActiveShader(this.defaultShader);
             this.popMatrix();
         }
         // ------------------
