@@ -9,16 +9,23 @@ uniform mat4 uNMatrix;
 uniform sampler2D uSampler2;
 
 varying vec2 vTextureCoord;
+varying float brightOffset;
 
-void main() { // TODO: find a good formula for the offset
-  //float heightScale = 0.0; // TODO: other value could be use
-  //vec3 offset = aVertexNormal*texture2D(uSampler2, aTextureCoord).r*heightScale; 
+void main() {
+  // By observe, the range of colors is aproximatelly between limInf and limSup (in percentage)
+  float limSup = 0.55;
+  float limInf = 0.25;
+
+  float heightScale = 1.0;
+  float bright = texture2D(uSampler2, aTextureCoord).r; // As the texture is in grayscale, RGB color's components are the same
   
-  vec3 offset = vec3(0, 0, 0);
-
-  if (texture2D(uSampler2, aTextureCoord).r < 0.5) {
-    offset = aVertexNormal*1.0;
-  }
+  // Erase oultiers
+  if      (bright > limSup) bright = limSup;
+  else if (bright < limInf) bright = limInf;
+  
+  brightOffset = heightScale*(bright-limInf)/(limSup-limInf); // Linear Interpolation to offset be between 0 and 1
+  
+  vec3 offset = aVertexNormal*brightOffset; 
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 

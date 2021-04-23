@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import { CGFobject, CGFappearance } from "../lib/CGF.js";
 import { MyQuad } from './MyQuad.js';
 /**
  * MyCubeMap
@@ -9,7 +9,18 @@ export class MyCubeMap extends CGFobject {
 	constructor(scene) {
 		super(scene);
     this.quad = new MyQuad(scene);
+    this.initMaterial();
 	}
+
+  initMaterial() {
+    this.cubeMaterial = new CGFappearance(this.scene);
+    this.cubeMaterial.setAmbient(0, 0, 0, 1);
+    this.cubeMaterial.setDiffuse(0, 0, 0, 1);
+    this.cubeMaterial.setSpecular(0, 0, 0, 1);
+    this.cubeMaterial.setEmission(1, 1, 1, 1);
+    this.cubeMaterial.setShininess(10.0);
+  }
+
   // textures is array [left, down, back, right, up, front]
   setTextures(textures) {
     this.left = textures[0];
@@ -20,9 +31,9 @@ export class MyCubeMap extends CGFobject {
     this.front = textures[5];
   }
   set_filter_apply(texture) {
-    this.scene.cubeMaterial.setTexture(texture);
+    this.cubeMaterial.setTexture(texture);
     this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-    this.scene.cubeMaterial.apply();
+    this.cubeMaterial.apply();
   }
 
   display() {

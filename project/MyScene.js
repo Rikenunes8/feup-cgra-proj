@@ -54,15 +54,6 @@ export class MyScene extends CGFscene {
         this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
         this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.sphereAppearance.setShininess(120);
-
-        this.cubeMaterial = new CGFappearance(this);
-        this.cubeMaterial.setAmbient(0, 0, 0, 1);
-        this.cubeMaterial.setDiffuse(0, 0, 0, 1);
-        this.cubeMaterial.setSpecular(0, 0, 0, 1);
-        this.cubeMaterial.setEmission(1, 1, 1, 1);
-        this.cubeMaterial.setShininess(10.0);
-        //this.cubeMaterial.loadTexture('images/default.png');
-        this.cubeMaterial.setTextureWrap('REPEAT', 'REPEAT');
         
         this.earthAppearance = new CGFappearance(this);
         this.earthAppearance.setAmbient(0, 0, 0, 1);
@@ -98,6 +89,14 @@ export class MyScene extends CGFscene {
         this.textureCustomPZ = new CGFtexture(this, 'images/custom_cubemap/pz.png');
         this.textureCustom = [this.textureCustomNX, this.textureCustomNY, this.textureCustomNZ, this.textureCustomPX, this.textureCustomPY, this.textureCustomPZ];
 
+        this.texUnderwaterNX = new CGFtexture(this, 'images/underwater_cubemap/left.jpg');
+        this.texUnderwaterNY = new CGFtexture(this, 'images/underwater_cubemap/bottom.jpg');
+        this.texUnderwaterNZ = new CGFtexture(this, 'images/underwater_cubemap/back.jpg');
+        this.texUnderwaterPX = new CGFtexture(this, 'images/underwater_cubemap/right.jpg');
+        this.texUnderwaterPY = new CGFtexture(this, 'images/underwater_cubemap/top.jpg');
+        this.texUnderwaterPZ = new CGFtexture(this, 'images/underwater_cubemap/front.jpg');
+        this.texUnderwater = [this.texUnderwaterNX, this.texUnderwaterNY, this.texUnderwaterNZ, this.texUnderwaterPX, this.texUnderwaterPY, this.texUnderwaterPZ];
+
 
 
         this.sandAppearance = new CGFappearance(this);
@@ -115,12 +114,13 @@ export class MyScene extends CGFscene {
         
         // Set initial cube texture (comment one of the following lines)
         //this.cubeMap.initTextures(this.textureTest);
-        this.cubeTextures = [this.textureTest, this.textureDemo, this.textureCustom];
-        this.selectedCubeTexture = 2;
+        this.cubeTextures = [this.textureTest, this.textureDemo, this.textureCustom, this.texUnderwater];
+        this.selectedCubeTexture = 3;
         this.texturesList = {
             'Test' : 0,
             'Moutain' : 1,
-            'Desert' : 2
+            'Desert' : 2,
+            'Water' : 3
         }
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
         
@@ -252,7 +252,8 @@ export class MyScene extends CGFscene {
             this.sandAppearance.apply();
             this.setActiveShader(this.sandShader);
             this.sandMap.bind(2);
-            this.translate(0, -5, 0);
+            this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
+            this.translate(0, -24, 0);
             this.seaFloor.display();
             this.setActiveShader(this.defaultShader);
             this.popMatrix();
