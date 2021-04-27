@@ -32,7 +32,7 @@ export class MyHalfSphere extends CGFobject {
     var latVertices = this.longDivs + 1;
 
     // build an all-around stack at a time, starting on "north pole" and proceeding "south"
-    for (let latitude = 0; latitude < this.latDivs*0.5; latitude++) {
+    for (let latitude = 0; latitude <= this.latDivs*0.5; latitude++) {
       var sinPhi = Math.sin(phi);
       var cosPhi = Math.cos(phi);
 
@@ -46,14 +46,16 @@ export class MyHalfSphere extends CGFobject {
         this.vertices.push(x, y, z);
 
         //--- Indices
-        if (latitude < this.latDivs*0.5 && longitude < this.longDivs) {
+        if (latitude <= this.latDivs && longitude < this.longDivs) {
           var current = latitude * latVertices + longitude;
           var next = current + latVertices;
           
-          //this.indices.push( current + 1, current, next);
-          //this.indices.push( current + 1, next, next +1);
-          this.indices.push( next, current, current + 1);
-          this.indices.push( next +1, next, current + 1);
+          // View from outside
+          this.indices.push( current + 1, current, next);
+          this.indices.push( current + 1, next, next +1);
+          // View from inside
+          //this.indices.push( next, current, current + 1);
+          //this.indices.push( next +1, next, current + 1);
         }
         //--- Normals
         this.normals.push(x, y, z);
@@ -64,47 +66,6 @@ export class MyHalfSphere extends CGFobject {
       }
       phi += phiInc;
     }
-
-    var phi = 0;
-    var theta = 0;
-    var phiInc = Math.PI / this.latDivs;
-    var thetaInc = (2 * Math.PI) / this.longDivs;
-    var latVertices = this.longDivs + 1;
-
-    // build an all-around stack at a time, starting on "north pole" and proceeding "south"
-    for (let latitude = 0; latitude < this.latDivs*0.5; latitude++) {
-      var sinPhi = Math.sin(phi);
-      var cosPhi = Math.cos(phi);
-
-      // in each stack, build all the slices around, starting on longitude 0
-      theta = 0;
-      for (let longitude = 0; longitude <= this.longDivs; longitude++) {
-        //--- Vertices coordinates
-        var x = Math.cos(theta) * sinPhi;
-        var y = cosPhi;
-        var z = Math.sin(-theta) * sinPhi;
-        this.vertices.push(x, y, z);
-
-        //--- Indices
-        if (latitude < this.latDivs*0.5 && longitude < this.longDivs) {
-          var current = latitude * latVertices + longitude;
-          var next = current + latVertices;
-          
-          this.indices.push( current + 1, current, next);
-          this.indices.push( current + 1, next, next +1);
-          //this.indices.push( next, current, current + 1);
-          //this.indices.push( next +1, next, current + 1);
-        }
-        //--- Normals
-        this.normals.push(-x, -y, -z);
-        theta += thetaInc;
-
-        //--- Texture Coordinates
-        this.texCoords.push(longitude/this.longDivs, latitude/this.latDivs);
-      }
-      phi += phiInc;
-    }
-
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
