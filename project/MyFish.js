@@ -1,6 +1,6 @@
-import { CGFobject, CGFappearance, CGFshader } from '../../lib/CGF.js';
-import { MySphere } from "../MySphere.js";
-import { MyTriangle } from "./MyTriangle.js";
+import { CGFobject, CGFappearance, CGFshader } from '../lib/CGF.js';
+import { MySphere } from "./geometries/MySphere.js";
+import { MyTriangle } from "./geometries/MyTriangle.js";
 
 /**
  * MyFish
@@ -35,23 +35,22 @@ export class MyFish extends CGFobject {
     this.fishScales.setDiffuse(0.9, 0.9, 0.9, 1);
     this.fishScales.setSpecular(0.1, 0.1, 0.1, 1);
     this.fishScales.setShininess(10.0);*/
-    this.fishScales.loadTexture('./MyFish/fish_scales.jpg');
-    this.fishShader = new CGFshader(this.scene.gl, './MyFish/fish_shader.vert', './MyFish/fish_shader.frag');
+    this.fishScales.loadTexture('./images/fish/fish_scales.jpg');
+    this.fishShader = new CGFshader(this.scene.gl, './shaders/fish_shader.vert', './shaders/fish_shader.frag');
 
     this.red = new CGFappearance(this.scene);
     this.red.setAmbient (1.0, 0.0, 0.0, 1.0);
     this.red.setDiffuse (1.0, 0.0, 0.0, 1.0);
     this.red.setSpecular(1.0, 0.0, 0.0, 1.0);
     this.red.setShininess(10.0);
-    this.redShader = new CGFshader(this.scene.gl, './MyFish/red.vert', './MyFish/red.frag');
+    this.redShader = new CGFshader(this.scene.gl, './shaders/red.vert', './shaders/red.frag');
 
     this.eye = new CGFappearance(this.scene);
     this.eye.setAmbient (1.0, 1.0, 1.0, 1.0);
     this.eye.setDiffuse (1.0, 1.0, 1.0, 1.0);
     this.eye.setSpecular(1.0, 1.0, 1.0, 1.0);
     this.eye.setShininess(10.0);
-    this.eye.loadTexture('./MyFish/eye.png');
-
+    this.eye.loadTexture('./images/fish/eye.png');
 
   }
 

@@ -1,5 +1,5 @@
 import { CGFobject, CGFappearance, CGFtexture, CGFshader } from '../lib/CGF.js';
-import { MyPlane } from "./MyPlane.js";
+import { MyPlane } from "./geometries/MyPlane.js";
 
 /**
  * MyFish
@@ -21,13 +21,13 @@ export class MyWaterSurface extends CGFobject {
         this.waterAppearance.setSpecular(0, 0, 0, 1);
         this.waterAppearance.setEmission(1, 1, 1, 1);
         this.waterAppearance.setShininess(10.0);
-        this.waterTex= new CGFtexture(this.scene,"./images/pier.jpg");
-        this.waterMap = new CGFtexture(this.scene, "./images/distortionmap.png");
+        this.waterTex= new CGFtexture(this.scene,"./images/water_surface/pier.jpg");
+        this.waterMap = new CGFtexture(this.scene, "./images/water_surface/distortionmap.png");
         this.waterAppearance.setTexture(this.waterTex);
         this.waterAppearance.setTextureWrap('MIRRORED_REPEAT', 'MIRRORED_REPEAT');
 
 
-        this.waterShader = new CGFshader(this.scene.gl, "./water.vert", "./water.frag");
+        this.waterShader = new CGFshader(this.scene.gl, "./shaders/water.vert", "./shaders/water.frag");
         this.waterShader.setUniformsValues({ uSampler2: 3 });
     }
 
@@ -39,7 +39,7 @@ export class MyWaterSurface extends CGFobject {
         this.waterAppearance.apply();
         this.scene.setActiveShader(this.waterShader);
         this.waterMap.bind(3);
-        this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2])
+        //this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2])
         this.scene.translate(0, this.height, 0);
         this.scene.scale(this.side, 1, this.side);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);

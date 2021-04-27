@@ -1,5 +1,5 @@
-import { CGFobject, CGFappearance, CGFtexture, CGFshader } from '../../lib/CGF.js';
-import { MyPlane } from "../MyPlane.js";
+import { CGFobject, CGFappearance, CGFtexture, CGFshader } from '../lib/CGF.js';
+import { MyPlane } from "./geometries/MyPlane.js";
 
 /**
  * MyFish
@@ -20,11 +20,11 @@ export class MySeaFloor extends CGFobject {
         this.sandAppearance.setSpecular(0, 0, 0, 1);
         this.sandAppearance.setEmission(1, 1, 1, 1);
         this.sandAppearance.setShininess(10.0);
-        this.sandTex= new CGFtexture(this.scene,"./images/sand.png");
-        this.sandMap = new CGFtexture(this.scene, "./images/sandMap.png");
+        this.sandTex= new CGFtexture(this.scene,"./images/sea_floor/sand.png");
+        this.sandMap = new CGFtexture(this.scene, "./images/sea_floor/sandMap.png");
         this.sandAppearance.setTexture(this.sandTex);
 
-        this.sandShader = new CGFshader(this.scene.gl, "./MySeaFloor/sand.vert", "./MySeaFloor/sand.frag");
+        this.sandShader = new CGFshader(this.scene.gl, "./shaders/sand.vert", "./shaders/sand.frag");
         this.sandShader.setUniformsValues({ uSampler2: 2, heightScale: maxHeight });
     }
 

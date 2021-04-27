@@ -1,5 +1,5 @@
 import { MyMovingObject } from './MyMovingObject.js';
-import { MyFish } from "./MyFish/MyFish.js";
+import { MyFish } from "./MyFish.js";
 
 /**
  * MyMovingFish
@@ -15,7 +15,7 @@ export class MyMovingFish extends MyMovingObject {
     this.rightOri = 1;
     
     this.limitSup = 3;
-    this.limitInf = -4;
+    this.limitInf = -15;
     this.yMaxVel = 0.05;
     this.yVel = 0;
 

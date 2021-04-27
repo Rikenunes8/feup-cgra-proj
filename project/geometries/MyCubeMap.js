@@ -1,4 +1,4 @@
-import { CGFobject, CGFappearance } from "../lib/CGF.js";
+import { CGFobject, CGFappearance } from "../../lib/CGF.js";
 import { MyQuad } from './MyQuad.js';
 /**
  * MyCubeMap
@@ -6,8 +6,9 @@ import { MyQuad } from './MyQuad.js';
  * @param scene - Reference to MyScene object
  */
 export class MyCubeMap extends CGFobject {
-	constructor(scene) {
+	constructor(scene, scale) {
 		super(scene);
+    this.scale = scale;
     this.quad = new MyQuad(scene);
     this.initMaterial();
 	}
@@ -38,52 +39,50 @@ export class MyCubeMap extends CGFobject {
 
   display() {
     
-    var scale = 50;
-
     this.set_filter_apply(this.front);
     this.scene.pushMatrix();
-    this.scene.translate(0, 0, 0.5*scale);
+    this.scene.translate(0, 0, 0.5*this.scale);
     this.scene.rotate(Math.PI, 0, 1, 0);
-    this.scene.scale(scale, scale, scale);
+    this.scene.scale(this.scale, this.scale, this.scale);
     this.quad.display();
     this.scene.popMatrix();
 
     this.set_filter_apply(this.back);
     this.scene.pushMatrix();
-    this.scene.translate(0, 0, -0.5*scale);
-    this.scene.scale(scale, scale, scale);
+    this.scene.translate(0, 0, -0.5*this.scale);
+    this.scene.scale(this.scale, this.scale, this.scale);
     this.quad.display();
     this.scene.popMatrix();
 
     this.set_filter_apply(this.right);
     this.scene.pushMatrix();
-    this.scene.translate(0.5*scale, 0, 0);
+    this.scene.translate(0.5*this.scale, 0, 0);
     this.scene.rotate(-Math.PI/2, 0, 1, 0);
-    this.scene.scale(scale, scale, scale);
+    this.scene.scale(this.scale, this.scale, this.scale);
     this.quad.display();
     this.scene.popMatrix();
 
     this.set_filter_apply(this.left);
     this.scene.pushMatrix();
-    this.scene.translate(-0.5*scale, 0, 0);
+    this.scene.translate(-0.5*this.scale, 0, 0);
     this.scene.rotate(Math.PI/2, 0, 1, 0);
-    this.scene.scale(scale, scale, scale);
+    this.scene.scale(this.scale, this.scale, this.scale);
     this.quad.display();
     this.scene.popMatrix();
 
     this.set_filter_apply(this.down);
     this.scene.pushMatrix();
-    this.scene.translate(0, -0.5*scale, 0);
+    this.scene.translate(0, -0.5*this.scale, 0);
     this.scene.rotate(-Math.PI/2, 1, 0, 0);
-    this.scene.scale(scale, scale, scale);
+    this.scene.scale(this.scale, this.scale, this.scale);
     this.quad.display();
     this.scene.popMatrix();
 
     this.set_filter_apply(this.up);
     this.scene.pushMatrix();
-    this.scene.translate(0, 0.5*scale, 0);
+    this.scene.translate(0, 0.5*this.scale, 0);
     this.scene.rotate(Math.PI/2, 1, 0, 0);
-    this.scene.scale(scale, scale, scale);
+    this.scene.scale(this.scale, this.scale, this.scale);
     this.quad.display();
     this.scene.popMatrix();
 

@@ -1,11 +1,11 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader} from "../lib/CGF.js";
-import { MyCubeMap } from "./MyCubeMap.js";
-import { MyCylinder } from "./MyCylinder.js";
-import { MyTriangle } from './MyFish/MyTriangle.js';
+import { MyCubeMap } from "./geometries/MyCubeMap.js";
+import { MySphere } from "./geometries/MySphere.js";
+import { MyCylinder } from "./geometries/MyCylinder.js";
+import { MyTriangle } from './geometries/MyTriangle.js';
 import { MyMovingObject } from "./MyMovingObject.js";
 import { MyMovingFish } from "./MyMovingFish.js";
-import { MySphere } from "./MySphere.js";
-import {MySeaFloor} from "./MySeaFloor/MySeaFloor.js";
+import {MySeaFloor} from "./MySeaFloor.js";
 import {MyWaterSurface} from "./MyWaterSurface.js";
 import { MyNest } from "./MyNest.js";
 
@@ -77,36 +77,36 @@ export class MyScene extends CGFscene {
     }
 
     initTextures() {
-        this.textureNX = new CGFtexture(this, 'images/test_cubemap/nx.png');
-        this.textureNY = new CGFtexture(this, 'images/test_cubemap/ny.png');
-        this.textureNZ = new CGFtexture(this, 'images/test_cubemap/nz.png');
-        this.texturePX = new CGFtexture(this, 'images/test_cubemap/px.png');
-        this.texturePY = new CGFtexture(this, 'images/test_cubemap/py.png');
-        this.texturePZ = new CGFtexture(this, 'images/test_cubemap/pz.png');
+        this.textureNX = new CGFtexture(this, 'images/cubemap/test_cubemap/nx.png');
+        this.textureNY = new CGFtexture(this, 'images/cubemap/test_cubemap/ny.png');
+        this.textureNZ = new CGFtexture(this, 'images/cubemap/test_cubemap/nz.png');
+        this.texturePX = new CGFtexture(this, 'images/cubemap/test_cubemap/px.png');
+        this.texturePY = new CGFtexture(this, 'images/cubemap/test_cubemap/py.png');
+        this.texturePZ = new CGFtexture(this, 'images/cubemap/test_cubemap/pz.png');
         this.textureTest = [this.textureNX, this.textureNY, this.textureNZ, this.texturePX, this.texturePY, this.texturePZ];
 
-        this.textureDemoNX = new CGFtexture(this, 'images/demo_cubemap/left.png');
-        this.textureDemoNY = new CGFtexture(this, 'images/demo_cubemap/bottom.png');
-        this.textureDemoNZ = new CGFtexture(this, 'images/demo_cubemap/back.png');
-        this.textureDemoPX = new CGFtexture(this, 'images/demo_cubemap/right.png');
-        this.textureDemoPY = new CGFtexture(this, 'images/demo_cubemap/top.png');
-        this.textureDemoPZ = new CGFtexture(this, 'images/demo_cubemap/front.png');
+        this.textureDemoNX = new CGFtexture(this, 'images/cubemap/demo_cubemap/left.png');
+        this.textureDemoNY = new CGFtexture(this, 'images/cubemap/demo_cubemap/bottom.png');
+        this.textureDemoNZ = new CGFtexture(this, 'images/cubemap/demo_cubemap/back.png');
+        this.textureDemoPX = new CGFtexture(this, 'images/cubemap/demo_cubemap/right.png');
+        this.textureDemoPY = new CGFtexture(this, 'images/cubemap/demo_cubemap/top.png');
+        this.textureDemoPZ = new CGFtexture(this, 'images/cubemap/demo_cubemap/front.png');
         this.textureDemo = [this.textureDemoNX, this.textureDemoNY, this.textureDemoNZ, this.textureDemoPX, this.textureDemoPY, this.textureDemoPZ];
 
-        this.textureCustomNX = new CGFtexture(this, 'images/custom_cubemap/nx.png');
-        this.textureCustomNY = new CGFtexture(this, 'images/custom_cubemap/ny.png');
-        this.textureCustomNZ = new CGFtexture(this, 'images/custom_cubemap/nz.png');
-        this.textureCustomPX = new CGFtexture(this, 'images/custom_cubemap/px.png');
-        this.textureCustomPY = new CGFtexture(this, 'images/custom_cubemap/py.png');
-        this.textureCustomPZ = new CGFtexture(this, 'images/custom_cubemap/pz.png');
+        this.textureCustomNX = new CGFtexture(this, 'images/cubemap/custom_cubemap/nx.png');
+        this.textureCustomNY = new CGFtexture(this, 'images/cubemap/custom_cubemap/ny.png');
+        this.textureCustomNZ = new CGFtexture(this, 'images/cubemap/custom_cubemap/nz.png');
+        this.textureCustomPX = new CGFtexture(this, 'images/cubemap/custom_cubemap/px.png');
+        this.textureCustomPY = new CGFtexture(this, 'images/cubemap/custom_cubemap/py.png');
+        this.textureCustomPZ = new CGFtexture(this, 'images/cubemap/custom_cubemap/pz.png');
         this.textureCustom = [this.textureCustomNX, this.textureCustomNY, this.textureCustomNZ, this.textureCustomPX, this.textureCustomPY, this.textureCustomPZ];
 
-        this.texUnderwaterNX = new CGFtexture(this, 'images/underwater_cubemap/left.jpg');
-        this.texUnderwaterNY = new CGFtexture(this, 'images/underwater_cubemap/bottom.jpg');
-        this.texUnderwaterNZ = new CGFtexture(this, 'images/underwater_cubemap/back.jpg');
-        this.texUnderwaterPX = new CGFtexture(this, 'images/underwater_cubemap/right.jpg');
-        this.texUnderwaterPY = new CGFtexture(this, 'images/underwater_cubemap/top.jpg');
-        this.texUnderwaterPZ = new CGFtexture(this, 'images/underwater_cubemap/front.jpg');
+        this.texUnderwaterNX = new CGFtexture(this, 'images/cubemap/underwater_cubemap/left.jpg');
+        this.texUnderwaterNY = new CGFtexture(this, 'images/cubemap/underwater_cubemap/bottom.jpg');
+        this.texUnderwaterNZ = new CGFtexture(this, 'images/cubemap/underwater_cubemap/back.jpg');
+        this.texUnderwaterPX = new CGFtexture(this, 'images/cubemap/underwater_cubemap/right.jpg');
+        this.texUnderwaterPY = new CGFtexture(this, 'images/cubemap/underwater_cubemap/top.jpg');
+        this.texUnderwaterPZ = new CGFtexture(this, 'images/cubemap/underwater_cubemap/front.jpg');
         this.texUnderwater = [this.texUnderwaterNX, this.texUnderwaterNY, this.texUnderwaterNZ, this.texUnderwaterPX, this.texUnderwaterPY, this.texUnderwaterPZ];
 
 
@@ -131,10 +131,10 @@ export class MyScene extends CGFscene {
         this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
         this.waterSurface = new MyWaterSurface(this, 50, 50, 20);
 
-        this.cubeMap = new MyCubeMap(this);
+        this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
 
-        this.nest = new MyNest(this,16,8);
+        this.nest = new MyNest(this, 5);
     }
 
     initInterfaceObjects() {
@@ -251,9 +251,14 @@ export class MyScene extends CGFscene {
         
         // ------Sea Floor
         if(this.displaySeaFloor){
-            this.pushMatrix();
-            this.seaFloor.display();
-            this.popMatrix();
+          this.pushMatrix();
+          this.seaFloor.display();
+          this.popMatrix();
+          // ------- Nest
+          this.pushMatrix();
+          this.nest.display();
+          this.popMatrix();
+          // -------------
         }
         // ------------------
 
@@ -276,13 +281,6 @@ export class MyScene extends CGFscene {
           this.earthAppearance.apply()
           this.incompleteSphere.display();
         }
-
-        // ------- Nest
-        this.pushMatrix();
-        this.earthAppearance.apply()
-        this.nest.display();
-        this.popMatrix();
-        // ----------------------------
 
         // ---- END Primitive drawing section ------
     }
