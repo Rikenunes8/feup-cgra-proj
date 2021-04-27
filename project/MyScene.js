@@ -6,6 +6,8 @@ import { MyMovingObject } from "./MyMovingObject.js";
 import { MyMovingFish } from "./MyMovingFish.js";
 import { MySphere } from "./MySphere.js";
 import {MySeaFloor} from "./MySeaFloor/MySeaFloor.js";
+import { MyNest } from "./MyNest.js";
+
 
 /**
 * MyScene
@@ -130,6 +132,8 @@ export class MyScene extends CGFscene {
 
         this.cubeMap = new MyCubeMap(this);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
+
+        this.nest = new MyNest(this,16,8);
     }
 
     initInterfaceObjects() {
@@ -262,6 +266,12 @@ export class MyScene extends CGFscene {
           this.earthAppearance.apply()
           this.incompleteSphere.display();
         }
+
+        // ------- Nest
+        this.pushMatrix();
+        this.earthAppearance.apply()
+        this.nest.display();
+        this.popMatrix();
         // ----------------------------
 
         // ---- END Primitive drawing section ------
