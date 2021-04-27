@@ -6,6 +6,7 @@ import { MyMovingObject } from "./MyMovingObject.js";
 import { MyMovingFish } from "./MyMovingFish.js";
 import { MySphere } from "./MySphere.js";
 import {MySeaFloor} from "./MySeaFloor/MySeaFloor.js";
+import {MyWaterSurface} from "./MyWaterSurface.js";
 
 /**
 * MyScene
@@ -127,6 +128,7 @@ export class MyScene extends CGFscene {
         this.cylinder = new MyCylinder(this, 12);
         this.fish = new MyMovingFish(this);
         this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
+        this.waterSurface = new MyWaterSurface(this, 50, 50, 20);
 
         this.cubeMap = new MyCubeMap(this);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -143,6 +145,7 @@ export class MyScene extends CGFscene {
         this.displayObject = false;
         this.displayFish = true;
         this.displaySeaFloor = true;
+        this.displayWaterSurface = true;
     }
 
     onCylinderComplexityChanged() {
@@ -166,6 +169,7 @@ export class MyScene extends CGFscene {
         this.checkKeys();
         this.orientedObject.update();
         this.fish.update();
+        this.waterSurface.update(t);
     }
 
     checkKeys() {
@@ -249,6 +253,13 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
         // ------------------
+
+        // ----- Water Surface
+        if (this.displayWaterSurface) {
+            this.pushMatrix();
+            this.waterSurface.display();
+            this.popMatrix();
+        }
 
         // ------ Cylinder
         if (this.displayCylinder) {

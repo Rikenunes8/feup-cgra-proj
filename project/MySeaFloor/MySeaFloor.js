@@ -33,7 +33,7 @@ export class MySeaFloor extends CGFobject {
         this.scene.setActiveShader(this.sandShader);
         this.sandMap.bind(2);
         this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2])
-        this.scene.translate(0, -24, 0);
+        this.scene.translate(0, -3, 0);
         this.scene.scale(this.side, 1, this.side);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.seaFloor.display();
