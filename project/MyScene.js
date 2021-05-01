@@ -8,6 +8,7 @@ import { MyMovingFish } from "./MyMovingFish.js";
 import {MySeaFloor} from "./MySeaFloor.js";
 import {MyWaterSurface} from "./MyWaterSurface.js";
 import { MyNest } from "./MyNest.js";
+import { MyPilar } from "./MyPilar.js";
 
 /**
 * MyScene
@@ -127,10 +128,14 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.orientedObject = new MyMovingObject(this, new MyTriangle(this));
-        this.cylinder = new MyCylinder(this, 12);
+        this.cylinder = new MyCylinder(this, 12, 1);
         this.fish = new MyMovingFish(this);
         this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
         this.waterSurface = new MyWaterSurface(this, 50, 50, 20);
+        this.pilar1 = new MyPilar(this, 8, 0);
+        this.pilar2 = new MyPilar(this, 22, 0);
+        this.pilar3 = new MyPilar(this, 8, -5);
+        this.pilar4 = new MyPilar(this, 22, -5);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -150,6 +155,7 @@ export class MyScene extends CGFscene {
         this.displayFish = true;
         this.displaySeaFloor = true;
         this.displayWaterSurface = true;
+        this.displayPilars = true;
     }
 
     onCylinderComplexityChanged() {
@@ -268,6 +274,21 @@ export class MyScene extends CGFscene {
             this.pushMatrix();
             this.waterSurface.display();
             this.popMatrix();
+        }
+
+        if (this.displayPilars) {
+          this.pushMatrix();
+          this.pilar1.display();
+          this.popMatrix();
+          this.pushMatrix();
+          this.pilar2.display();
+          this.popMatrix();
+          this.pushMatrix();
+          this.pilar3.display();
+          this.popMatrix();
+          this.pushMatrix();
+          this.pilar4.display();
+          this.popMatrix();
         }
 
         // ------ Cylinder

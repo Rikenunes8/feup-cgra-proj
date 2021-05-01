@@ -6,10 +6,10 @@ export class MyCylinder extends CGFobject {
    * @param  {CGFscene} scene - MyScene object
    * @param  {integer} slices - number of slices around Y axis
    */
-  constructor(scene, slices) {
+  constructor(scene, slices, yDivs) {
     super(scene);
     this.slices = slices;
-
+    this.yDivs = yDivs;
     this.initBuffers();
   }
 
@@ -26,13 +26,13 @@ export class MyCylinder extends CGFobject {
 
     var theta = 0;
     var thetaInc = (2 * Math.PI) / this.slices;
-
+    
     for (let lat=0; lat <= 1; lat++) {
       theta = 0;
-      for (let lon = 0; lon < this.slices+1; lon++) {
+      for (let lon = 0; lon <= this.slices; lon++) {
         //--- Vertices coordinates
         var x = Math.cos(theta);
-        var y = lat;
+        var y = 1-lat;
         var z = -Math.sin(theta);
         this.vertices.push(x, y, z);
         
@@ -41,10 +41,10 @@ export class MyCylinder extends CGFobject {
           var current = lat * (this.slices+1) + lon;
           var next = current + (this.slices+1);
           
-          this.indices.push( current, current + 1 , next);
-          this.indices.push( current + 1, next + 1, next);
+          this.indices.push( current + 1, current, next);
+          this.indices.push( current + 1, next, next +1);
         }
-        this.texCoords.push(lon/this.slices, (lat+1)%2);
+        this.texCoords.push(lon/this.slices, lat*(this.yDivs));
         this.normals.push(x, 0, z);
         theta += thetaInc;
       }
