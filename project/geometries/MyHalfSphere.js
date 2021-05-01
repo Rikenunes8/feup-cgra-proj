@@ -20,19 +20,29 @@ export class MyHalfSphere extends CGFobject {
    * Initializes the sphere buffers
    */
   initBuffers() {
-    this.vertices = [];
-    this.indices = [];
-    this.normals = [];
-    this.texCoords = [];
+    // View from outside
+    this.verticesOut = [];
+    this.indicesOut = [];
+    this.normalsOut = [];
+    this.texCoordsOut = [];
+    // View from inside
+    this.verticesIn = [];
+    this.indicesIn = [];
+    this.normalsIn = [];
+    this.texCoordsIn = [];
 
     var phi = 0;
     var theta = 0;
     var phiInc = Math.PI / this.latDivs;
     var thetaInc = (2 * Math.PI) / this.longDivs;
     var latVertices = this.longDivs + 1;
+    this.latDivs = this.latDivs/2;
+
+    var numVertices = (this.longDivs+1)*(this.latDivs+1);
+    var inHalfSphereHeight = 0.7;
 
     // build an all-around stack at a time, starting on "north pole" and proceeding "south"
-    for (let latitude = 0; latitude <= this.latDivs*0.5; latitude++) {
+    for (let latitude = 0; latitude <= this.latDivs; latitude++) {
       var sinPhi = Math.sin(phi);
       var cosPhi = Math.cos(phi);
 
@@ -41,31 +51,44 @@ export class MyHalfSphere extends CGFobject {
       for (let longitude = 0; longitude <= this.longDivs; longitude++) {
         //--- Vertices coordinates
         var x = Math.cos(theta) * sinPhi;
-        var y = cosPhi;
+        var yOut = cosPhi;
+        var yIn = cosPhi * inHalfSphereHeight;
         var z = Math.sin(-theta) * sinPhi;
-        this.vertices.push(x, y, z);
+        this.verticesOut.push(x, yOut, z);
+        this.verticesIn.push(x, yIn, z);
 
         //--- Indices
-        if (latitude <= this.latDivs && longitude < this.longDivs) {
+        if (latitude < this.latDivs && longitude < this.longDivs) {
           var current = latitude * latVertices + longitude;
           var next = current + latVertices;
           
           // View from outside
-          this.indices.push( current + 1, current, next);
-          this.indices.push( current + 1, next, next +1);
+          this.indicesOut.push( current + 1, current, next);
+          this.indicesOut.push( current + 1, next, next +1);
+
           // View from inside
-          //this.indices.push( next, current, current + 1);
-          //this.indices.push( next +1, next, current + 1);
+          this.indicesIn.push( next+numVertices, current+numVertices, current+1+numVertices);
+          this.indicesIn.push( next+1+numVertices, next+numVertices, current+1+numVertices);
         }
+
         //--- Normals
-        this.normals.push(x, y, z);
-        theta += thetaInc;
+        this.normalsOut.push(x, yOut, z);
+        this.normalsIn.push(-x, -yIn, -z);
 
         //--- Texture Coordinates
-        this.texCoords.push(longitude/this.longDivs, latitude/this.latDivs);
+        this.texCoordsOut.push(longitude/this.longDivs, latitude/this.latDivs);
+        this.texCoordsIn.push(longitude/this.longDivs, latitude/this.latDivs);
+
+        theta += thetaInc;
       }
       phi += phiInc;
     }
+
+    // Concat both sides
+    this.vertices = this.verticesOut.concat(this.verticesIn);
+    this.indices  = this.indicesOut.concat(this.indicesIn);
+    this.normals  = this.normalsOut.concat(this.normalsIn);
+    this.texCoords = this.texCoordsOut.concat(this.texCoordsIn);
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
