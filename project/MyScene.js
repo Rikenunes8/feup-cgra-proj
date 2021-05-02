@@ -9,6 +9,7 @@ import {MySeaFloor} from "./MySeaFloor.js";
 import {MyWaterSurface} from "./MyWaterSurface.js";
 import { MyNest } from "./MyNest.js";
 import { MyPilar } from "./MyPilar.js";
+import { MyRocketSet } from "./MyRockSet.js";
 
 /**
 * MyScene
@@ -136,6 +137,7 @@ export class MyScene extends CGFscene {
         this.pilar2 = new MyPilar(this, 22, 0);
         this.pilar3 = new MyPilar(this, 8, -5);
         this.pilar4 = new MyPilar(this, 22, -5);
+        this.rocketSet = new MyRocketSet(this, 23, -23, 23, -23, 10, 5, 10, 5, 90, 0);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -156,6 +158,7 @@ export class MyScene extends CGFscene {
         this.displaySeaFloor = true;
         this.displayWaterSurface = true;
         this.displayPilars = true;
+        this.displayRockets = true;
     }
 
     onCylinderComplexityChanged() {
@@ -288,6 +291,12 @@ export class MyScene extends CGFscene {
           this.popMatrix();
           this.pushMatrix();
           this.pilar4.display();
+          this.popMatrix();
+        }
+
+        if (this.displayRockets) {
+          this.pushMatrix();
+          this.rocketSet.display();
           this.popMatrix();
         }
 

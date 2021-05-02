@@ -1,16 +1,18 @@
-import {CGFobject} from '../../lib/CGF.js';
+import {CGFobject} from '../lib/CGF.js';
 
-export class MySphere extends CGFobject {
+export class MyRock extends CGFobject {
   /**
    * @method constructor
    * @param  {CGFscene} scene - MyScene object
    * @param  {integer} slices - number of slices around Y axis
    * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
+   * @param  {integer} offset - offset maximum to apply to each vertice (e.g. offset = 20, maximum offset is 0.20)
    */
-  constructor(scene, slices, stacks) {
+  constructor(scene, slices, stacks, offset) {
     super(scene);
     this.latDivs = stacks * 2;
     this.longDivs = slices;
+    this.offset = offset;
 
     this.initBuffers();
   }
@@ -30,6 +32,10 @@ export class MySphere extends CGFobject {
     var phiInc = Math.PI / this.latDivs;
     var thetaInc = (2 * Math.PI) / this.longDivs;
     var latVertices = this.longDivs + 1;
+
+    var firstLatVerX;
+    var firstLatVerY;
+    var firstLatVerZ;
 
     // build an all-around stack at a time, starting on "north pole" and proceeding "south"
     for (let latitude = 0; latitude <= this.latDivs; latitude++) {
@@ -53,7 +59,22 @@ export class MySphere extends CGFobject {
           this.indices.push( current + 1, next, next +1);
         }
         
-        this.vertices.push(x, y, z);
+        if (longitude != this.longDivs) {
+          var ran = Math.floor(Math.random()*this.offset*2-this.offset)/100;
+          var xPos = x+(x*ran);
+          var yPos = y+(y*ran);
+          var zPos = z+(z*ran);
+          
+          if (longitude == 0) {
+            firstLatVerX = xPos;
+            firstLatVerY = yPos;
+            firstLatVerZ = zPos;
+          }
+          this.vertices.push(xPos, yPos, zPos);
+        }
+        else {
+          this.vertices.push(firstLatVerX, firstLatVerY, firstLatVerZ);
+        }
         
         //--- Normals
         this.normals.push(x, y, z);
