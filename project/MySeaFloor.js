@@ -10,7 +10,7 @@ export class MySeaFloor extends CGFobject {
     constructor(scene, nDivs, side, maxHeight) {
         super(scene);
         this.initAppearance(maxHeight);
-        this.seaFloor = new MyPlane(this.scene, nDivs);
+        this.seaFloor = new MyPlane(this.scene, nDivs, 0, 8.6, 0, 5.25);
         this.side = side;
     }
     initAppearance(maxHeight) {

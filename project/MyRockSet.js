@@ -2,11 +2,11 @@ import {CGFappearance, CGFobject} from '../lib/CGF.js';
 import { MyRock } from "./MyRock.js";
 
 export class MyRocketSet extends CGFobject {
-  constructor(scene, xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin, rotMax, rotMin){
-    super(scene)
+  constructor(scene, n, xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin, rotMax, rotMin){
+    super(scene);
     this.rockAppearence = new CGFappearance(this.scene);
     this.rockAppearence.setEmission(0.1,0.1,0.1,1);
-    this.n = 10;
+    this.n = n;
     this.initRocks(xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin, rotMax, rotMin);
   }
 
@@ -19,8 +19,8 @@ export class MyRocketSet extends CGFobject {
     this.rocksRotY = [];
     for (let i = 0; i < this.n; i++) {
       this.rocks.push(new MyRock(this.scene, 8, 4, 15));
-      this.rocksX.push(this.generateRandom(xMax, xMin, 1));
-      this.rocksZ.push(this.generateRandom(zMax, zMin, 1));
+      this.rocksX.push(this.generateRandom(xMax, xMin, 10));
+      this.rocksZ.push(this.generateRandom(zMax, zMin, 10));
       this.rocksSclX.push(this.generateRandom(sclXMax, sclXMin, 10));
       this.rocksSclZ.push(this.generateRandom(sclZMax, sclZMin, 10));
       this.rocksRotY.push(this.generateRandom(rotMax, rotMin, 1));
