@@ -21,7 +21,7 @@ export class MyPilar extends CGFobject {
         this.trunk.setDiffuse(1, 1, 1, 1);
         this.trunk.setSpecular(0, 0, 0, 1);
         this.trunk.setEmission(0.8, 0.8, 0.8, 0.1);
-        this.trunk.loadTexture('./images/trunk.jpg')
+        this.trunk.loadTexture('./images/trunk_.jpg')
         this.trunk.setTextureWrap('REPEAT', 'REPEAT');
     }
     display() {

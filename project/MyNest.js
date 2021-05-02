@@ -27,7 +27,7 @@ export class MyNest extends CGFobject {
     display() {
         this.shell.apply();
 
-        this.scene.translate(-10, -21 , 10);
+        this.scene.translate(-10, -22 , 10);
         this.scene.rotate(Math.PI, 0, 0, 1);
         this.scene.scale(this.radius, this.radius/2, this.radius); 
         this.nest.display();

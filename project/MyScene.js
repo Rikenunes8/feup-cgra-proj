@@ -137,9 +137,7 @@ export class MyScene extends CGFscene {
         this.pilar2 = new MyPilar(this, 22, 0);
         this.pilar3 = new MyPilar(this, 8, -5);
         this.pilar4 = new MyPilar(this, 22, -5);
-        //this.rocketSet = new MyRocketSet(this, 10, 23, -23, 23, -23, 10, 5, 10, 5, 90, 0);
-        this.rocketSet = new MyRocketSet(this, 5, 7, -7, 7, -7, 10, 5, 10, 5, 90, 0);
-
+        this.rocketSet = new MyRocketSet(this, 10, 23, -23, 23, -23, 10, 5, 10, 5, 90, 0);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -158,8 +156,8 @@ export class MyScene extends CGFscene {
         this.displayObject = false;
         this.displayFish = true;
         this.displaySeaFloor = true;
-        this.displayWaterSurface = false;
-        this.displayPilars = false;
+        this.displayWaterSurface = true;
+        this.displayPilars = true;
         this.displayRocks = true;
     }
 
