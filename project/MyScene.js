@@ -10,6 +10,8 @@ import {MyWaterSurface} from "./MyWaterSurface.js";
 import { MyNest } from "./MyNest.js";
 import { MyPilar } from "./MyPilar.js";
 import { MyRocketSet } from "./MyRockSet.js";
+import{MySeaWeed} from "./MySeaWeed.js"
+import { MySeaWeedSet } from "./MySeaWeedSet.js";
 
 /**
 * MyScene
@@ -138,6 +140,7 @@ export class MyScene extends CGFscene {
         this.pilar3 = new MyPilar(this, 8, -5);
         this.pilar4 = new MyPilar(this, 22, -5);
         this.rocketSet = new MyRocketSet(this, 10, 23, -23, 23, -23, 10, 5, 10, 5, 90, 0);
+        this.seaWeedSet = new MySeaWeedSet(this,15);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -159,6 +162,7 @@ export class MyScene extends CGFscene {
         this.displayWaterSurface = true;
         this.displayPilars = true;
         this.displayRocks = true;
+        this.displaySeaWeed =true;
     }
 
     onCylinderComplexityChanged() {
@@ -300,6 +304,13 @@ export class MyScene extends CGFscene {
           this.popMatrix();
         }
 
+        //--------Sea Weed
+        if(this.displaySeaWeed){
+            this.pushMatrix();
+            this.seaWeedSet.display();
+            this.popMatrix();
+        }
+    
         // ------ Cylinder
         if (this.displayCylinder) {
           this.earthAppearance.apply()
