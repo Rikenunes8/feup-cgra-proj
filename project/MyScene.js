@@ -128,28 +128,31 @@ export class MyScene extends CGFscene {
     }
 
     initSceneObjects() {
+        this.roof = 10;
+        this.floor = 0;
+
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.orientedObject = new MyMovingObject(this, new MyTriangle(this));
         this.cylinder = new MyCylinder(this, 12, 1);
         this.fish = new MyMovingFish(this);
         this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
-        this.waterSurface = new MyWaterSurface(this, 50, 50, 20);
+        this.waterSurface = new MyWaterSurface(this, 50, 50);
         this.pilar1 = new MyPilar(this, 8, 0);
         this.pilar2 = new MyPilar(this, 22, 0);
         this.pilar3 = new MyPilar(this, 8, -5);
         this.pilar4 = new MyPilar(this, 22, -5);
-        this.rocketSet = new MyRocketSet(this, 10, 23, -23, 23, -23, 10, 5, 10, 5, 90, 0);
+        this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
         this.seaWeedSet = new MySeaWeedSet(this,15);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
 
-        this.nest = new MyNest(this, 5);
+        this.nest = new MyNest(this, 3);
     }
 
     initInterfaceObjects() {
-        this.displayAxis = true;
+        this.displayAxis = false;
         this.speedFactor = 1;
         this.scaleFactor = 1;
         this.displayWorld = true;
@@ -199,9 +202,13 @@ export class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.turn(Math.PI / 36);
+        } else {
+            this.fish.turningLeft = false;
         }
         if (this.gui.isKeyPressed("KeyD")) {
             this.turn(-Math.PI / 36);
+        } else {
+            this.fish.turningRight = false;
         }
         if (this.gui.isKeyPressed("KeyP")) {
             this.fish.yVel = this.fish.yMaxVel;
@@ -330,6 +337,11 @@ export class MyScene extends CGFscene {
     turn(ang) {
         this.orientedObject.ang += ang;
         this.fish.ang += ang;
+        
+        if (ang > 0)
+            this.fish.turningLeft = true;
+        else if (ang < 0)
+            this.fish.turningRight = true;
     }
 
     accelerate(vel) {

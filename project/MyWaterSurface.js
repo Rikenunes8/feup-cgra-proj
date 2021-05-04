@@ -7,11 +7,10 @@ import { MyPlane } from "./geometries/MyPlane.js";
  * @param scene - Reference to MyScene object
  */
 export class MyWaterSurface extends CGFobject {
-    constructor(scene, nDivs, side, height) {
+    constructor(scene, nDivs, side) {
         super(scene);
         this.initAppearance();
         this.waterSurface = new MyPlane(this.scene, nDivs);
-        this.height = height;
         this.side = side;
     }
     initAppearance() {
@@ -39,8 +38,7 @@ export class MyWaterSurface extends CGFobject {
         this.waterAppearance.apply();
         this.scene.setActiveShader(this.waterShader);
         this.waterMap.bind(3);
-        //this.scene.translate(this.scene.camera.position[0], this.scene.camera.position[1], this.scene.camera.position[2])
-        this.scene.translate(0, this.height, 0);
+        this.scene.translate(0, this.scene.roof, 0);
         this.scene.scale(this.side, 1, this.side);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.waterSurface.display();

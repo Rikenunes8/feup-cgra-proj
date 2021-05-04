@@ -29,12 +29,12 @@ export class MySeaWeedSet extends CGFobject {
   display() {
     for (let i = 0; i < this.n; i++) {
       this.scene.pushMatrix();
-      this.scene.translate(this.plantsX[i], -24.1, this.plantsZ[i]);
+      this.scene.translate(this.plantsX[i], this.scene.floor + 0.3, this.plantsZ[i]);
       this.scene.scale(0.3, 0.3, 0.3);
       if(this.plants[i].type%2==0)
-      this.plants[i].display4();
+        this.plants[i].display4();
       else
-      this.plants[i].display3();
+        this.plants[i].display3();
       this.scene.popMatrix();
     }
   }
