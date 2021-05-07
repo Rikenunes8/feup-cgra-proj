@@ -79,6 +79,9 @@ export class MyScene extends CGFscene {
         this.earthAppearance.setShininess(10.0);
         this.earthAppearance.loadTexture('images/earth.jpg');
         this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.rockAppearence = new CGFappearance(this);
+        this.rockAppearence.setEmission(0.1,0.1,0.1,1);
     }
 
     initTextures() {
@@ -219,6 +222,9 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.reset();
         }
+        if (this.gui.isKeyPressed("KeyC")) {
+            this.pickAndDropRock();
+        }
     }
 
     display() {
@@ -343,7 +349,6 @@ export class MyScene extends CGFscene {
         else if (ang < 0)
             this.fish.turningRight = true;
     }
-
     accelerate(vel) {
         this.orientedObject.vel += vel;
         this.fish.vel += vel;
@@ -359,4 +364,12 @@ export class MyScene extends CGFscene {
       this.fish.vel = 0;
 
     }
+    pickAndDropRock() {
+        if (this.fish.isFree()) {
+            var pos = this.fish.getPosition();
+            this.fish.pickRock(this.rocketSet.getClosestRock(pos[0], pos[2]));
+        }
+
+    }
+
 }

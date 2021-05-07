@@ -68,7 +68,6 @@ export class MyFish extends CGFobject {
     this.eye.apply();
     this.displayLeftEye();
     this.displayRightEye();
-
   }
   
 

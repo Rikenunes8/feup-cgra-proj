@@ -9,6 +9,8 @@ import { MyFish } from "./MyFish.js";
 export class MyMovingFish extends MyMovingObject {
 	constructor(scene) {
 		super(scene, new MyFish(scene));
+
+    this.rock = null;
     
     this.tailOri = 1;
     this.leftOri = 1;
@@ -50,9 +52,9 @@ export class MyMovingFish extends MyMovingObject {
     if (!this.turningLeft)  this.obj.angLFin = this.obj.angLFin + this.leftOri*(2)*Math.PI/180;
     if (!this.turningRight) this.obj.angRFin = this.obj.angRFin + this.rightOri*(2)*Math.PI/180;
 
-    console.log("ang= ", this.obj.angTail);
-    console.log("vel= ", this.vel);
-    console.log("tot= ", this.vel*15*Math.PI/180);
+    //console.log("ang= ", this.obj.angTail);
+    //console.log("vel= ", this.vel);
+    //console.log("tot= ", this.vel*15*Math.PI/180);
     //console.log(this.obj.angLFin);
     //console.log(this.obj.angRFin);
   }
@@ -61,9 +63,34 @@ export class MyMovingFish extends MyMovingObject {
   display() {
     super.applyMovement();
     super.display();
+    if (this.rock != null) {
+      this.scene.rockAppearence.apply();
+      this.scene.translate(0, -0.05, 0.3);
+      this.rock.display();
+    }
+
     
   }
   
+
+  pickRock(rock) {
+    if (this.rock == null && rock != null) {
+      this.rock = rock;
+      this.rock.collected = true;
+    }
+  }
+  dropRock() {
+    this.rock.collected = false;
+    this.rock = null;
+  }
+
+  isFree() {
+    return this.rock == null && this.pos[1] <= this.limitInf;
+  }
+
+  getPosition() {
+    return this.pos;
+  }
 
   
 }

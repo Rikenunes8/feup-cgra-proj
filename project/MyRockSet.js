@@ -1,29 +1,25 @@
-import {CGFappearance, CGFobject} from '../lib/CGF.js';
+import { CGFobject} from '../lib/CGF.js';
 import { MyRock } from "./MyRock.js";
+import { MyRockConcrete } from './MyRockConcrete.js';
 
 export class MyRocketSet extends CGFobject {
   constructor(scene, n, xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin, rotMax, rotMin){
     super(scene);
-    this.rockAppearence = new CGFappearance(this.scene);
-    this.rockAppearence.setEmission(0.1,0.1,0.1,1);
+    
     this.n = n;
     this.initRocks(xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin, rotMax, rotMin);
   }
 
   initRocks(xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin, rotMax, rotMin) {
     this.rocks = [];
-    this.rocksX = [];
-    this.rocksZ = [];
-    this.rocksSclX = [];
-    this.rocksSclZ = [];
-    this.rocksRotY = [];
     for (let i = 0; i < this.n; i++) {
-      this.rocks.push(new MyRock(this.scene, 8, 4, 15));
-      this.rocksX.push(this.generateRandom(xMax, xMin, 10));
-      this.rocksZ.push(this.generateRandom(zMax, zMin, 10));
-      this.rocksSclX.push(this.generateRandom(sclXMax, sclXMin, 10));
-      this.rocksSclZ.push(this.generateRandom(sclZMax, sclZMin, 10));
-      this.rocksRotY.push(this.generateRandom(rotMax, rotMin, 1));
+      var rock  = new MyRock(this.scene, 8, 4, 15);
+      var initX = this.generateRandom(xMax, xMin, 10);
+      var initZ = this.generateRandom(zMax, zMin, 10);
+      var sclX  = this.generateRandom(sclXMax, sclXMin, 10);
+      var sclZ  = this.generateRandom(sclZMax, sclZMin, 10);
+      var rotY  = this.generateRandom(rotMax, rotMin, 1);
+      this.rocks.push(new MyRockConcrete(this.scene, rock, initX, initZ, sclX, sclZ, rotY));
     }
   }
 
@@ -32,15 +28,29 @@ export class MyRocketSet extends CGFobject {
   }
 
   display() {
-    this.rockAppearence.apply();
+    this.scene.rockAppearence.apply();
     for (let i = 0; i < this.n; i++) {
+      if (this.rocks[i].collected) continue;
       this.scene.pushMatrix();
-      this.scene.translate(this.rocksX[i], this.scene.floor + 0.9, this.rocksZ[i]);
-      this.scene.rotate(this.rocksRotY[i]*Math.PI/180, 0, 1, 0);
-      this.scene.scale(this.rocksSclX[i], 1, this.rocksSclZ[i]);
-      this.scene.scale(0.1, 0.05, 0.1);
       this.rocks[i].display();
       this.scene.popMatrix();
     }
+  }
+
+  getClosestRock(x, z) {
+    var distance = 99999;
+    var rock = null;
+    for (let i = 0; i < this.n; i++) {
+      var r = this.rocks[i];
+      if (r.collected) continue;
+
+      var d = Math.sqrt(Math.pow(x-r.initX, 2) + Math.pow(z-r.initZ, 2));
+      if (d < distance) {
+        distance = d;
+        rock = r;
+      }
+    }
+
+    return distance < 1.5? rock : null;
   }
 }
