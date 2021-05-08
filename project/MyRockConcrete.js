@@ -44,11 +44,16 @@ export class MyRockConcrete extends CGFobject {
     this.x += this.velX;
     this.z += this.velZ;
     this.y += this.velY;
-    console.log(this.y, y);
-    if (this.y < y &&  this.getDistTo(x, z) <= r) { // If the rocks dropped in
-      this.endDrop(3);
+    var dist = this.getDistTo(x, z);
+
+    if (dist < r) { // If rock is above nest
+      if (this.y < this.calculateNestHeight(dist, y, r)) {
+        this.endDrop(3);
+        return;
+      }
     }
-    else if (this.y < this.initY) {
+
+    if (this.y < this.initY) {
       this.y = this.initY;
       this.endDrop(0);
     }
@@ -72,5 +77,10 @@ export class MyRockConcrete extends CGFobject {
     this.velX = 0;
     this.velZ = 0;
     this.state = 0;
+  }
+
+  calculateNestHeight(dist, y, r) {
+    // Deduced mathematically based on Nest radius (r) and displacement from the floor (y) as a function of dist
+    return 0.7/(4*r)*dist*dist+0.3*r/4+y+0.05;
   }
 }

@@ -90,9 +90,9 @@ export class MyMovingFish extends MyMovingObject {
   }
   dropRock() {
     this.rock.state = 2;
-    this.rock.x = this.pos[0];
+    this.rock.x = this.pos[0] +0.3*Math.sin(this.ang);
     this.rock.y = this.pos[1] -0.05;
-    this.rock.z = this.pos[2] +0.3;
+    this.rock.z = this.pos[2] +0.3*Math.cos(this.ang);
     this.rock.velX = this.vel/**this.scene.speedFactor*/*Math.sin(this.ang);
     this.rock.velZ = this.vel/**this.scene.speedFactor*/*Math.cos(this.ang);
     this.scene.rocksFalling.push(this.rock);

@@ -147,7 +147,7 @@ export class MyScene extends CGFscene {
         this.pilar4 = new MyPilar(this, 22, -5);
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
         this.seaWeedSet = new MySeaWeedSet(this,15);
-        this.nest = new MyNest(this, 1, -10, 10);
+        this.nest = new MyNest(this, 1, -10, 14);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -197,7 +197,7 @@ export class MyScene extends CGFscene {
         this.fish.update();
         this.waterSurface.update(t);
         for (let i = 0; i < this.rocksFalling.length; i++) {
-            this.rocksFalling[i].update(this.nest.x, this.nest.radius/4+this.nest.y, this.nest.z, this.nest.radius);
+            this.rocksFalling[i].update(this.nest.x, this.nest.y, this.nest.z, this.nest.radius);
         }
     }
 
