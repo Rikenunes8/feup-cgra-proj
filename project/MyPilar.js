@@ -10,9 +10,11 @@ export class MyPilar extends CGFobject {
     constructor(scene, x, z) {
         super(scene);
         this.initMaterials();
-        this.pilar = new MyCylinder(this.scene, 16, 10);
+        this.height = this.scene.roof-this.scene.floor;
         this.x = x;
+        this.y = this.scene.floor;
         this.z = z;
+        this.pilar = new MyCylinder(this.scene, 16, this.height);
     }
 
     initMaterials() {
@@ -26,8 +28,8 @@ export class MyPilar extends CGFobject {
     }
     display() {
         this.trunk.apply();
-        this.scene.translate(this.x, 0, this.z);
-        this.scene.scale(1, this.scene.roof, 1);
+        this.scene.translate(this.x, this.y, this.z);
+        this.scene.scale(1, this.height, 1);
         this.pilar.display();
     }
 

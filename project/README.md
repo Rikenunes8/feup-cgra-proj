@@ -8,9 +8,10 @@
 
 ### 4 - MyFish
 
-![Screenshot 1](screenshots/proj-t2g8-1_3.png)
-![Screenshot 1](screenshots/proj-t2g8-1_2.png)
-![Screenshot 1](screenshots/proj-t2g8-1_1.png)
+![Fish Side](screenshots/proj-t2g8-1_3.png)
+![Fish Front](screenshots/proj-t2g8-1_2.png)
+![Fish Top](screenshots/proj-t2g8-1_1.png)
+![Fish anim](screenshots/proj-t2g8-1.gif)
 
 
 <br/><br/><br/>
@@ -21,36 +22,40 @@
 
 #### 5.1  Ninho
 
-![Screenshot 1](screenshots/__proj-t2g8-2.png)
-![Screenshot 1](screenshots/_proj-t2g8-2.png)
-![Screenshot 1](screenshots/_proj-t2g8-2.png)
+![SeaFloor and Nest](screenshots/proj-t2g8-2.png)
 
 <br/><br/>
 
 #### 5.2  Superfície da água
 
-![Screenshot 1](screenshots/proj-t2g8-3.png)
+![WaterSurface](screenshots/proj-t2g8-3.png)
+![WaterSurface](screenshots/proj-t2g8-3.gif)
 
 <br/><br/>
 
 #### 5.3  Pedras
 
-![Screenshot 1](screenshots/proj-t2g8-4_1.png)
-![Screenshot 1](screenshots/_proj-t2g8-4_1.png)
-![Screenshot 1](screenshots/__proj-t2g8-4_2.png)
-![Screenshot 1](screenshots/_proj-t2g8-4_2.png)
-![Screenshot 1](screenshots/proj-t2g8-4_2.png)
+![Single Rock](screenshots/proj-t2g8-4_1.png)
+![Multiple Rocks1](screenshots/proj-t2g8-4_2.png)
+![Multiple Rocks2](screenshots/proj-t2g8-4_3.png)
 
 
 <br/><br/>
 
 ##### 5.4  Pilares
 
-![Screenshot 1](screenshots/proj-t2g8-5.png)
+![Pilars](screenshots/proj-t2g8-5.png)
 
 <br/><br/>
 
 #### 5.5  Outros elementos(Algas)
 
+![SeaWeed](screenshots/proj-t2g8-6.png)
 
-![Screenshot 1](screenshots/proj-t2g8-6.png)
+### 6 - Controlos e animações adicionais
+
+#### 6.3 Recolha de pedras
+
+![Rocks Collection](screenshots/proj-t2g8-7.png)
+
+

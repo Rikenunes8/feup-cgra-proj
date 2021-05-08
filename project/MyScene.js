@@ -152,7 +152,7 @@ export class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
 
-        this.rocksDropping = [];
+        this.rocksFalling = [];
 
     }
 
@@ -160,17 +160,18 @@ export class MyScene extends CGFscene {
         this.displayAxis = false;
         this.speedFactor = 1;
         this.scaleFactor = 1;
-        this.displayWorld = true;
         this.displayCylinder = false;
         this.cylinderComplexity = 12;
         this.displaySphere = false;
         this.displayObject = false;
+    
+        this.displayWorld = true;
         this.displayFish = true;
         this.displaySeaFloor = true;
         this.displayWaterSurface = true;
         this.displayPilars = true;
         this.displayRocks = true;
-        this.displaySeaWeed =true;
+        this.displaySeaWeed = true;
     }
 
     onCylinderComplexityChanged() {
@@ -195,8 +196,8 @@ export class MyScene extends CGFscene {
         this.orientedObject.update();
         this.fish.update();
         this.waterSurface.update(t);
-        for (let i = 0; i < this.rocksDropping.length; i++) {
-            this.rocksDropping[i].update(this.nest.x, this.nest.radius/4+this.floor+0.8, this.nest.z, this.nest.radius);
+        for (let i = 0; i < this.rocksFalling.length; i++) {
+            this.rocksFalling[i].update(this.nest.x, this.nest.radius/4+this.nest.y, this.nest.z, this.nest.radius);
         }
     }
 
@@ -210,19 +211,15 @@ export class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyA")) {
             this.turn(Math.PI / 36);
-        } else {
-            this.fish.turningLeft = false;
         }
         if (this.gui.isKeyPressed("KeyD")) {
             this.turn(-Math.PI / 36);
-        } else {
-            this.fish.turningRight = false;
         }
         if (this.gui.isKeyPressed("KeyP")) {
-            this.fish.yVel = this.fish.yMaxVel;
+            this.goUpAndDown(1);
         }
         if (this.gui.isKeyPressed("KeyL")) {
-            this.fish.yVel = -this.fish.yMaxVel;
+            this.goUpAndDown(-1);
         }
         if (this.gui.isKeyPressed("KeyR")) {
             this.reset();
@@ -259,20 +256,6 @@ export class MyScene extends CGFscene {
             this.cubeMap.display();
             this.popMatrix();
         }
-        // -----------------------
-
-        // ----- Objeto controlável
-        if (this.displayObject) {
-            this.setDefaultAppearance();
-            this.pushMatrix();
-            this.orientedObject.applyMovement();
-            this.translate(0, 0, -0.5);
-            this.rotate(Math.PI, 0, 1, 0);
-            this.rotate(-Math.PI/2, 1, 0, 0);
-            this.orientedObject.display();
-            this.popMatrix();
-        }
-        // -------------------
 
         // ----- Fish
         if (this.displayFish) {
@@ -292,7 +275,6 @@ export class MyScene extends CGFscene {
           this.popMatrix();
           // -------------
         }
-        // ------------------
 
         // ----- Water Surface
         if (this.displayWaterSurface) {
@@ -301,6 +283,7 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
 
+        // ----- Pilars
         if (this.displayPilars) {
           this.pushMatrix();
           this.pilar1.display();
@@ -316,6 +299,7 @@ export class MyScene extends CGFscene {
           this.popMatrix();
         }
 
+        // ---- Rocks
         if (this.displayRocks) {
           this.pushMatrix();
           this.rocketSet.display();
@@ -329,12 +313,23 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
     
+        // ----- Objeto controlável
+        if (this.displayObject) {
+            this.setDefaultAppearance();
+            this.pushMatrix();
+            this.orientedObject.applyMovement();
+            this.translate(0, 0, -0.5);
+            this.rotate(Math.PI, 0, 1, 0);
+            this.rotate(-Math.PI/2, 1, 0, 0);
+            this.orientedObject.display();
+            this.popMatrix();
+        }
+
         // ------ Cylinder
         if (this.displayCylinder) {
           this.earthAppearance.apply()
           this.cylinder.display();
         }
-
 
         // ------ Sphere
         if (this.displaySphere) {
@@ -354,33 +349,33 @@ export class MyScene extends CGFscene {
         else if (ang < 0)
             this.fish.turningRight = true;
     }
+
     accelerate(vel) {
         this.orientedObject.vel += vel;
         this.fish.vel += vel;
-
     }
+
     reset() {
       this.orientedObject.pos = [0, 0, 0];
       this.orientedObject.ang = 0;
       this.orientedObject.vel = 0;
-
-      this.fish.pos = [0, 0, 0];
-      this.fish.ang = 0;
-      this.fish.vel = 0;
-
+    
+      this.fish.reset();
     }
+
+    goUpAndDown(ori) {
+        this.fish.yVel = ori * this.fish.Y_VEL_MAX;
+    }
+
     pickAndDropRock() {
         var pos = this.fish.getPosition();
-        if (this.fish.isFree() && this.fish.isInLimInf()) {
-            this.fish.pickRock(this.rocketSet.getClosestRock(pos[0], pos[2]));
+        if (this.fish.isFree()) {
+            if (this.fish.isInLimInf()) {
+                this.fish.pickRock(this.rocketSet.getClosestRock(pos[0], pos[2]));
+            }
         }
-        /*else if (Math.sqrt(Math.pow(this.nest.x-pos[0], 2) + Math.pow(this.nest.z-pos[2], 2)) <= this.nest.radius){
-            this.fish.dropRock();
-        }*/
         else {
             this.fish.dropRock();
         }
-
     }
-
 }

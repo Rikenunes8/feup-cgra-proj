@@ -14,6 +14,7 @@ export class MyNest extends CGFobject {
         this.nest = new MyHalfSphere(this.scene, 16 * mul, 8 * mul);
         this.radius = radius;
         this.x = x;
+        this.y = this.scene.floor+0.8;
         this.z = z;
     }
 
@@ -29,7 +30,7 @@ export class MyNest extends CGFobject {
     display() {
         this.shell.apply();
 
-        this.scene.translate(this.x, this.scene.floor+0.8 , this.z);
+        this.scene.translate(this.x, this.y, this.z);
         this.scene.scale(this.radius, this.radius/4, this.radius);
         this.scene.rotate(Math.PI, 0, 0, 1);
         this.scene.translate(0, -1, 0);

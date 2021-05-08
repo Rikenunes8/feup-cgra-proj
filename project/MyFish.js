@@ -10,8 +10,9 @@ import { MyTriangle } from "./geometries/MyTriangle.js";
 export class MyFish extends CGFobject {
 	constructor(scene) {
 		super(scene);
+    this.initMaterials();
 		this.init();
-    
+
     this.angTail = 0;
     this.angLFin = 0;
     this.angRFin = 0;
@@ -27,7 +28,6 @@ export class MyFish extends CGFobject {
     this.rightEye = new MySphere(this.scene, 8*mul, 4*mul);
     this.leftEye  = new MySphere(this.scene, 8*mul, 4*mul);
 
-    this.initMaterials();
 	}
   initMaterials() {
     this.fishScales = new CGFappearance(this.scene);
@@ -73,10 +73,10 @@ export class MyFish extends CGFobject {
 
   displayBody() {
     this.scene.pushMatrix();
-    this.fishScales.apply();
-    this.scene.setActiveShader(this.fishShader);
     this.scene.scale(0.11, 0.19, 0.25); // Prop: 0.22:0.38:0.5
     this.scene.rotate(Math.PI/2, 1, 0, 0);
+    this.fishScales.apply();
+    this.scene.setActiveShader(this.fishShader);
     this.body.display();
     this.scene.setActiveShader(this.scene.defaultShader);
     this.scene.popMatrix();
