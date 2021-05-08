@@ -147,11 +147,13 @@ export class MyScene extends CGFscene {
         this.pilar4 = new MyPilar(this, 22, -5);
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
         this.seaWeedSet = new MySeaWeedSet(this,15);
+        this.nest = new MyNest(this, 1, -10, 10);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
 
-        this.nest = new MyNest(this, 3);
+        this.rocksDropping = [];
+
     }
 
     initInterfaceObjects() {
@@ -193,6 +195,9 @@ export class MyScene extends CGFscene {
         this.orientedObject.update();
         this.fish.update();
         this.waterSurface.update(t);
+        for (let i = 0; i < this.rocksDropping.length; i++) {
+            this.rocksDropping[i].update(this.nest.x, this.nest.radius/4+this.floor+0.8, this.nest.z, this.nest.radius);
+        }
     }
 
     checkKeys() {
@@ -365,9 +370,15 @@ export class MyScene extends CGFscene {
 
     }
     pickAndDropRock() {
-        if (this.fish.isFree()) {
-            var pos = this.fish.getPosition();
+        var pos = this.fish.getPosition();
+        if (this.fish.isFree() && this.fish.isInLimInf()) {
             this.fish.pickRock(this.rocketSet.getClosestRock(pos[0], pos[2]));
+        }
+        /*else if (Math.sqrt(Math.pow(this.nest.x-pos[0], 2) + Math.pow(this.nest.z-pos[2], 2)) <= this.nest.radius){
+            this.fish.dropRock();
+        }*/
+        else {
+            this.fish.dropRock();
         }
 
     }

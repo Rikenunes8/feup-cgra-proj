@@ -7,12 +7,14 @@ import { MyHalfSphere } from "./geometries/MyHalfSphere.js";
  * @param scene - Reference to MyScene object
  */
 export class MyNest extends CGFobject {
-    constructor(scene, radius) {
+    constructor(scene, radius, x, z) {
         super(scene);
         this.initMaterials();
         var mul = 2; // Not to use less than 1
         this.nest = new MyHalfSphere(this.scene, 16 * mul, 8 * mul);
         this.radius = radius;
+        this.x = x;
+        this.z = z;
     }
 
     initMaterials() {
@@ -27,9 +29,10 @@ export class MyNest extends CGFobject {
     display() {
         this.shell.apply();
 
-        this.scene.translate(-10, this.scene.floor+1.5 , 10);
+        this.scene.translate(this.x, this.scene.floor+0.8 , this.z);
+        this.scene.scale(this.radius, this.radius/4, this.radius);
         this.scene.rotate(Math.PI, 0, 0, 1);
-        this.scene.scale(this.radius, this.radius/4, this.radius); 
+        this.scene.translate(0, -1, 0);
         this.nest.display();
     }
 

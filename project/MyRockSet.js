@@ -30,7 +30,7 @@ export class MyRocketSet extends CGFobject {
   display() {
     this.scene.rockAppearence.apply();
     for (let i = 0; i < this.n; i++) {
-      if (this.rocks[i].collected) continue;
+      if (this.rocks[i].state == 1) continue;
       this.scene.pushMatrix();
       this.rocks[i].display();
       this.scene.popMatrix();
@@ -42,9 +42,9 @@ export class MyRocketSet extends CGFobject {
     var rock = null;
     for (let i = 0; i < this.n; i++) {
       var r = this.rocks[i];
-      if (r.collected) continue;
+      if (r.state != 0) continue;
 
-      var d = Math.sqrt(Math.pow(x-r.initX, 2) + Math.pow(z-r.initZ, 2));
+      var d = Math.sqrt(Math.pow(x-r.x, 2) + Math.pow(z-r.z, 2));
       if (d < distance) {
         distance = d;
         rock = r;

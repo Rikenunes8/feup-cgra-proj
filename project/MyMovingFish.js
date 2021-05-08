@@ -76,16 +76,26 @@ export class MyMovingFish extends MyMovingObject {
   pickRock(rock) {
     if (this.rock == null && rock != null) {
       this.rock = rock;
-      this.rock.collected = true;
+      this.rock.state = 1;
     }
   }
   dropRock() {
-    this.rock.collected = false;
+    this.rock.state = 2;
+    this.rock.x = this.pos[0];
+    this.rock.y = this.pos[1] -0.05;
+    this.rock.z = this.pos[2] +0.3;
+    this.rock.velX = this.vel/**this.scene.speedFactor*/*Math.sin(this.ang);
+    this.rock.velZ = this.vel/**this.scene.speedFactor*/*Math.cos(this.ang);
+    this.scene.rocksDropping.push(this.rock);
     this.rock = null;
   }
 
   isFree() {
-    return this.rock == null && this.pos[1] <= this.limitInf;
+    return this.rock == null;
+  }
+
+  isInLimInf(){
+    return this.pos[1] <= this.limitInf;
   }
 
   getPosition() {
