@@ -2,14 +2,14 @@ import { CGFappearance, CGFobject } from '../lib/CGF.js';
 import { MyPyramid } from "./geometries/MyPyramid.js";
 
 export class MySeaWeed extends CGFobject {
-    constructor(scene) {
+    constructor(scene, n) {
         super(scene);
-        this.sw1 = new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4));
-        this.sw2 = new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4));
-        this.sw3 = new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4));
-        this.sw4 = new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4));
-        this.sw5 = new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4));
-        this.sw6 = new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4));
+
+        this.n = n;
+        this.sw = [];
+        for (let i = 0; i < n; i++) {
+            this.sw.push(new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4)));
+        }
 
 
         this.greens = [
@@ -23,7 +23,8 @@ export class MySeaWeed extends CGFobject {
             [ 85, 107,  47],  //7
             [107, 142,  35]   //8
         ];
-        this.type = Math.floor(Math.random() * 4);
+
+        this.type = 6-this.n;
         this.initMaterials();
     }
     initMaterials() {
@@ -52,23 +53,34 @@ export class MySeaWeed extends CGFobject {
         this.scene.rotate((Math.random() * Math.PI),0, 0,1);
     }
 
+    display() {
+        if(this.type==0)
+            this.display6();
+        else if(this.type==1)
+            this.display5();
+        else if(this.type==2)
+            this.display4();
+        else if(this.type==3)
+            this.display3();
+    }
+
     display3() {
         this.green.apply();
 
         this.scene.pushMatrix();
-        this.sw1.display();
+        this.sw[0].display();
         this.scene.popMatrix();
 
         this.green2.apply();
 
         this.scene.pushMatrix();
         this.scene.translate(-1, 0, -1);
-        this.sw2.display();
+        this.sw[1].display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(1, 0, -1);
-        this.sw3.display();
+        this.sw[2].display();
         this.scene.popMatrix();
 
     }
@@ -78,7 +90,7 @@ export class MySeaWeed extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(-1, 0, 0);
-        this.sw4.display();
+        this.sw[3].display();
         this.scene.popMatrix();
 
         this.display3();
@@ -90,7 +102,7 @@ export class MySeaWeed extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(0, 0, 1);
-        this.sw5.display();
+        this.sw[4].display();
         this.scene.popMatrix();
 
         this.display4();
@@ -101,7 +113,7 @@ export class MySeaWeed extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(1, 0, 0);
-        this.sw6.display();
+        this.sw[5].display();
         this.scene.popMatrix();
         
         this.display5();

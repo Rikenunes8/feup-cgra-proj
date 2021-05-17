@@ -15,17 +15,18 @@ export class MySeaWeedSet extends CGFobject {
     this.xScale=[];
     this.zScale=[];
 
+    var offset = 0.05; // Offset to not overlap rocks
     for (let i = 0; i < this.n; i++) {
-      this.plants.push(new MySeaWeed(this.scene));
-      this.plantsX.push(this.generateRandom(xMax, xMin, 10));
-      this.plantsZ.push(this.generateRandom(zMax, zMin, 10));
+      this.plants.push(new MySeaWeed(this.scene, this.generateRandom(6, 1, 1)));
+      this.plantsX.push(this.generateRandom(xMax, xMin, 10)+offset);
+      this.plantsZ.push(this.generateRandom(zMax, zMin, 10)+offset);
       this.xScale.push(this.generateRandom(sclXMax, sclXMin, 100));
       this.zScale.push(this.generateRandom(sclZMax, sclZMin, 100));
     }
   }
 
-  generateRandom(max, min, prec) {
-    return (Math.floor(Math.random() * (max - min) ) + min)/prec;
+  generateRandom(max, min, prec) { // Max and min both included
+    return (Math.floor(Math.random() * (max - min + 1) ) + min)/prec;
   }
 
   display() {
@@ -33,14 +34,7 @@ export class MySeaWeedSet extends CGFobject {
       this.scene.pushMatrix();
       this.scene.translate(this.plantsX[i], this.scene.floor + 0.3, this.plantsZ[i]);
       this.scene.scale(0.3+this.xScale[i], 0.3, 0.3+this.zScale[i]);
-      if(this.plants[i].type==0)
-        this.plants[i].display6();
-      else if(this.plants[i].type==1)
-        this.plants[i].display5();
-      else if(this.plants[i].type==2)
-        this.plants[i].display4();
-      else if(this.plants[i].type==3)
-        this.plants[i].display3();
+      this.plants[i].display();
       this.scene.popMatrix();
     }
   }

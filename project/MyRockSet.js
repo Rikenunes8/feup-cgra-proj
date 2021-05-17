@@ -23,8 +23,8 @@ export class MyRocketSet extends CGFobject {
     }
   }
 
-  generateRandom(max, min, prec) {
-    return (Math.floor(Math.random() * (max - min) ) + min)/prec;
+  generateRandom(max, min, prec) { // Max and min both included
+    return (Math.floor(Math.random() * (max - min + 1) ) + min)/prec;
   }
 
   display() {
