@@ -147,7 +147,7 @@ export class MyScene extends CGFscene {
         this.pilar3 = new MyPilar(this, 8, -5);
         this.pilar4 = new MyPilar(this, 22, -5);
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
-        this.seaWeedSet = new MySeaWeedSet(this,15);
+        this.seaWeedSet = new MySeaWeedSet(this, 15, 230, -230, 230, -230, 50, 0, 50, 0);
         this.nest = new MyNest(this, 1, -10, 14);
 
         this.cubeMap = new MyCubeMap(this, 500);

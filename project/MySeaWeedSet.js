@@ -2,15 +2,13 @@ import { CGFappearance, CGFobject } from '../lib/CGF.js';
 import { MySeaWeed } from "./MySeaWeed.js";
 
 export class MySeaWeedSet extends CGFobject {
-  constructor(scene, n) {
+  constructor(scene, n, xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin) {
     super(scene);
-    /*this.max = 23;
-    this.min = -23;*/
     this.n = n;
-    this.initSeaWeed();
+    this.initSeaWeed(xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin);
   }
 
-  initSeaWeed() {
+  initSeaWeed(xMax, xMin, zMax, zMin, sclXMax, sclXMin, sclZMax, sclZMin) {
     this.plants = [];
     this.plantsX = [];
     this.plantsZ = [];
@@ -19,22 +17,22 @@ export class MySeaWeedSet extends CGFobject {
 
     for (let i = 0; i < this.n; i++) {
       this.plants.push(new MySeaWeed(this.scene));
-      this.plantsX.push(this.generateRandom(-23,23));
-      this.plantsZ.push(this.generateRandom(-23,23));
-      this.xScale.push(this.generateRandom(0,50)/100);
-      this.zScale.push(this.generateRandom(0,50)/100);
+      this.plantsX.push(this.generateRandom(xMax, xMin, 10));
+      this.plantsZ.push(this.generateRandom(zMax, zMin, 10));
+      this.xScale.push(this.generateRandom(sclXMax, sclXMin, 100));
+      this.zScale.push(this.generateRandom(sclZMax, sclZMin, 100));
     }
   }
 
-  generateRandom(min, max) {
-    return (Math.floor(Math.random() * (max - min)) + min);
+  generateRandom(max, min, prec) {
+    return (Math.floor(Math.random() * (max - min) ) + min)/prec;
   }
 
   display() {
     for (let i = 0; i < this.n; i++) {
       this.scene.pushMatrix();
       this.scene.translate(this.plantsX[i], this.scene.floor + 0.3, this.plantsZ[i]);
-      this.scene.scale(0.3+this.xScale[i],0.3, 0.3+this.zScale[i]);
+      this.scene.scale(0.3+this.xScale[i], 0.3, 0.3+this.zScale[i]);
       if(this.plants[i].type==0)
         this.plants[i].display6();
       else if(this.plants[i].type==1)
