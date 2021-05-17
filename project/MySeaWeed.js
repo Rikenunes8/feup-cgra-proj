@@ -5,13 +5,6 @@ export class MySeaWeed extends CGFobject {
     constructor(scene, n) {
         super(scene);
 
-        this.n = n;
-        this.sw = [];
-        for (let i = 0; i < n; i++) {
-            this.sw.push(new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4)));
-        }
-
-
         this.greens = [
             [ 34, 139,  34],  //0
             [  0, 128,   0],  //1
@@ -24,8 +17,28 @@ export class MySeaWeed extends CGFobject {
             [107, 142,  35]   //8
         ];
 
-        this.type = 6-this.n;
         this.initMaterials();
+
+        if (n > 6) n = 6;
+        this.n = n;
+
+        this.sw = [];
+        this.swColor = [];
+        for (let i = 0; i < n; i++) {
+            this.sw.push(new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4)));
+            this.swColor.push(this.greens[Math.floor(Math.random() * this.greens.length)]);
+        }
+
+        this.positions = [
+            [ 0, 0,  0],
+            [-1, 0, -1],
+            [ 1, 0, -1],
+            [-1, 0,  0],
+            [ 0, 0,  1],
+            [ 1, 0,  0]
+        ]
+
+       
     }
     initMaterials() {
         var color1 = Math.floor(Math.random() * 8);
@@ -33,9 +46,9 @@ export class MySeaWeed extends CGFobject {
         var color3 = Math.floor(Math.random() * 8);
 
 
-        this.green = new CGFappearance(this.scene);
-        this.green.setAmbient(this.greens[color1][0] / 256, this.greens[color1][1] / 256, this.greens[color1][2] / 256, 0.5);
-        this.green.setDiffuse(this.greens[color1][0] / 256, this.greens[color1][1] / 256, this.greens[color1][2] / 256, 0.5);
+        this.green1 = new CGFappearance(this.scene);
+        this.green1.setAmbient(this.greens[color1][0] / 256, this.greens[color1][1] / 256, this.greens[color1][2] / 256, 0.5);
+        this.green1.setDiffuse(this.greens[color1][0] / 256, this.greens[color1][1] / 256, this.greens[color1][2] / 256, 0.5);
 
 
         this.green2 = new CGFappearance(this.scene);
@@ -46,6 +59,8 @@ export class MySeaWeed extends CGFobject {
         this.green3 = new CGFappearance(this.scene);
         this.green3.setAmbient(this.greens[color3][0] / 256, this.greens[color3][1] / 256, this.greens[color3][2] / 256, 0.5);
         this.green3.setDiffuse(this.greens[color3][0] / 256, this.greens[color3][1] / 256, this.greens[color3][2] / 256, 0.5);
+
+        this.greens = [this.green1, this.green2, this.green3];
     }
 
     randomRotation(){
@@ -54,71 +69,13 @@ export class MySeaWeed extends CGFobject {
     }
 
     display() {
-        if(this.type==0)
-            this.display6();
-        else if(this.type==1)
-            this.display5();
-        else if(this.type==2)
-            this.display4();
-        else if(this.type==3)
-            this.display3();
+        for (let i = 0; i < this.n; i++) {
+            this.swColor[i].apply();
+            this.scene.pushMatrix();
+            this.scene.translate(this.positions[i][0], this.positions[i][1], this.positions[i][2]);
+            this.sw[i].display();
+            this.scene.popMatrix();
+        }
     }
-
-    display3() {
-        this.green.apply();
-
-        this.scene.pushMatrix();
-        this.sw[0].display();
-        this.scene.popMatrix();
-
-        this.green2.apply();
-
-        this.scene.pushMatrix();
-        this.scene.translate(-1, 0, -1);
-        this.sw[1].display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(1, 0, -1);
-        this.sw[2].display();
-        this.scene.popMatrix();
-
-    }
-
-    display4() {
-        this.green.apply();
-
-        this.scene.pushMatrix();
-        this.scene.translate(-1, 0, 0);
-        this.sw[3].display();
-        this.scene.popMatrix();
-
-        this.display3();
-
-    }
-
-    display5() {
-        this.green3.apply();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, 1);
-        this.sw[4].display();
-        this.scene.popMatrix();
-
-        this.display4();
-    }
-
-    display6() {
-        this.green3.apply();
-
-        this.scene.pushMatrix();
-        this.scene.translate(1, 0, 0);
-        this.sw[5].display();
-        this.scene.popMatrix();
-        
-        this.display5();
-
-    }
-
 }
 
