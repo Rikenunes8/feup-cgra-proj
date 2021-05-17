@@ -10,7 +10,6 @@ import {MyWaterSurface} from "./MyWaterSurface.js";
 import { MyNest } from "./MyNest.js";
 import { MyPilar } from "./MyPilar.js";
 import { MyRocketSet } from "./MyRockSet.js";
-import{MySeaWeed} from "./MySeaWeed.js"
 import { MySeaWeedSet } from "./MySeaWeedSet.js";
 
 /**
@@ -45,16 +44,17 @@ export class MyScene extends CGFscene {
     }
 
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
-        //this.lights[0].setAmbient(0.4, 0.4, 0.4, 1.0);
+        this.setGlobalAmbientLight(0.3, 0.3, 0.4, 1.0);
+
+        this.lights[0].setPosition(-5.0, 9.0, 1.0, 1.0);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
+        //this.lights[0].setVisible(true);
         this.lights[0].update();
+        
     }
     initCameras() {
-        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
         this.camera = new CGFcamera(2, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
-
     }
     
     initAppearances() {
@@ -239,6 +239,8 @@ export class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        this.lights[0].update();
 
 
         this.defaultAppearance.apply();

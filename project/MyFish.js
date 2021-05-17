@@ -31,25 +31,20 @@ export class MyFish extends CGFobject {
 	}
   initMaterials() {
     this.fishScales = new CGFappearance(this.scene);
-    /*this.fishScales.setAmbient(0.1, 0.1, 0.1, 1);
-    this.fishScales.setDiffuse(0.9, 0.9, 0.9, 1);
-    this.fishScales.setSpecular(0.1, 0.1, 0.1, 1);
-    this.fishScales.setShininess(10.0);*/
+    this.fishScales.setAmbient(1.0, 1.0, 1.0, 1);
+    this.fishScales.setDiffuse(1.0, 1.0, 1.0, 1);
+    this.fishScales.setEmission(0.3, 0.3, 0.3, 1.0);
     this.fishScales.loadTexture('./images/fish/fish_scales.jpg');
-    this.fishShader = new CGFshader(this.scene.gl, './shaders/fish_shader.vert', './shaders/fish_shader.frag');
+    this.fishShader = new CGFshader(this.scene.gl, './shaders/fish_shader_light_vert.glsl', './shaders/fish_shader_light_frag.glsl');
 
     this.red = new CGFappearance(this.scene);
-    this.red.setAmbient (1.0, 0.0, 0.0, 1.0);
-    this.red.setDiffuse (1.0, 0.0, 0.0, 1.0);
-    this.red.setSpecular(1.0, 0.0, 0.0, 1.0);
-    this.red.setShininess(10.0);
-    this.redShader = new CGFshader(this.scene.gl, './shaders/red.vert', './shaders/red.frag');
+    this.red.setAmbient (0.8, 0.0, 0.0, 1.0);
+    this.red.setDiffuse (0.8, 0.0, 0.0, 1.0);
+    this.red.setEmission(0.3, 0.0, 0.0, 1.0);
 
     this.eye = new CGFappearance(this.scene);
     this.eye.setAmbient (1.0, 1.0, 1.0, 1.0);
     this.eye.setDiffuse (1.0, 1.0, 1.0, 1.0);
-    this.eye.setSpecular(1.0, 1.0, 1.0, 1.0);
-    this.eye.setShininess(10.0);
     this.eye.loadTexture('./images/fish/eye.png');
 
   }
@@ -58,12 +53,10 @@ export class MyFish extends CGFobject {
     this.displayBody();
 
     this.red.apply();
-    this.scene.setActiveShader(this.redShader);
     this.displayUpperFin();
     this.displayLeftFin();
     this.displayRightFin();
     this.displayTailFin();
-    this.scene.setActiveShader(this.scene.defaultShader);
 
     this.eye.apply();
     this.displayLeftEye();

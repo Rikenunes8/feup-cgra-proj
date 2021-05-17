@@ -15,16 +15,12 @@ export class MyWaterSurface extends CGFobject {
     }
     initAppearance() {
         this.waterAppearance = new CGFappearance(this.scene);
-        this.waterAppearance.setAmbient(0, 0, 0, 1);
-        this.waterAppearance.setDiffuse(0, 0, 0, 1);
-        this.waterAppearance.setSpecular(0, 0, 0, 1);
-        this.waterAppearance.setEmission(1, 1, 1, 1);
-        this.waterAppearance.setShininess(10.0);
+        this.waterAppearance.setAmbient(1, 1, 1, 1);
+        this.waterAppearance.setDiffuse(1, 1, 1, 1);
         this.waterTex= new CGFtexture(this.scene,"./images/water_surface/pier.jpg");
         this.waterMap = new CGFtexture(this.scene, "./images/water_surface/distortionmap.png");
         this.waterAppearance.setTexture(this.waterTex);
         this.waterAppearance.setTextureWrap('MIRRORED_REPEAT', 'MIRRORED_REPEAT');
-
 
         this.waterShader = new CGFshader(this.scene.gl, "./shaders/water.vert", "./shaders/water.frag");
         this.waterShader.setUniformsValues({ uSampler2: 3 });

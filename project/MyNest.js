@@ -20,10 +20,8 @@ export class MyNest extends CGFobject {
 
     initMaterials() {
         this.shell = new CGFappearance(this.scene);
-        //this.shell.setAmbient(1, 1, 1, 1);
+        this.shell.setAmbient(1, 1, 1, 1);
         this.shell.setDiffuse(1, 1, 1, 1);
-        this.shell.setSpecular(0, 0, 0, 1);
-        this.shell.setEmission(0.8, 0.8, 0.8, 0.1);
         this.shell.loadTexture('./images/shell.jpg')
         this.shell.setTextureWrap('REPEAT', 'REPEAT');
     }

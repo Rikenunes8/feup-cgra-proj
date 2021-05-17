@@ -14,15 +14,13 @@ export class MyPilar extends CGFobject {
         this.x = x;
         this.y = this.scene.floor;
         this.z = z;
-        this.pilar = new MyCylinder(this.scene, 16, this.height);
+        this.pilar = new MyCylinder(this.scene, 16, this.height/2);
     }
 
     initMaterials() {
         this.trunk = new CGFappearance(this.scene);
-        //this.trunk.setAmbient(1, 1, 1, 1);
+        this.trunk.setAmbient(1, 1, 1, 1);
         this.trunk.setDiffuse(1, 1, 1, 1);
-        this.trunk.setSpecular(0, 0, 0, 1);
-        this.trunk.setEmission(0.8, 0.8, 0.8, 0.1);
         this.trunk.loadTexture('./images/trunk_.jpg')
         this.trunk.setTextureWrap('REPEAT', 'REPEAT');
     }

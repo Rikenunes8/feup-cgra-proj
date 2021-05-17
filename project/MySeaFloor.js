@@ -15,11 +15,8 @@ export class MySeaFloor extends CGFobject {
     }
     initAppearance(maxHeight) {
         this.sandAppearance = new CGFappearance(this.scene);
-        this.sandAppearance.setAmbient(0, 0, 0, 1);
-        this.sandAppearance.setDiffuse(0, 0, 0, 1);
-        this.sandAppearance.setSpecular(0, 0, 0, 1);
-        this.sandAppearance.setEmission(1, 1, 1, 1);
-        this.sandAppearance.setShininess(10.0);
+        this.sandAppearance.setAmbient(1, 1, 1, 1);
+        this.sandAppearance.setDiffuse(1, 1, 1, 1);
         this.sandTex= new CGFtexture(this.scene,"./images/sea_floor/sand.png");
         this.sandMap = new CGFtexture(this.scene, "./images/sea_floor/sandMap.png");
         this.sandAppearance.setTexture(this.sandTex);
