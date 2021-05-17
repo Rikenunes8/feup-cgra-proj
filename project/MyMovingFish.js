@@ -12,7 +12,7 @@ export class MyMovingFish extends MyMovingObject {
     // Consts
     this.LIMIT_SUP = this.scene.floor + 3.0;
     this.LIMIT_INF = this.scene.floor + 1.5;
-    this.VEL_MAX = 1.0;
+    this.VEL_MAX = 0.5;
     this.Y_VEL_MAX = 0.05;
     
 
@@ -60,14 +60,22 @@ export class MyMovingFish extends MyMovingObject {
   }
 
   setFinsMovOrientation() {
-    if (this.obj.angTail > Math.PI / 8 || this.obj.angTail < -Math.PI / 8) {
-      this.tailOri = -this.tailOri;
+    if (this.obj.angTail > Math.PI / 8 ) {
+      this.tailOri = -1;
+    } else if (this.obj.angTail < -Math.PI / 8) {
+      this.tailOri = 1;
     }
-    if (this.obj.angLFin > Math.PI / 8 || this.obj.angLFin < 0) {
-      this.leftOri = -this.leftOri;
+
+    if (this.obj.angLFin > Math.PI / 8) {
+      this.leftOri = -1;
+    } else if (this.obj.angLFin < 0) {
+      this.leftOri = 1;
     }
-    if (this.obj.angRFin > Math.PI / 8 || this.obj.angRFin < 0) {
-      this.rightOri = -this.rightOri;
+
+    if (this.obj.angRFin > Math.PI / 8) {
+      this.rightOri = -1;
+    } else if (this.obj.angRFin < 0) {
+      this.rightOri = 1;
     }
   }
 

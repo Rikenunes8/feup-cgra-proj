@@ -81,7 +81,8 @@ export class MyScene extends CGFscene {
         this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.rockAppearence = new CGFappearance(this);
-        this.rockAppearence.setEmission(0.1,0.1,0.1,1);
+        this.rockAppearence.setAmbient(0.1,0.1,0.1,1);
+        this.rockAppearence.setDiffuse(0.1,0.1,0.1,1);
     }
 
     initTextures() {
@@ -172,6 +173,7 @@ export class MyScene extends CGFscene {
         this.displayPilars = true;
         this.displayRocks = true;
         this.displaySeaWeed = true;
+
     }
 
     onCylinderComplexityChanged() {
