@@ -199,7 +199,7 @@ export class MyScene extends CGFscene {
         this.fish.update();
         this.waterSurface.update(t);
         for (let i = 0; i < this.rocksFalling.length; i++) {
-            this.rocksFalling[i].update(this.nest.x, this.nest.y, this.nest.z, this.nest.radius);
+            this.rocksFalling[i].update(this.nest.x, this.nest.y, this.nest.z, this.nest.radius, this.rocketSet.rocks);
         }
     }
 

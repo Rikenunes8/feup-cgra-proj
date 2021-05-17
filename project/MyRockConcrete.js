@@ -40,7 +40,7 @@ export class MyRockConcrete extends CGFobject {
     this.rock.display();
   }
 
-  update(x, y, z, r) {
+  update(x, y, z, r, rocks) {
     this.x += this.velX;
     this.z += this.velZ;
     this.y += this.velY;
@@ -48,6 +48,7 @@ export class MyRockConcrete extends CGFobject {
 
     if (dist < r) { // If rock is above nest
       if (this.y < this.calculateNestHeight(dist, y, r)) {
+        this.overlapRock(rocks);
         this.endDrop(3);
         return;
       }
@@ -80,7 +81,21 @@ export class MyRockConcrete extends CGFobject {
   }
 
   calculateNestHeight(dist, y, r) {
-    // Deduced mathematically based on Nest radius (r) and displacement from the floor (y) as a function of dist
+    // Deduced mathematically based on Nest radius (r) and displacement from the floor (y) as a function of dist (distance between the center of the rock and the focus of the nest)
     return 0.7/(4*r)*dist*dist+0.3*r/4+y+0.05;
+  }
+  overlapRock(rocks) {
+    for (let i = 0; i < rocks.length; i++) {
+      if (rocks[i].state != 3) continue;
+      var r = rocks[i];
+      var rSize = 0.08; // Rock's half size 
+      if (this.overlaps(r.x-rSize, r.z-rSize, this.x-rSize, this.z-rSize, 2*rSize, 2*rSize)) {
+        this.y = r.y + 0.05;
+        break;
+      }
+    }
+  }
+  overlaps(x1, z1, x2, z2, w, h) {
+    return !(x1+w < x2 || x1 > x2+w || z1+h < z2 || z1 > z2+h);
   }
 }
