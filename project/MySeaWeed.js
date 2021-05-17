@@ -5,7 +5,7 @@ export class MySeaWeed extends CGFobject {
     constructor(scene, n) {
         super(scene);
 
-        this.greens = [
+        this.greenColors = [
             [ 34, 139,  34],  //0
             [  0, 128,   0],  //1
             [  0, 100,   0],  //2
@@ -24,11 +24,16 @@ export class MySeaWeed extends CGFobject {
 
         this.sw = [];
         this.swColor = [];
+        this.swScl = [];
+        this.swRot = [];
         for (let i = 0; i < n; i++) {
-            this.sw.push(new MyPyramid(this.scene, 12, 1, (Math.floor(Math.random() * (12 - 4)) + 4)));
-            this.swColor.push(this.greens[Math.floor(Math.random() * this.greens.length)]);
+            this.sw.push(new MyPyramid(this.scene, 6, 1, this.scene.generateRandom(12, 6, 1)));
+            this.swColor.push(this.greens[this.scene.generateRandom(this.greens.length-1, 0, 1)]);
+            this.swScl.push(this.scene.generateRandom(7, 3, 10));
+            this.swRot.push(this.scene.generateRandom(90, 0, 1));
         }
 
+        this.sclPos = 2;
         this.positions = [
             [ 0, 0,  0],
             [-1, 0, -1],
@@ -41,38 +46,26 @@ export class MySeaWeed extends CGFobject {
        
     }
     initMaterials() {
-        var color1 = Math.floor(Math.random() * 8);
-        var color2 = Math.floor(Math.random() * 8);
-        var color3 = Math.floor(Math.random() * 8);
+        var colors = [];
+        this.greens = [];
 
-
-        this.green1 = new CGFappearance(this.scene);
-        this.green1.setAmbient(this.greens[color1][0] / 256, this.greens[color1][1] / 256, this.greens[color1][2] / 256, 0.5);
-        this.green1.setDiffuse(this.greens[color1][0] / 256, this.greens[color1][1] / 256, this.greens[color1][2] / 256, 0.5);
-
-
-        this.green2 = new CGFappearance(this.scene);
-        this.green2.setAmbient(this.greens[color2][0] / 256, this.greens[color2][1] / 256, this.greens[color2][2] / 256, 0.5);
-        this.green2.setDiffuse(this.greens[color2][0] / 256, this.greens[color2][1] / 256, this.greens[color2][2] / 256, 0.5);
-
-
-        this.green3 = new CGFappearance(this.scene);
-        this.green3.setAmbient(this.greens[color3][0] / 256, this.greens[color3][1] / 256, this.greens[color3][2] / 256, 0.5);
-        this.green3.setDiffuse(this.greens[color3][0] / 256, this.greens[color3][1] / 256, this.greens[color3][2] / 256, 0.5);
-
-        this.greens = [this.green1, this.green2, this.green3];
-    }
-
-    randomRotation(){
-        this.scene.scale(Math.random()*1-0.5,0,(Math.random()*1-0.5));
-        this.scene.rotate((Math.random() * Math.PI),0, 0,1);
+        for (let i = 0; i < 3; i++) {
+            colors.push(this.scene.generateRandom(8, 0, 1));
+            var green = new CGFappearance(this.scene);
+            green.setAmbient(this.greenColors[colors[i]][0] / 256, this.greenColors[colors[i]][1] / 256, this.greenColors[colors[i]][2] / 256, 0.5);
+            green.setDiffuse(this.greenColors[colors[i]][0] / 256, this.greenColors[colors[i]][1] / 256, this.greenColors[colors[i]][2] / 256, 0.5);
+            this.greens.push(green);
+        }
     }
 
     display() {
         for (let i = 0; i < this.n; i++) {
             this.swColor[i].apply();
             this.scene.pushMatrix();
-            this.scene.translate(this.positions[i][0], this.positions[i][1], this.positions[i][2]);
+            this.scene.scale(0.1, 0.15, 0.1);
+            this.scene.translate(this.sclPos*this.positions[i][0], this.sclPos*this.positions[i][1], this.sclPos*this.positions[i][2]);
+            this.scene.rotate(this.swRot[i]*Math.PI/180, 0, 1, 0);
+            this.scene.scale(this.swScl[i], 1, 1);
             this.sw[i].display();
             this.scene.popMatrix();
         }

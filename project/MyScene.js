@@ -44,7 +44,7 @@ export class MyScene extends CGFscene {
     }
 
     initLights() {
-        this.setGlobalAmbientLight(0.3, 0.3, 0.4, 1.0);
+        this.setGlobalAmbientLight(0.2, 0.2, 0.3, 1.0);
 
         this.lights[0].setPosition(-5.0, 9.0, 1.0, 1.0);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -54,7 +54,7 @@ export class MyScene extends CGFscene {
         
     }
     initCameras() {
-        this.camera = new CGFcamera(2, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+        this.camera = new CGFcamera(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
     }
     
     initAppearances() {
@@ -147,7 +147,7 @@ export class MyScene extends CGFscene {
         this.pilar3 = new MyPilar(this, 8, -5);
         this.pilar4 = new MyPilar(this, 22, -5);
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
-        this.seaWeedSet = new MySeaWeedSet(this, 20, 230, -230, 230, -230, 50, 0, 50, 0);
+        this.seaWeedSet = new MySeaWeedSet(this, 30, 230, -230, 230, -230);
         this.nest = new MyNest(this, 1, -10, 14);
 
         this.cubeMap = new MyCubeMap(this, 500);
@@ -380,4 +380,8 @@ export class MyScene extends CGFscene {
             this.fish.dropRock();
         }
     }
+
+    generateRandom(max, min, prec) { // Max and min both included
+        return (Math.floor(Math.random() * (max - min + 1) ) + min)/prec;
+      }
 }
