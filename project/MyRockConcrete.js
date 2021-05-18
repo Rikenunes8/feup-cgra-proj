@@ -88,9 +88,9 @@ export class MyRockConcrete extends CGFobject {
     for (let i = 0; i < rocks.length; i++) {
       if (rocks[i].state != 3) continue;
       var r = rocks[i];
-      var rSize = 0.08; // Rock's half size 
+      var rSize = 0.07; // Rock's half size 
       if (this.overlaps(r.x-rSize, r.z-rSize, this.x-rSize, this.z-rSize, 2*rSize, 2*rSize)) {
-        this.y = r.y + 0.05;
+        this.y = r.y + rSize;
         break;
       }
     }
