@@ -13,12 +13,13 @@
 ![Fish Top](screenshots/proj-t2g8-1_1.png)
 ![Fish anim](screenshots/proj-t2g8-1.gif)
 
-
 <br/><br/><br/>
+
+
 
 ### 5 - Modelação de elementos da cena
 
-<br/><br/>
+<br/>
 
 #### 5.1  Ninho
 
@@ -39,7 +40,6 @@
 ![Multiple Rocks1](screenshots/proj-t2g8-4_2.png)
 ![Multiple Rocks2](screenshots/proj-t2g8-4_3.png)
 
-
 <br/><br/>
 
 ##### 5.4  Pilares
@@ -52,10 +52,60 @@
 
 ![SeaWeed](screenshots/proj-t2g8-6.png)
 
+<br/><br/><br/>
+
+
+
 ### 6 - Controlos e animações adicionais
+
+<br/>
+
+#### 6.1 MyMovingFish - Peixe controlado pelo teclado
+#### 6.2 Ajuste das animações ao comportamento do peixe
+
+![MovingFish](screenshots/proj-t2g8-7_1.gif)
+
+<br/><br/>
 
 #### 6.3 Recolha de pedras
 
-![Rocks Collection](screenshots/proj-t2g8-7.png)
+![Rocks Collection1](screenshots/proj-t2g8-7_31.png)
+![Rocks Collection2](screenshots/proj-t2g8-7_32.png)
+![Rocks Collection](screenshots/proj-t2g8-7_3.gif)
+
+<br/><br/><br/>
+
+
+
+
+### 7 - Funcionalidades Adicionais
+
+<br/>
+
+#### 7.1 - Algas
+
+![SeaWeed Random](screenshots/proj-t2g8-8_1.png)
+
+<br/>
+
+#### 7.3 - Colocação das pedras no alvo
+
+![Rocks in Nest](screenshots/proj-t2g8-8_3.png)
+
+<br/>
+
+#### 7.4 - Lançamento das pedras para o alvo
+
+![Rocks Throw](screenshots/proj-t2g8-41.gif)
+![Rocks Throw To Nest](screenshots/proj-t2g8-42.gif)
+
+<br/>
+
+#### 7.6 - Shader do peixe melhorado
+
+![Improved Fish Shadow](screenshots/proj-t2g8-61.png)
+![Improved Fish Bright](screenshots/proj-t2g8-62.png)
+
+
 
 
