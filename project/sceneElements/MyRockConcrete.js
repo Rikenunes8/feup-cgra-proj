@@ -41,9 +41,9 @@ export class MyRockConcrete extends CGFobject {
   }
 
   update(x, y, z, r, rocks) {
-    this.x += this.velX;
-    this.z += this.velZ;
-    this.y += this.velY;
+    this.x += this.velX * this.scene.speedFactor;
+    this.z += this.velZ * this.scene.speedFactor;
+    this.y += this.velY * this.scene.speedFactor;
     var dist = this.getDistTo(x, z);
 
     if (dist < r) { // If rock is above nest

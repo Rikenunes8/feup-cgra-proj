@@ -1,10 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader} from "../lib/CGF.js";
 import { CGFcamera2 } from "./CGFcamera2.js";
 import { MyCubeMap } from "./geometries/MyCubeMap.js";
-import { MySphere } from "./geometries/MySphere.js";
-import { MyCylinder } from "./geometries/MyCylinder.js";
-import { MyTriangle } from './geometries/MyTriangle.js';
-import { MyMovingObject } from "./sceneElements/MyMovingObject.js";
 import { MyMovingFish } from "./sceneElements/MyMovingFish.js";
 import {MySeaFloor} from "./sceneElements/MySeaFloor.js";
 import {MyWaterSurface} from "./sceneElements/MyWaterSurface.js";
@@ -44,6 +40,11 @@ export class MyScene extends CGFscene {
         this.initInterfaceObjects();
     }
 
+    initCameras() {
+        // this.camera = new CGFcamera(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+        this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+    }
+
     initLights() {
         this.setGlobalAmbientLight(0.2, 0.2, 0.3, 1.0);
 
@@ -52,11 +53,7 @@ export class MyScene extends CGFscene {
         this.lights[0].enable();
         this.lights[0].update();
     }
-    initCameras() {
-        // this.camera = new CGFcamera(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
-        this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
-    }
-    
+   
     initAppearances() {
         this.defaultAppearance = new CGFappearance(this);
         this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -64,21 +61,6 @@ export class MyScene extends CGFscene {
         this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.defaultAppearance.setEmission(0, 0, 0, 1);
         this.defaultAppearance.setShininess(120);
-
-        this.sphereAppearance = new CGFappearance(this);
-        this.sphereAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-        this.sphereAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.sphereAppearance.setSpecular(0.0, 0.0, 0.0, 1);
-        this.sphereAppearance.setShininess(120);
-
-        this.earthAppearance = new CGFappearance(this);
-        this.earthAppearance.setAmbient(0, 0, 0, 1);
-        this.earthAppearance.setDiffuse(0, 0, 0, 1);
-        this.earthAppearance.setSpecular(0, 0, 0, 1);
-        this.earthAppearance.setEmission(1, 1, 1, 1);
-        this.earthAppearance.setShininess(10.0);
-        this.earthAppearance.loadTexture('images/earth.jpg');
-        this.earthAppearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.rockAppearence = new CGFappearance(this);
         this.rockAppearence.setAmbient(0.1,0.1,0.1,1);
@@ -136,9 +118,6 @@ export class MyScene extends CGFscene {
         this.floor = 0;
 
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
-        this.orientedObject = new MyMovingObject(this, new MyTriangle(this));
-        this.cylinder = new MyCylinder(this, 12, 1);
         this.fish = new MyMovingFish(this);
         this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
         this.waterSurface = new MyWaterSurface(this, 50, 50);
@@ -154,17 +133,12 @@ export class MyScene extends CGFscene {
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
 
         this.rocksFalling = [];
-
     }
 
     initInterfaceObjects() {
         this.displayAxis = false;
         this.speedFactor = 1;
         this.scaleFactor = 1;
-        this.displayCylinder = false;
-        this.cylinderComplexity = 12;
-        this.displaySphere = false;
-        this.displayObject = false;
     
         this.displayWorld = true;
         this.displayFish = true;
@@ -176,9 +150,6 @@ export class MyScene extends CGFscene {
 
     }
 
-    onCylinderComplexityChanged() {
-        this.cylinder.updateBuffers(this.cylinderComplexity);
-    }
     onSelectedCubeTextureChanged() {
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
     }
@@ -195,7 +166,6 @@ export class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         this.checkKeys();
-        this.orientedObject.update();
         this.fish.update();
         this.waterSurface.update(t);
         for (let i = 0; i < this.rocksFalling.length; i++) {
@@ -259,53 +229,27 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        // ----- Fish
-        if (this.displayFish) {
-          this.pushMatrix();
-          this.fish.display();
-          this.popMatrix();
-        }
-        
-        // ------Sea Floor
-        if(this.displaySeaFloor){
-          this.pushMatrix();
-          this.seaFloor.display();
-          this.popMatrix();
-          // ------- Nest
-          this.pushMatrix();
-          this.nest.display();
-          this.popMatrix();
-          // -------------
-        }
-
-        // ----- Water Surface
-        if (this.displayWaterSurface) {
-            this.pushMatrix();
-            this.waterSurface.display();
-            this.popMatrix();
-        }
-
         // ----- Pilars
         if (this.displayPilars) {
-          this.pushMatrix();
-          this.pilar1.display();
-          this.popMatrix();
-          this.pushMatrix();
-          this.pilar2.display();
-          this.popMatrix();
-          this.pushMatrix();
-          this.pilar3.display();
-          this.popMatrix();
-          this.pushMatrix();
-          this.pilar4.display();
-          this.popMatrix();
+            this.pushMatrix();
+            this.pilar1.display();
+            this.popMatrix();
+            this.pushMatrix();
+            this.pilar2.display();
+            this.popMatrix();
+            this.pushMatrix();
+            this.pilar3.display();
+            this.popMatrix();
+            this.pushMatrix();
+            this.pilar4.display();
+            this.popMatrix();
         }
 
         // ---- Rocks
         if (this.displayRocks) {
-          this.pushMatrix();
-          this.rocketSet.display();
-          this.popMatrix();
+            this.pushMatrix();
+            this.rocketSet.display();
+            this.popMatrix();
         }
 
         //--------Sea Weed
@@ -314,36 +258,38 @@ export class MyScene extends CGFscene {
             this.seaWeedSet.display();
             this.popMatrix();
         }
-    
-        // ----- Objeto controlável
-        if (this.displayObject) {
-            this.setDefaultAppearance();
+        
+        // ------Sea Floor
+        if(this.displaySeaFloor){
+            // ------- Nest
             this.pushMatrix();
-            this.orientedObject.applyMovement();
-            this.translate(0, 0, -0.5);
-            this.rotate(Math.PI, 0, 1, 0);
-            this.rotate(-Math.PI/2, 1, 0, 0);
-            this.orientedObject.display();
+            this.nest.display();
+            this.popMatrix();
+            // -------------
+            this.pushMatrix();
+            this.seaFloor.display();
             this.popMatrix();
         }
 
-        // ------ Cylinder
-        if (this.displayCylinder) {
-          this.earthAppearance.apply()
-          this.cylinder.display();
+        // ----- Water Surface
+        if (this.displayWaterSurface) {
+            this.pushMatrix();
+            this.waterSurface.display();
+            this.popMatrix();
+        }
+        
+        // ----- Fish
+        if (this.displayFish) {
+            this.pushMatrix();
+            this.fish.display();
+            this.popMatrix();
         }
 
-        // ------ Sphere
-        if (this.displaySphere) {
-          this.earthAppearance.apply()
-          this.incompleteSphere.display();
-        }
 
         // ---- END Primitive drawing section ------
     }
 
     turn(ang) {
-        this.orientedObject.ang += ang;
         this.fish.ang += ang;
         
         if (ang > 0)
@@ -353,16 +299,11 @@ export class MyScene extends CGFscene {
     }
 
     accelerate(vel) {
-        this.orientedObject.vel += vel;
         this.fish.vel += vel;
     }
 
     reset() {
-      this.orientedObject.pos = [0, 0, 0];
-      this.orientedObject.ang = 0;
-      this.orientedObject.vel = 0;
-    
-      this.fish.reset();
+        this.fish.reset();
     }
 
     goUpAndDown(ori) {
@@ -383,5 +324,5 @@ export class MyScene extends CGFscene {
 
     generateRandom(max, min, prec) { // Max and min both included
         return (Math.floor(Math.random() * (max - min + 1) ) + min)/prec;
-      }
+    }
 }

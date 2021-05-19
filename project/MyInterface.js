@@ -16,25 +16,21 @@ export class MyInterface extends CGFinterface {
       // http://workshop.chromeexperiments.com/examples/gui
       this.gui = new dat.GUI();
       
-      var obj = this;
-
       //Checkbox element in GUI
       this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-      
+
       this.gui.add(this.scene,'speedFactor',0.1,3).name('Scene speed');
       this.gui.add(this.scene,'scaleFactor',0.5,3).name('Scale Factor');
 
       var world = this.gui.addFolder('World');
-      world.add(this.scene, 'displayWorld').name('Display World');
       world.add(this.scene, 'selectedCubeTexture', this.scene.texturesList).onChange(this.scene.onSelectedCubeTextureChanged.bind(this.scene)).name('World Texture');
-
-      this.gui.add(this.scene, 'displayObject').name('Display Object');
-      this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
-      this.gui.add(this.scene, 'displayFish').name('Display Fish');
-
-      var cylinder = this.gui.addFolder('Cylinder');
-      cylinder.add(this.scene, 'displayCylinder').name("Display Cylinder");
-      cylinder.add(this.scene, 'cylinderComplexity', 3, 16).onChange(this.scene.onCylinderComplexityChanged.bind(this.scene)).name('Cylinder slices');
+      world.add(this.scene, 'displayWorld'        ).name('Display World');
+      world.add(this.scene, 'displayFish'         ).name('Display Fish');
+      world.add(this.scene, 'displaySeaFloor'     ).name('Display Sea Floor');
+      world.add(this.scene, 'displayWaterSurface' ).name('Display Water');
+      world.add(this.scene, 'displayPilars'       ).name('Display Pilars');
+      world.add(this.scene, 'displayRocks'        ).name('Display Rocks');
+      world.add(this.scene, 'displaySeaWeed'      ).name('Display Sea Weed');
 
 
       this.initKeys();

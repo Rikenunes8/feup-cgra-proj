@@ -11,7 +11,7 @@ uniform float timeFactor;
 
 
 void main() {
-  float timeScale = 0.005;
+  float timeScale = 0.001;
   float scale = 0.5;
   vec2 movedTextureCoord = vTextureCoord + vec2(timeFactor, timeFactor)*vec2(timeScale, timeScale);
   vec4 colorMap = texture2D(uSampler2, movedTextureCoord);

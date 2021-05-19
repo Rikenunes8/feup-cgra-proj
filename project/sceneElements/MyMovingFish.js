@@ -17,6 +17,8 @@ export class MyMovingFish extends MyMovingObject {
     
 
     this.rock = null;
+    this.rockHeightOffset = -0.05;
+    this.rockFrontOffset = 0.3;
     
     this.tailOri = 1.0;
     this.leftOri = 1.0;
@@ -41,9 +43,9 @@ export class MyMovingFish extends MyMovingObject {
       this.vel = this.VEL_MAX;
     }
 
-    this.obj.angTail = this.obj.angTail + this.tailOri*(3+Math.abs(this.vel)*20.0)*Math.PI/180;
-    if (!this.turningLeft)  this.obj.angLFin = this.obj.angLFin + this.leftOri*(2)*Math.PI/180;
-    if (!this.turningRight) this.obj.angRFin = this.obj.angRFin + this.rightOri*(2)*Math.PI/180;
+    this.obj.angTail = this.obj.angTail + this.tailOri*(3+Math.abs(this.vel)*20.0)*this.scene.speedFactor*Math.PI/180;
+    if (!this.turningLeft)  this.obj.angLFin = this.obj.angLFin + this.leftOri*(2)*this.scene.speedFactor*Math.PI/180;
+    if (!this.turningRight) this.obj.angRFin = this.obj.angRFin + this.rightOri*(2)*this.scene.speedFactor*Math.PI/180;
 
     this.turningLeft = false;
     this.turningRight = false;
@@ -84,7 +86,7 @@ export class MyMovingFish extends MyMovingObject {
     super.display();
     if (this.rock != null) {
       this.scene.rockAppearence.apply();
-      this.scene.translate(0, -0.05, 0.3);
+      this.scene.translate(0, this.rockHeightOffset, this.rockFrontOffset);
       this.rock.display();
     }
   }
@@ -98,11 +100,11 @@ export class MyMovingFish extends MyMovingObject {
   }
   dropRock() {
     this.rock.state = 2;
-    this.rock.x = this.pos[0] +0.3*Math.sin(this.ang);
-    this.rock.y = this.pos[1] -0.05;
-    this.rock.z = this.pos[2] +0.3*Math.cos(this.ang);
-    this.rock.velX = this.vel/**this.scene.speedFactor*/*Math.sin(this.ang);
-    this.rock.velZ = this.vel/**this.scene.speedFactor*/*Math.cos(this.ang);
+    this.rock.x = this.pos[0] + this.rockFrontOffset*Math.sin(this.ang);
+    this.rock.y = this.pos[1] + this.rockHeightOffset;
+    this.rock.z = this.pos[2] + this.rockFrontOffset*Math.cos(this.ang);
+    this.rock.velX = this.vel*Math.sin(this.ang);
+    this.rock.velZ = this.vel*Math.cos(this.ang);
     this.scene.rocksFalling.push(this.rock);
     this.rock = null;
   }

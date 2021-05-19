@@ -27,17 +27,17 @@ export class MyWaterSurface extends CGFobject {
     }
 
     update(t) {
-      this.waterShader.setUniformsValues({ timeFactor: t / 100 % 100 });
+      this.waterShader.setUniformsValues({ timeFactor: t * this.scene.speedFactor / 100 % 100 });
     }
 
     display() {
-        this.waterAppearance.apply();
         this.scene.setActiveShader(this.waterShader);
+        this.waterAppearance.apply();
         this.waterMap.bind(3);
         this.scene.translate(0, this.scene.roof, 0);
         this.scene.scale(this.side, 1, this.side);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.waterSurface.display();
-        this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShader(this.scene.defaultShader); // Altough it is more eficient, comment this is dangerous. Needs cares about scene display order.
     }
 }

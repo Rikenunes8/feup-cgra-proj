@@ -33,7 +33,7 @@ export class MySeaFloor extends CGFobject {
         this.scene.scale(this.side, 1, this.side);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.seaFloor.display();
-        this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShader(this.scene.defaultShader); // Altough it would be more eficient, comment this is dangerous. Needs cares about scene display order.
     }
     display(){
         this.displayFloor();
