@@ -96,15 +96,15 @@
 
 #### 7.4 - Lançamento das pedras para o alvo
 
-![Rocks Throw](screenshots/proj-t2g8-41.gif)
-![Rocks Throw To Nest](screenshots/proj-t2g8-42.gif)
+![Rocks Throw](screenshots/proj-t2g8_41.gif)
+![Rocks Throw To Nest](screenshots/proj-t2g8_42.gif)
 
 <br/>
 
 #### 7.6 - Shader do peixe melhorado
 
-![Improved Fish Shadow](screenshots/proj-t2g8-61.png)
-![Improved Fish Bright](screenshots/proj-t2g8-62.png)
+![Improved Fish Shadow](screenshots/proj-t2g8_61.png)
+![Improved Fish Bright](screenshots/proj-t2g8_62.png)
 
 
 
