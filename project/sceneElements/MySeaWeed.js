@@ -1,5 +1,5 @@
-import { CGFappearance, CGFobject } from '../lib/CGF.js';
-import { MyPyramid } from "./geometries/MyPyramid.js";
+import { CGFappearance, CGFobject } from '../../lib/CGF.js';
+import { MyPyramid } from "../geometries/MyPyramid.js";
 
 export class MySeaWeed extends CGFobject {
     constructor(scene, n) {

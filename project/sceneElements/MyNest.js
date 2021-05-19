@@ -1,5 +1,5 @@
-import { CGFobject, CGFappearance, CGFshader } from '../lib/CGF.js';
-import { MyHalfSphere } from "./geometries/MyHalfSphere.js";
+import { CGFobject, CGFappearance } from '../../lib/CGF.js';
+import { MyHalfSphere } from "../geometries/MyHalfSphere.js";
 
 /**
  * MyFish

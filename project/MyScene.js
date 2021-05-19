@@ -1,16 +1,17 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader} from "../lib/CGF.js";
+import { CGFcamera2 } from "./CGFcamera2.js";
 import { MyCubeMap } from "./geometries/MyCubeMap.js";
 import { MySphere } from "./geometries/MySphere.js";
 import { MyCylinder } from "./geometries/MyCylinder.js";
 import { MyTriangle } from './geometries/MyTriangle.js';
-import { MyMovingObject } from "./MyMovingObject.js";
-import { MyMovingFish } from "./MyMovingFish.js";
-import {MySeaFloor} from "./MySeaFloor.js";
-import {MyWaterSurface} from "./MyWaterSurface.js";
-import { MyNest } from "./MyNest.js";
-import { MyPilar } from "./MyPilar.js";
-import { MyRocketSet } from "./MyRockSet.js";
-import { MySeaWeedSet } from "./MySeaWeedSet.js";
+import { MyMovingObject } from "./sceneElements/MyMovingObject.js";
+import { MyMovingFish } from "./sceneElements/MyMovingFish.js";
+import {MySeaFloor} from "./sceneElements/MySeaFloor.js";
+import {MyWaterSurface} from "./sceneElements/MyWaterSurface.js";
+import { MyNest } from "./sceneElements/MyNest.js";
+import { MyPilar } from "./sceneElements/MyPilar.js";
+import { MyRocketSet } from "./sceneElements/MyRockSet.js";
+import { MySeaWeedSet } from "./sceneElements/MySeaWeedSet.js";
 
 /**
 * MyScene
@@ -49,12 +50,11 @@ export class MyScene extends CGFscene {
         this.lights[0].setPosition(-5.0, 9.0, 1.0, 1.0);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
-        //this.lights[0].setVisible(true);
         this.lights[0].update();
-        
     }
     initCameras() {
-        this.camera = new CGFcamera(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+        // this.camera = new CGFcamera(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
+        this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2, 2, 2), vec3.fromValues(0, 2, 0));
     }
     
     initAppearances() {

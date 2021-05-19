@@ -1,6 +1,6 @@
-import { CGFobject, CGFappearance, CGFshader } from '../lib/CGF.js';
-import { MySphere } from "./geometries/MySphere.js";
-import { MyTriangle } from "./geometries/MyTriangle.js";
+import { CGFobject, CGFappearance, CGFshader } from '../../lib/CGF.js';
+import { MySphere } from "../geometries/MySphere.js";
+import { MyTriangle } from "../geometries/MyTriangle.js";
 
 /**
  * MyFish

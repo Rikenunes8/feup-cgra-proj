@@ -1,5 +1,5 @@
-import { CGFobject, CGFappearance, CGFtexture, CGFshader } from '../lib/CGF.js';
-import { MyPlane } from "./geometries/MyPlane.js";
+import { CGFobject, CGFappearance, CGFtexture, CGFshader } from '../../lib/CGF.js';
+import { MyPlane } from "../geometries/MyPlane.js";
 
 /**
  * MyFish

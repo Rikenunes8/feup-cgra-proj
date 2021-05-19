@@ -1,5 +1,5 @@
-import { CGFobject, CGFappearance } from '../lib/CGF.js';
-import { MyCylinder } from "./geometries/MyCylinder.js";
+import { CGFobject, CGFappearance } from '../../lib/CGF.js';
+import { MyCylinder } from "../geometries/MyCylinder.js";
 
 /**
  * MyPilar

@@ -1,4 +1,4 @@
-import { CGFobject} from '../lib/CGF.js';
+import { CGFobject} from '../../lib/CGF.js';
 
 
 export class MyRockConcrete extends CGFobject {
@@ -47,7 +47,8 @@ export class MyRockConcrete extends CGFobject {
     var dist = this.getDistTo(x, z);
 
     if (dist < r) { // If rock is above nest
-      if (this.y < this.calculateNestHeight(dist, y, r)) {
+      var nestHeight = this.calculateNestHeight(dist, y, r);
+      if (this.y <=  nestHeight && this.y >= nestHeight+2*this.velY) {
         this.overlapRock(rocks);
         this.endDrop(3);
         return;
