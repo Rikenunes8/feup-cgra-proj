@@ -103,8 +103,8 @@ export class MyMovingFish extends MyMovingObject {
     this.rock.x = this.pos[0] + this.rockFrontOffset*Math.sin(this.ang);
     this.rock.y = this.pos[1] + this.rockHeightOffset;
     this.rock.z = this.pos[2] + this.rockFrontOffset*Math.cos(this.ang);
-    this.rock.velX = this.vel*Math.sin(this.ang);
-    this.rock.velZ = this.vel*Math.cos(this.ang);
+    this.rock.velX = (this.vel+0.01)*Math.sin(this.ang);
+    this.rock.velZ = (this.vel+0.01)*Math.cos(this.ang);
     this.scene.rocksFalling.push(this.rock);
     this.rock = null;
   }
