@@ -8,6 +8,7 @@ import { MyNest } from "./sceneElements/MyNest.js";
 import { MyPilar } from "./sceneElements/MyPilar.js";
 import { MyRocketSet } from "./sceneElements/MyRockSet.js";
 import { MySeaWeedSet } from "./sceneElements/MySeaWeedSet.js";
+import { MyAnimatedFish } from "./sceneElements/MyAnimatedFish.js";
 
 /**
 * MyScene
@@ -128,6 +129,7 @@ export class MyScene extends CGFscene {
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
         this.seaWeedSet = new MySeaWeedSet(this, 30, 230, -230, 230, -230);
         this.nest = new MyNest(this, 1, -10, 14);
+        this.animFish = new MyAnimatedFish(this, 5, 20, -20, 20, -20, 6, 2, 10, 4);
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -147,6 +149,7 @@ export class MyScene extends CGFscene {
         this.displayPilars = true;
         this.displayRocks = true;
         this.displaySeaWeed = true;
+        this.displayShoal = true;
 
     }
 
@@ -171,6 +174,7 @@ export class MyScene extends CGFscene {
         for (let i = 0; i < this.rocksFalling.length; i++) {
             this.rocksFalling[i].update(this.nest.x, this.nest.y, this.nest.z, this.nest.radius, this.rocketSet.rocks);
         }
+        this.animFish.update();
     }
 
     checkKeys() {
@@ -182,10 +186,10 @@ export class MyScene extends CGFscene {
             this.accelerate(-0.05);
         }
         if (this.gui.isKeyPressed("KeyA")) {
-            this.turn(Math.PI / 36);
+            this.turn(Math.PI / 32);
         }
         if (this.gui.isKeyPressed("KeyD")) {
-            this.turn(-Math.PI / 36);
+            this.turn(-Math.PI / 32);
         }
         if (this.gui.isKeyPressed("KeyP")) {
             this.goUpAndDown(1);
@@ -282,6 +286,13 @@ export class MyScene extends CGFscene {
         if (this.displayFish) {
             this.pushMatrix();
             this.fish.display();
+            this.popMatrix();
+        }
+
+        // ----- Shoal
+        if (this.displayShoal) {
+            this.pushMatrix();
+            this.animFish.display();
             this.popMatrix();
         }
 

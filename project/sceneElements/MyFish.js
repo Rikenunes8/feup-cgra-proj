@@ -8,15 +8,20 @@ import { MyTriangle } from "../geometries/MyTriangle.js";
  * @param scene - Reference to MyScene object
  */
 export class MyFish extends CGFobject {
-	constructor(scene) {
+	constructor(scene, player) {
 		super(scene);
-    this.initMaterials();
+    this.initMaterials(player);
 		this.init();
 
     this.angTail = 0;
     this.angLFin = 0;
     this.angRFin = 0;
-	}
+
+    if (player)
+      this.finColor = this.red;
+    else 
+      this.finColor = this.yel;
+  }
 
 	init() {
     var mul = 2; // Not to use less than 1
@@ -29,18 +34,24 @@ export class MyFish extends CGFobject {
     this.leftEye  = new MySphere(this.scene, 8*mul, 4*mul);
 
 	}
-  initMaterials() {
+  initMaterials(isMyFish) {
     this.fishScales = new CGFappearance(this.scene);
     this.fishScales.setAmbient(1.0, 1.0, 1.0, 1);
     this.fishScales.setDiffuse(1.0, 1.0, 1.0, 1);
     this.fishScales.setEmission(0.3, 0.3, 0.3, 1.0);
     this.fishScales.loadTexture('./images/fish/fish_scales.jpg');
     this.fishShader = new CGFshader(this.scene.gl, './shaders/fish_shader_light_vert.glsl', './shaders/fish_shader_light_frag.glsl');
+    this.fishShader.setUniformsValues({player : isMyFish});
 
     this.red = new CGFappearance(this.scene);
     this.red.setAmbient (0.8, 0.0, 0.0, 1.0);
     this.red.setDiffuse (0.8, 0.0, 0.0, 1.0);
     this.red.setEmission(0.3, 0.0, 0.0, 1.0);
+
+    this.yel = new CGFappearance(this.scene);
+    this.yel.setAmbient (0.8, 0.8, 0.0, 1.0);
+    this.yel.setDiffuse (0.8, 0.8, 0.0, 1.0);
+    this.yel.setEmission(0.3, 0.3, 0.0, 1.0);
 
     this.eye = new CGFappearance(this.scene);
     this.eye.setAmbient (1.0, 1.0, 1.0, 1.0);
@@ -52,7 +63,7 @@ export class MyFish extends CGFobject {
   display() {
     this.displayBody();
 
-    this.red.apply();
+    this.finColor.apply();
     this.displayUpperFin();
     this.displayLeftFin();
     this.displayRightFin();

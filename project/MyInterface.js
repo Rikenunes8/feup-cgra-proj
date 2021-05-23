@@ -31,6 +31,8 @@ export class MyInterface extends CGFinterface {
       world.add(this.scene, 'displayPilars'       ).name('Display Pilars');
       world.add(this.scene, 'displayRocks'        ).name('Display Rocks');
       world.add(this.scene, 'displaySeaWeed'      ).name('Display Sea Weed');
+      world.add(this.scene, 'displayAnimFish'     ).name('Display Shoal');
+
 
 
       this.initKeys();

@@ -8,7 +8,7 @@ import { MyFish } from "./MyFish.js";
  */
 export class MyMovingFish extends MyMovingObject {
 	constructor(scene) {
-		super(scene, new MyFish(scene));
+		super(scene, new MyFish(scene, true));
     // Consts
     this.LIMIT_SUP = this.scene.floor + 3.0;
     this.LIMIT_INF = this.scene.floor + 1.5;
@@ -23,6 +23,9 @@ export class MyMovingFish extends MyMovingObject {
     this.tailOri = 1.0;
     this.leftOri = 1.0;
     this.rightOri = 1.0;
+
+    this.tailVel = 0.03;
+    this.finVel  = 0.02;
 
     this.turningRight = false;
     this.turningLeft = false;
@@ -43,9 +46,9 @@ export class MyMovingFish extends MyMovingObject {
       this.vel = this.VEL_MAX;
     }
 
-    this.obj.angTail = this.obj.angTail + this.tailOri*(3+Math.abs(this.vel)*20.0)*this.scene.speedFactor*Math.PI/180;
-    if (!this.turningLeft)  this.obj.angLFin = this.obj.angLFin + this.leftOri*(2)*this.scene.speedFactor*Math.PI/180;
-    if (!this.turningRight) this.obj.angRFin = this.obj.angRFin + this.rightOri*(2)*this.scene.speedFactor*Math.PI/180;
+    this.obj.angTail = this.obj.angTail + this.tailOri*(this.tailVel+Math.abs(this.vel)*0.8)*this.scene.speedFactor;
+    if (!this.turningLeft)  this.obj.angLFin = this.obj.angLFin + this.leftOri*(this.finVel)*this.scene.speedFactor;
+    if (!this.turningRight) this.obj.angRFin = this.obj.angRFin + this.rightOri*(this.finVel)*this.scene.speedFactor;
 
     this.turningLeft = false;
     this.turningRight = false;
