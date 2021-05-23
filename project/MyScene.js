@@ -129,7 +129,11 @@ export class MyScene extends CGFscene {
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
         this.seaWeedSet = new MySeaWeedSet(this, 30, 230, -230, 230, -230);
         this.nest = new MyNest(this, 1, -10, 14);
-        this.animFish = new MyAnimatedFish(this, 5, 20, -20, 20, -20, 6, 2, 10, 4);
+        
+        this.shoal = [];
+        for (let i = 0; i < 5; i++) {
+          this.shoal.push(new MyAnimatedFish(this, 5, 20, -20, 20, -20, 8, 2, 10, 4));
+        }
 
         this.cubeMap = new MyCubeMap(this, 500);
         this.cubeMap.setTextures(this.cubeTextures[this.selectedCubeTexture]);
@@ -174,8 +178,10 @@ export class MyScene extends CGFscene {
         for (let i = 0; i < this.rocksFalling.length; i++) {
             this.rocksFalling[i].update(this.nest.x, this.nest.y, this.nest.z, this.nest.radius, this.rocketSet.rocks);
         }
-        this.animFish.update();
-    }
+        for (let i = 0; i < this.shoal.length; i++) {
+          this.shoal[i].update();
+        }
+      }
 
     checkKeys() {
         // Check for key codes e.g. in https://keycode.info/
@@ -291,9 +297,11 @@ export class MyScene extends CGFscene {
 
         // ----- Shoal
         if (this.displayShoal) {
+          for (let i = 0; i < this.shoal.length; i++) {
             this.pushMatrix();
-            this.animFish.display();
+            this.shoal[i].display();
             this.popMatrix();
+          }
         }
 
 
