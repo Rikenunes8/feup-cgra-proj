@@ -7,8 +7,8 @@ in vec4 coords;
 
 out vec4 fragColor;
 
-uniform bool player;
 uniform sampler2D uSampler;
+uniform bool player;
 
 uniform bool uUseTexture;
 
@@ -20,10 +20,10 @@ void main() {
 		float size = 2.0;
 		vec4 textureColor = texture(uSampler, vTextureCoord);
 		if (coords.y >= (size/2.0 - size*0.4)) {
-			if (player)
-				fragColor =  vec4(0.8, 0.0, 0.0, 1.0) * vFinalColor;
-			else
-				fragColor =  vec4(0.8, 0.8 0.0, 1.0) * vFinalColor;
+      if (player)
+			  fragColor =  vec4(0.8, 0.0, 0.0, 1.0) * vFinalColor;
+      else
+        fragColor =  vec4(0.8, 0.8, 0.0, 1.0) * vFinalColor;
 		}
 		else {
 			fragColor = textureColor * vFinalColor;

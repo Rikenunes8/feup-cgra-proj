@@ -8,7 +8,7 @@ import { MyFish } from "./MyFish.js";
  */
 export class MyAnimatedFish extends MyMovingObject {
 	constructor(scene, radius, xMax, xMin, zMax, zMin, yMax, yMin, tMax, tMin) {
-		super(scene, new MyFish(scene));
+		super(scene, new MyFish(scene, false));
 
     this.radius = radius;
     this.centerX = this.scene.generateRandom(xMax, xMin, 1);

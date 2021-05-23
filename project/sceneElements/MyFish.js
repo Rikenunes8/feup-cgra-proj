@@ -41,7 +41,7 @@ export class MyFish extends CGFobject {
     this.fishScales.setEmission(0.3, 0.3, 0.3, 1.0);
     this.fishScales.loadTexture('./images/fish/fish_scales.jpg');
     this.fishShader = new CGFshader(this.scene.gl, './shaders/fish_shader_light_vert.glsl', './shaders/fish_shader_light_frag.glsl');
-    this.fishShader.setUniformsValues({player : isMyFish});
+    this.fishShader.setUniformsValues({ player: isMyFish });
 
     this.red = new CGFappearance(this.scene);
     this.red.setAmbient (0.8, 0.0, 0.0, 1.0);
