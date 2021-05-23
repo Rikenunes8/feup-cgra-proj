@@ -44,7 +44,7 @@ export class MyAnimatedFish extends MyMovingObject {
     super.update();
     this.setFinsMovOrientation();
 
-    this.ang += this.ori * this.angInc; 
+    this.ang += this.ori * this.angInc * this.scene.speedFactor; 
     
     this.obj.angTail = this.obj.angTail + this.tailOri*(this.tailVel+Math.abs(this.vel)*0.8)*this.scene.speedFactor;
     if (!this.turningLeft)  this.obj.angLFin = this.obj.angLFin + this.leftOri*(this.finVel)*this.scene.speedFactor;
