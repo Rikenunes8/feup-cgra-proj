@@ -9,6 +9,7 @@ import { MyPilar } from "./sceneElements/MyPilar.js";
 import { MyRocketSet } from "./sceneElements/MyRockSet.js";
 import { MySeaWeedSet } from "./sceneElements/MySeaWeedSet.js";
 import { MyAnimatedFish } from "./sceneElements/MyAnimatedFish.js";
+import { MyPilarSet } from "./sceneElements/MyPilarSet.js";
 
 /**
 * MyScene
@@ -122,16 +123,16 @@ export class MyScene extends CGFscene {
         this.fish = new MyMovingFish(this);
         this.seaFloor = new MySeaFloor(this, 50, 50, 1.0);
         this.waterSurface = new MyWaterSurface(this, 50, 50);
-        this.pilar1 = new MyPilar(this, 8, 0);
-        this.pilar2 = new MyPilar(this, 22, 0);
-        this.pilar3 = new MyPilar(this, 8, -5);
-        this.pilar4 = new MyPilar(this, 22, -5);
         this.rocketSet = new MyRocketSet(this, 40, 230, -230, 230, -230, 10, 5, 10, 5, 90, 0);
         this.seaWeedSet = new MySeaWeedSet(this, 30, 230, -230, 230, -230);
         this.nest = new MyNest(this, 1, -10, 14);
         
+        var pilarsX = [8, 22, 8, 22];
+        var pilarsZ = [0, 0, -5, -5];
+        this.pilarsSet = new MyPilarSet(this, pilarsX, pilarsZ);
+
         this.shoal = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 0; i++) {
           this.shoal.push(new MyAnimatedFish(this, 5, 20, -20, 20, -20, 8, 2, 10, 4));
         }
 
@@ -241,32 +242,17 @@ export class MyScene extends CGFscene {
 
         // ----- Pilars
         if (this.displayPilars) {
-            this.pushMatrix();
-            this.pilar1.display();
-            this.popMatrix();
-            this.pushMatrix();
-            this.pilar2.display();
-            this.popMatrix();
-            this.pushMatrix();
-            this.pilar3.display();
-            this.popMatrix();
-            this.pushMatrix();
-            this.pilar4.display();
-            this.popMatrix();
+            this.pilarsSet.display();
         }
 
         // ---- Rocks
         if (this.displayRocks) {
-            this.pushMatrix();
             this.rocketSet.display();
-            this.popMatrix();
         }
 
         //--------Sea Weed
         if(this.displaySeaWeed){
-            this.pushMatrix();
             this.seaWeedSet.display();
-            this.popMatrix();
         }
         
         // ------Sea Floor

@@ -26,11 +26,11 @@ export class MyInterface extends CGFinterface {
       world.add(this.scene, 'selectedCubeTexture', this.scene.texturesList).onChange(this.scene.onSelectedCubeTextureChanged.bind(this.scene)).name('World Texture');
       world.add(this.scene, 'displayWorld'        ).name('Display World');
       world.add(this.scene, 'displayFish'         ).name('Display Fish');
-      world.add(this.scene, 'displaySeaFloor'     ).name('Display Sea Floor');
+      world.add(this.scene, 'displaySeaFloor'     ).name('Display Floor');
       world.add(this.scene, 'displayWaterSurface' ).name('Display Water');
       world.add(this.scene, 'displayPilars'       ).name('Display Pilars');
       world.add(this.scene, 'displayRocks'        ).name('Display Rocks');
-      world.add(this.scene, 'displaySeaWeed'      ).name('Display Sea Weed');
+      world.add(this.scene, 'displaySeaWeed'      ).name('Display Plants');
       world.add(this.scene, 'displayShoal'        ).name('Display Shoal');
 
 

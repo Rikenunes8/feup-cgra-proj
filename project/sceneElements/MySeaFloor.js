@@ -25,17 +25,14 @@ export class MySeaFloor extends CGFobject {
         this.sandShader.setUniformsValues({ uSampler2: 2, heightScale: maxHeight });
     }
 
-    displayFloor() {
-        this.sandAppearance.apply();
-        this.scene.setActiveShader(this.sandShader);
-        this.sandMap.bind(2);
-        this.scene.translate(0, this.scene.floor, 0);
-        this.scene.scale(this.side, 1, this.side);
-        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-        this.seaFloor.display();
-        this.scene.setActiveShader(this.scene.defaultShader); // Altough it would be more eficient, comment this is dangerous. Needs cares about scene display order.
-    }
     display(){
-        this.displayFloor();
+      this.sandAppearance.apply();
+      this.scene.setActiveShader(this.sandShader);
+      this.sandMap.bind(2);
+      this.scene.translate(0, this.scene.floor, 0);
+      this.scene.scale(this.side, 1, this.side);
+      this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+      this.seaFloor.display();
+      this.scene.setActiveShader(this.scene.defaultShader); // Altough it would be more eficient, comment this is dangerous. Needs cares about scene display order.
     }
 }

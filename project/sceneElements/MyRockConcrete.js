@@ -50,7 +50,7 @@ export class MyRockConcrete extends CGFobject {
 
     if (dist < r) { // If rock is above nest
       var nestHeight = this.calculateNestHeight(dist, y, r);
-      if (this.y <=  nestHeight && this.y >= nestHeight-0.15) {
+      if (this.y <=  nestHeight && this.y >= nestHeight-0.2) { // Considering that if the rock is under the nest 0.2 it came into its radius from below
         this.y = nestHeight;
         this.overlapRock(rocks);
         this.endDrop(3);
