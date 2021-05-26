@@ -8,7 +8,6 @@ export class MyPilarSet extends CGFobject {
 
     this.pilars = [];
     for (let i = 0; i < posX.length; i++) {
-      console.log("OLA");
       this.pilars.push(new MyPilar(scene, posX[i], posZ[i]));
     }
   }
@@ -23,7 +22,6 @@ export class MyPilarSet extends CGFobject {
   display() {
     this.trunk.apply();
     for (let i = 0; i < this.pilars.length; i++) {
-      console.log("JLKFJKDLH");
       this.scene.pushMatrix();
       this.pilars[i].display();
       this.scene.popMatrix();
