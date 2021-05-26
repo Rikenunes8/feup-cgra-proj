@@ -1,4 +1,5 @@
 import { CGFobject, CGFappearance } from '../../lib/CGF.js';
+import { MyPilar } from './MyPilar.js'
 
 export class MyPilarSet extends CGFobject {
   constructor(scene, posX, posZ) {
@@ -6,8 +7,9 @@ export class MyPilarSet extends CGFobject {
     this.initMaterials();
 
     this.pilars = [];
-    for (let i = 0; i < posX.lenght; i++) {
-      this.pilars.push(new MyPilar(this, posX[i], posZ[i]));
+    for (let i = 0; i < posX.length; i++) {
+      console.log("OLA");
+      this.pilars.push(new MyPilar(scene, posX[i], posZ[i]));
     }
   }
 
@@ -21,6 +23,7 @@ export class MyPilarSet extends CGFobject {
   display() {
     this.trunk.apply();
     for (let i = 0; i < this.pilars.length; i++) {
+      console.log("JLKFJKDLH");
       this.scene.pushMatrix();
       this.pilars[i].display();
       this.scene.popMatrix();

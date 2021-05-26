@@ -5,7 +5,6 @@ import { MyMovingFish } from "./sceneElements/MyMovingFish.js";
 import {MySeaFloor} from "./sceneElements/MySeaFloor.js";
 import {MyWaterSurface} from "./sceneElements/MyWaterSurface.js";
 import { MyNest } from "./sceneElements/MyNest.js";
-import { MyPilar } from "./sceneElements/MyPilar.js";
 import { MyRocketSet } from "./sceneElements/MyRockSet.js";
 import { MySeaWeedSet } from "./sceneElements/MySeaWeedSet.js";
 import { MyAnimatedFish } from "./sceneElements/MyAnimatedFish.js";
@@ -129,10 +128,10 @@ export class MyScene extends CGFscene {
         
         var pilarsX = [8, 22, 8, 22];
         var pilarsZ = [0, 0, -5, -5];
-        this.pilarsSet = new MyPilarSet(this, pilarsX, pilarsZ);
+        this.pilars = new MyPilarSet(this, pilarsX, pilarsZ);
 
         this.shoal = [];
-        for (let i = 0; i < 0; i++) {
+        for (let i = 0; i < 2; i++) {
           this.shoal.push(new MyAnimatedFish(this, 5, 20, -20, 20, -20, 8, 2, 10, 4));
         }
 
@@ -242,7 +241,7 @@ export class MyScene extends CGFscene {
 
         // ----- Pilars
         if (this.displayPilars) {
-            this.pilarsSet.display();
+            this.pilars.display();
         }
 
         // ---- Rocks

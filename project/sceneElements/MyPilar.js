@@ -20,7 +20,7 @@ export class MyPilar extends CGFobject {
     
     display() {
         this.scene.translate(this.x, this.y, this.z);
-        this.scene.scale(1, this.height, 1);
+        this.scene.scale(0.5, this.height, 0.5);
         this.pilar.display();
     }
 

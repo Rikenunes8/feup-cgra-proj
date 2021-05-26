@@ -20,7 +20,7 @@ export class MyAnimatedFish extends MyMovingObject {
 
     this.T = this.scene.generateRandom(tMax, tMin, 1);
 
-    var w = 2*Math.PI/this.T * 1.7; // 1.7 to compensate errors
+    var w = 2*Math.PI/this.T * 1.5; // 1.7 to compensate errors
     this.vel = this.radius*0.05*w;  
     this.angInc = 0.05*w;
 
