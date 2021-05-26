@@ -16,7 +16,7 @@ export class MyPilarSet extends CGFobject {
     this.trunk = new CGFappearance(this.scene);
     this.trunk.setAmbient(1, 1, 1, 1);
     this.trunk.setDiffuse(1, 1, 1, 1);
-    this.trunk.loadTexture('./images/trunk_.jpg')
+    this.trunk.loadTexture('./images/trunk.jpg')
     this.trunk.setTextureWrap('REPEAT', 'REPEAT');
   }
   display() {
