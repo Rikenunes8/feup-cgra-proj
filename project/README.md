@@ -15,7 +15,7 @@
   - [x] 4.1 - Modelação do peixe
     - O peixe possui 40% do seu corpo vermelho, e o restante possui uma textura de escamas. As barbatanas também possuem cor vermelha, enquanto aos olhos foi aplicada uma textura que se adequasse ao efeito.
   - [x] 4.2 - Animação do peixe
-    - As barbatanas laterais possuem movimento com velocidade constante, enquanto que a velocidade da barbatana traseira varia com a velocidade do peixe (a velocidade da barbatana é constante não nula quando o peixe encontra parado).
+    - As barbatanas laterais possuem movimento com velocidade constante, enquanto que a velocidade da barbatana traseira varia com a velocidade do peixe (a velocidade da barbatana é constante não nula quando o peixe se encontra parado).
 - [x] 5 - Modelação de elementos da cena
   - [x] 5.1 - Fundo de areia com "ninho"
     - O ninho foi realizado aplicando uma textura a um paraboloide achatado (superfície de semiesfera com dupla face).
@@ -48,9 +48,9 @@
   - [x] 7.6 - Shader do peixe melhorado
     - O peixe possui uma textura das suas escamas e ainda é capaz de refletir luz proveniente da cena.
 
-É referido no enunciado que apenas devem ser avaliados 3 valores dos 6 possíveis na secção 7. Assim sendo, e uma vez que implementamos 4.5 dos 6 valores (7.1, 7.3, 7.4, 7.5, 7.6), desejariamos que fossem avaliadas as secções: 7.1, 7.3, 7.4 e 7.6.
+É referido no enunciado que apenas devem ser avaliados 3 valores dos 6 possíveis na secção 7. Assim sendo, e uma vez que implementamos 4.5 dos 6 valores (7.1, 7.3, 7.4, 7.5, 7.6), desejamos que sejam avaliadas as secções: 7.1, 7.3, 7.4 e 7.6.
 
-## Links to the free textures used
+### Links to the free textures used
 
 - Scales - https://www.deviantart.com/jojo-ojoj/art/Fish-Scales-Seamless-Texture-403126418
 - Eyes   - https://www.clipartmax.com/middle/m2i8H7A0A0m2Z5d3_anime-eye-texture-by-ruuruu-channie-black-circle/
@@ -66,26 +66,21 @@
 ![Fish Top](screenshots/proj-t2g8-1_1.png)
 ![Fish anim](screenshots/proj-t2g8-1.gif)
 
-<br/><br/><br/>
+<br/><br/>
 
 
 
 ### 5 - Modelação de elementos da cena
 
-<br/>
-
 #### 5.1  Ninho
 
-![SeaFloor and Nest](screenshots/proj-t2g8-2.png)
-
-<br/><br/>
+![SeaFloor](screenshots/proj-t2g8-2_1.png)
+![Nest](screenshots/proj-t2g8-2_2.png)
 
 #### 5.2  Superfície da água
 
 ![WaterSurface](screenshots/proj-t2g8-3.png)
 ![WaterSurface](screenshots/proj-t2g8-3.gif)
-
-<br/><br/>
 
 #### 5.3  Pedras
 
@@ -93,71 +88,59 @@
 ![Multiple Rocks1](screenshots/proj-t2g8-4_2.png)
 ![Multiple Rocks2](screenshots/proj-t2g8-4_3.png)
 
-<br/><br/>
-
 #### 5.4  Pilares
 
-![Pilars](screenshots/proj-t2g8-5.png)
-
-<br/><br/>
+![Pilars front](screenshots/proj-t2g8-5_1.png)
+![Pilars side](screenshots/proj-t2g8-5_2.png)
 
 #### 5.5  Outros elementos(Algas)
 
 ![SeaWeed](screenshots/proj-t2g8-6.png)
 
-<br/><br/><br/>
+<br/><br/>
 
 
 
 ### 6 - Controlos e animações adicionais
-
-<br/>
 
 #### 6.1 MyMovingFish - Peixe controlado pelo teclado
 #### 6.2 Ajuste das animações ao comportamento do peixe
 
 ![MovingFish](screenshots/proj-t2g8-7_1.gif)
 
-<br/><br/>
-
 #### 6.3 Recolha de pedras
 
-![Rocks Collection1](screenshots/proj-t2g8-7_31.png)
-![Rocks Collection2](screenshots/proj-t2g8-7_32.png)
+![Rocks Collection1](screenshots/proj-t2g8-7_3_1.png)
+![Rocks Collection2](screenshots/proj-t2g8-7_3_2.png)
 ![Rocks Collection](screenshots/proj-t2g8-7_3.gif)
 
-<br/><br/><br/>
-
-
+<br/><br/>
 
 
 ### 7 - Funcionalidades Adicionais
-
-<br/>
 
 #### 7.1 - Algas
 
 ![SeaWeed Random](screenshots/proj-t2g8-8_1.png)
 
-<br/>
-
 #### 7.3 - Colocação das pedras no alvo
 
 ![Rocks in Nest](screenshots/proj-t2g8-8_3.png)
 
-<br/>
-
 #### 7.4 - Lançamento das pedras para o alvo
 
-![Rocks Throw](screenshots/proj-t2g8-8_41.gif)
-![Rocks Throw To Nest](screenshots/proj-t2g8-8_42.gif)
+![Rocks Throw](screenshots/proj-t2g8-8_4_1.gif)
+![Rocks Throw To Nest](screenshots/proj-t2g8-8_4_2.gif)
 
-<br/>
+#### 7.5 - MyAnimatedFish - Animação de outros peixes
+
+![Animated fish](screenshots/proj-t2g8-8_5.png)
+![Animated fish](screenshots/proj-t2g8-8_5.gif)
 
 #### 7.6 - Shader do peixe melhorado
 
-![Improved Fish Shadow](screenshots/proj-t2g8-8_61.png)
-![Improved Fish Bright](screenshots/proj-t2g8-8_62.png)
+![Improved Fish Shadow](screenshots/proj-t2g8-8_6_1.png)
+![Improved Fish Bright](screenshots/proj-t2g8-8_6_2.png)
 
 
 
