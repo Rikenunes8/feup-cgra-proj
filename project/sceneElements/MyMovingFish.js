@@ -25,7 +25,7 @@ export class MyMovingFish extends MyMovingObject {
     this.rightOri = 1.0;
 
     this.tailVel = 0.03;
-    this.finVel  = 0.02;
+    this.finVel  = 0.05;
 
     this.turningRight = false;
     this.turningLeft = false;
@@ -73,13 +73,13 @@ export class MyMovingFish extends MyMovingObject {
 
     if (this.obj.angLFin > Math.PI / 8) {
       this.leftOri = -1;
-    } else if (this.obj.angLFin < 0) {
+    } else if (this.obj.angLFin < -Math.PI / 16) {
       this.leftOri = 1;
     }
 
     if (this.obj.angRFin > Math.PI / 8) {
       this.rightOri = -1;
-    } else if (this.obj.angRFin < 0) {
+    } else if (this.obj.angRFin < -Math.PI / 16) {
       this.rightOri = 1;
     }
   }
